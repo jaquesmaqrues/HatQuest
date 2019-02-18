@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 namespace HatQuest
 {
     /// <summary>
-    /// Opossums are cool
+    /// Jack, Iain, Kat, Elijah 
     /// </summary>
     public class HatGame : Game
     {
