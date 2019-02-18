@@ -6,6 +6,7 @@ namespace HatQuest
 {
     /// <summary>
     /// MEOW - Kat
+    /// Iain Davis Eats Lasers
     /// </summary>
     public class HatGame : Game
     {
