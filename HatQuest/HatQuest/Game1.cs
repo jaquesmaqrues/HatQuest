@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 namespace HatQuest
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// MEOW - Kat
     /// </summary>
     public class Game1 : Game
     {
