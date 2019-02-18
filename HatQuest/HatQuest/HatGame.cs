@@ -7,12 +7,12 @@ namespace HatQuest
     /// <summary>
     /// Iain Davis Eats Lasers
     /// </summary>
-    public class Game1 : Game
+    public class HatGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public Game1()
+        public HatGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
