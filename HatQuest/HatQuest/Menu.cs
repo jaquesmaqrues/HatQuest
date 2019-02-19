@@ -11,11 +11,31 @@ namespace HatQuest
 {
     class Menu
     {
-        public Menu()
-        {
+        private Texture2D image;
+        private Rectangle position;
 
+        //---------PROPERTIES---------
+
+        public Texture2D Image
+        {
+            get
+            {
+                return image;
+            }
+            set
+            {
+                image = value;
+            }
         }
 
+        //---------CONSTRUCTORS---------
+        public Menu(Texture2D image, Rectangle position)
+        {
+            this.image = image;
+            this.position = position;
+        }
+
+        //---------METHODS---------
         public MainState Update()
         {
             return MainState.Menu;
