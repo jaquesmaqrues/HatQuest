@@ -49,7 +49,7 @@ namespace HatQuest
         /// This draws the entity by passing a SpriteBatch
         /// </summary>
         /// <param name="sb">The SpriteBatch that Draws the Entity</param>
-        public void Draw(SpriteBatch sb)
+        protected void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, Color.White);
         }
@@ -58,7 +58,7 @@ namespace HatQuest
         /// This allows the players and enemies to take an amount of damage reduced by their defense from abilities
         /// </summary>
         /// <param name="damage">The damage provided by the ability</param>
-        public void TakeDamage(int damage)
+        protected void TakeDamage(int damage)
         {
             if (damage - def > 0)
             {
