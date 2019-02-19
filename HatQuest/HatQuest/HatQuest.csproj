@@ -50,6 +50,7 @@
     <Compile Include="Init\Abilities.cs" />
     <Compile Include="Init\Enemies.cs" />
     <Compile Include="Init\Rooms.cs" />
+    <Compile Include="Init\Sprites.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Play.cs" />
     <Compile Include="Player.cs" />

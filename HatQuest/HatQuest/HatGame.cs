@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using HatQuest.Init;
 
 namespace HatQuest
 {
@@ -53,6 +54,7 @@ namespace HatQuest
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            Sprites.Init(this);
         }
 
         /// <summary>
@@ -62,6 +64,14 @@ namespace HatQuest
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+        }
+
+        /// <summary>
+        /// Initializes content that requires textures or fonts
+        /// </summary>
+        private void PostInitialize()
+        {
+
         }
 
         /// <summary>
