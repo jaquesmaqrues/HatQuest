@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HatQuest
 {
+    enum MainState { Menu, Play, HatSelect, MenuOptions, PlayOptions}
+
     /// <summary>
     /// Jack, Iain, Kat, Elijah 
     /// </summary>
@@ -11,6 +13,13 @@ namespace HatQuest
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        //FSM Objets
+        Menu menu;
+        Play play;
+
+        //HatGame fields
+        private MainState state;
 
         public HatGame()
         {
@@ -27,6 +36,9 @@ namespace HatQuest
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            menu = new Menu();
+            play = new Play();
+            state = MainState.Menu;
 
             base.Initialize();
         }
@@ -62,7 +74,18 @@ namespace HatQuest
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            //Main FSM
+            switch(state)
+            {
+                case MainState.Menu:
+                    state = menu.Update();
+                    break;
+                case MainState.HatSelect:
+                    break;
+                case MainState.Play:
+                    state = play.Update();
+                    break;
+            }
 
             base.Update(gameTime);
         }
@@ -75,7 +98,22 @@ namespace HatQuest
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            //Main FSM
+            switch (state)
+            {
+                case MainState.Menu:
+                    menu.Draw(spriteBatch);
+                    break;
+                case MainState.HatSelect:
+                    break;
+                case MainState.Play:
+                    play.Draw(spriteBatch);
+                    break;
+            }
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
