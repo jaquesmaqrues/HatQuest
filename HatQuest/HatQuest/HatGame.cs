@@ -7,7 +7,7 @@ namespace HatQuest
     enum MainState { Menu, Play, HatSelect, MenuOptions, PlayOptions}
 
     /// <summary>
-    /// Opossums are cool
+    /// Jack, Iain, Kat, Elijah 
     /// </summary>
     public class HatGame : Game
     {
