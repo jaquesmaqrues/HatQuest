@@ -49,7 +49,7 @@ namespace HatQuest
         /// This draws the entity by passing a SpriteBatch
         /// </summary>
         /// <param name="sb">The SpriteBatch that Draws the Entity</param>
-        protected void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, position, Color.White);
         }
@@ -62,7 +62,7 @@ namespace HatQuest
         {
             if (damage - def > 0)
             {
-                currentHealth -= (damage -= def);
+                currentHealth -= (damage - def);
             }
         }
     }

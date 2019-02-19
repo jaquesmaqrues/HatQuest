@@ -29,10 +29,11 @@ namespace HatQuest
         }
 
         //---------CONSTRUCTORS---------
-        public Menu(Texture2D image, Rectangle position)
+        //We can't pass images into the constructor for the Menu since the menu is initialized before images are
+        public Menu(/*Texture2D image, Rectangle position*/)
         {
-            this.image = image;
-            this.position = position;
+            //this.image = image;
+            //this.position = position;
         }
 
         //---------METHODS---------

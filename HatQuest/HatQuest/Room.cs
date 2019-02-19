@@ -30,20 +30,85 @@ namespace HatQuest
             enemies[2] = en3;
             enemies[3] = en4;
             enemies[4] = en5;
+
+            //A currentAttacker of 5 indicates that all enemies have attacked
+            currentAttacker = 5;
+            timer = 0;
         }
 
         /// <summary>
         /// Used as an Update method for the Room class while the Play class is in the EnemyTurn state
         /// </summary>
         /// <param name="player">The current player for the enemies to target</param>
-        public void TakeEnemyTurn(Player player)
+        public PlayState TakeEnemyTurn(Player player)
         {
-
+            switch(currentAttacker)
+            {
+                case 0:
+                    if (enemies[0] != null)
+                    {
+                        //enemies[0].AttackPlayer(ability);
+                    }
+                    else
+                    {
+                        currentAttacker++;
+                    }
+                    break;
+                case 1:
+                    if (enemies[1] != null)
+                    {
+                        //enemies[1].AttackPlayer(ability);
+                    }
+                    else
+                    {
+                        currentAttacker++;
+                    }
+                    break;
+                case 2:
+                    if (enemies[2] != null)
+                    {
+                        //enemies[2].AttackPlayer(ability);
+                    }
+                    else
+                    {
+                        currentAttacker++;
+                    }
+                    break;
+                case 3:
+                    if (enemies[3] != null)
+                    {
+                        //enemies[3].AttackPlayer(ability);
+                    }
+                    else
+                    {
+                        currentAttacker++;
+                    }
+                    break;
+                case 4:
+                    if (enemies[4] != null)
+                    {
+                        //enemies[4].AttackPlayer(ability);
+                    }
+                    else
+                    {
+                        currentAttacker++;
+                    }
+                    break;
+                default:
+                    return PlayState.PlayerInput;
+            }
+            return PlayState.EnemyTurn;
         }
 
         public void Draw(SpriteBatch batch)
         {
-
+            foreach(Enemy en in enemies)
+            {
+                //The if statement may be redundant
+                //IDK if the foreach loop will iterate through null values
+                if(en != null)
+                    en.Draw(batch);
+            }
         }
     }
 }

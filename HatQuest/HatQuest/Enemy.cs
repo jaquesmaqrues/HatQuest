@@ -37,7 +37,7 @@ namespace HatQuest
         /// This allows the monster to attack the player
         /// </summary>
         /// <param name="ability">The ability to be used to attack the player</param>
-        protected void AttackPlayer(Ability ability)
+        public void AttackPlayer(Ability ability)
         {
             ability.Activate(this, player);
         }

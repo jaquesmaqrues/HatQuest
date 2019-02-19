@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HatQuest
 {
-    enum PlayState { PlayerTurn, EnemyTurn, SafeRoom }
+    enum PlayState { PlayerInput, PlayerAttack, EnemyTurn, SafeRoom }
 
     class Play
     {
@@ -28,9 +28,12 @@ namespace HatQuest
         {
             switch(state)
             {
-                case PlayState.PlayerTurn:
+                case PlayState.PlayerInput:
+                    break;
+                case PlayState.PlayerAttack:
                     break;
                 case PlayState.EnemyTurn:
+                    state = floor.Peek().TakeEnemyTurn(player);
                     break;
                 case PlayState.SafeRoom:
                     break;
@@ -42,7 +45,9 @@ namespace HatQuest
         {
             switch (state)
             {
-                case PlayState.PlayerTurn:
+                case PlayState.PlayerInput:
+                    break;
+                case PlayState.PlayerAttack:
                     break;
                 case PlayState.EnemyTurn:
                     break;
@@ -57,6 +62,11 @@ namespace HatQuest
         private void GenerateRoom()
         {
 
+        }
+
+        private PlayState GetPlayerInput()
+        {
+            return PlayState.PlayerInput;
         }
     }
 }

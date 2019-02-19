@@ -42,16 +42,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Button.cs" />
-    <Compile Include="Ability.cs" />
+    <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="EnemyType.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="HatGame.cs" />
+    <Compile Include="Init\Abilities.cs" />
+    <Compile Include="Init\Enemies.cs" />
+    <Compile Include="Init\Rooms.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Play.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="RoomLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
