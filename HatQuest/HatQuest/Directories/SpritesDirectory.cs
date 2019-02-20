@@ -23,6 +23,7 @@ namespace HatQuest.Init
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();
+            fontDirectory.Add("Arial", game.Content.Load<SpriteFont>("File"));
         }
 
         /// <summary>
@@ -38,6 +39,19 @@ namespace HatQuest.Init
                 return spriteDirectory[key];
             }
             catch(KeyNotFoundException ex)
+            {
+                //IDK write to the console maybe?
+                return null;
+            }
+        }
+
+        public static SpriteFont GetFont(string key)
+        {
+            try
+            {
+                return fontDirectory[key];
+            }
+            catch (KeyNotFoundException ex)
             {
                 //IDK write to the console maybe?
                 return null;

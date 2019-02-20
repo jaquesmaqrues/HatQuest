@@ -38,7 +38,6 @@ namespace HatQuest
         {
             // TODO: Add your initialization logic here
             menu = new Menu();
-            play = new Play();
             state = MainState.Menu;
 
             base.Initialize();
@@ -55,6 +54,7 @@ namespace HatQuest
 
             // TODO: use this.Content to load your game content here
             SpritesDirectory.Init(this);
+            PostInitialize();
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace HatQuest
         /// </summary>
         private void PostInitialize()
         {
-
+            play = new Play();
         }
 
         /// <summary>

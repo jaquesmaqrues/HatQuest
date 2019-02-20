@@ -35,8 +35,28 @@ namespace HatQuest
 
         public Play()
         {
+            player = new Player(SpritesDirectory.GetSprite("Elion"), new Point(100, 100), 50, 50);
+            floor = new Queue<Room>();
+            GenerateFloor();
+            state = PlayState.PlayerInput;
+            floorLevel = 1;
 
-        }
+            //Buttons
+            Rectangle buttRect = new Rectangle(10, 10, 50, 20);
+            cryButton = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
+            defendButton = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
+            abilityButton1 = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
+            abilityButton2 = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
+            abilityButton3 = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
+            abilityButton4 = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
+
+            cryButton.IsActive = cryButton.IsVisible = false;
+            defendButton.IsActive = defendButton.IsVisible = false;
+            abilityButton1.IsActive = abilityButton1.IsVisible = false;
+            abilityButton2.IsActive = abilityButton2.IsVisible = false;
+            abilityButton3.IsActive = abilityButton3.IsVisible = false;
+            abilityButton4.IsActive = abilityButton4.IsVisible = false;
+        }   
 
         public MainState Update()
         {
@@ -69,7 +89,8 @@ namespace HatQuest
             player.Draw(batch);
             for(int k = 0; k < 5; k++)
             {
-                floor.Peek()[k].Draw(batch);
+                if(floor.Peek()[k] != null)
+                    floor.Peek()[k].Draw(batch);
             }
 
             //Draw 
@@ -89,9 +110,9 @@ namespace HatQuest
         /// <summary>
         /// Generates a new set of rooms for the floor
         /// </summary>
-        private void GenerateRoom()
+        private void GenerateFloor()
         {
-
+            floor.Enqueue(new Room(new Enemy(SpritesDirectory.GetSprite("Lucario"), new Point(150), 50, 50, player)));
         }
 
         private PlayState GetPlayerInput()

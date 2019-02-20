@@ -39,7 +39,7 @@ namespace HatQuest
         //---------METHODS---------
         public MainState Update()
         {
-            return MainState.Menu;
+            return MainState.Play;
         }
 
         public void Draw(SpriteBatch batch)
