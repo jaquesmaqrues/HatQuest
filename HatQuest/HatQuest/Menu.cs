@@ -44,7 +44,7 @@ namespace HatQuest
 
         public void Draw(SpriteBatch batch)
         {
-            //Call sprite using Sprite.cs to draw for menu
+            //Call sprite using Sprite.cs to draw for menu 
         }
     }
 }

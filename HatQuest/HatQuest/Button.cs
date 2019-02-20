@@ -19,6 +19,8 @@ namespace HatQuest
         private Vector2 position;
         private SpriteFont font;
         private Texture2D buttonBack;
+        private MouseState mouse;
+        private MouseState mousePrev;
         private float scale;
         private int padding;
 
@@ -72,6 +74,8 @@ namespace HatQuest
             //Centers the text position
             position = new Vector2(rect.X + ((rect.Width - (stringX * scale)) * 0.5f), 
                                    rect.Y + ((rect.Height - (stringY * scale)) * 0.5f));
+
+            mouse = Mouse.GetState();
         }
 
         /// <summary>
@@ -85,6 +89,21 @@ namespace HatQuest
                 //Draw the background of the button
                 batch.Draw(buttonBack, rect, Color.OrangeRed);
                 //Draw the text of the button
+            mousePrev = mouse;
+            mouse = Mouse.GetState();
+            
+
+            //Draw the background of the button
+            batch.Draw(buttonBack, rect, Color.OrangeRed);
+
+            //Makes the button text white if it is being hovered over
+            if (rect.Contains(mouse.Position))
+            {
+                batch.DrawString(font, text, position, Color.White, 0, origin, scale, 0, 1);
+            }
+            //Button text is black by default
+            else
+            {
                 batch.DrawString(font, text, position, Color.Black, 0, origin, scale, 0, 1);
             }
         }
@@ -95,9 +114,12 @@ namespace HatQuest
         /// <returns>True if the cursor is over the button and being clicked for the first time</returns>
         public bool IsPressed(MouseState current, MouseState last)
         {
-            if(active)
+            mousePrev = mouse;
+            mouse = Mouse.GetState();
+
+            if(rect.Contains(mouse.Position))
             {
-                if(current.LeftButton == ButtonState.Pressed && last.LeftButton == ButtonState.Pressed)
+                if(mouse.LeftButton == ButtonState.Pressed && mouse.LeftButton != ButtonState.Pressed)
                 {
                     if(rect.Contains(current.Position))
                         return true;
