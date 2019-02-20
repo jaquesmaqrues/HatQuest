@@ -12,11 +12,11 @@ namespace HatQuest.Hats
 {
     class Hat
     {
-        int health;
         int maxHealth;
         int def;
         int atk;
-        int mana;
-        int maxMana;       
+        int maxMana;
+        Texture2D texture;
+        Rectangle position;
     }
 }
