@@ -17,18 +17,6 @@ namespace HatQuest
     {
         private int currentMP;
         private int maxMP;
-        private int atk;
-
-        /// <summary>
-        /// The attack modifier for the player
-        /// </summary>
-        public int Atk
-        {
-            get
-            {
-                return atk;
-            }
-        }
 
         /// <summary>
         /// The player's current mana

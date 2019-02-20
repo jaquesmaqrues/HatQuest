@@ -20,6 +20,18 @@ namespace HatQuest
         protected int currentHealth;
         protected int maxHealth;
         protected int def;
+        protected int atk;
+
+        /// <summary>
+        /// The attack modifier for the entity
+        /// </summary>
+        public int Atk
+        {
+            get
+            {
+                return atk;
+            }
+        }
 
         /// <summary>
         /// The Entity's Current Health
