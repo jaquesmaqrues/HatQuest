@@ -96,27 +96,27 @@ namespace HatQuest
 
         private PlayState GetPlayerInput()
         {
-            if(cryButton.IsPressed(mouseCurrent, mouseLast))
+            if(cryButton.IsPressed())
             {
                 return PlayState.PlayerAttack;
             }
-            else if (defendButton.IsPressed(mouseCurrent, mouseLast))
+            else if (defendButton.IsPressed())
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton1.IsPressed(mouseCurrent, mouseLast))
+            else if (abilityButton1.IsPressed())
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton2.IsPressed(mouseCurrent, mouseLast))
+            else if (abilityButton2.IsPressed())
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton3.IsPressed(mouseCurrent, mouseLast))
+            else if (abilityButton3.IsPressed())
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton4.IsPressed(mouseCurrent, mouseLast))
+            else if (abilityButton4.IsPressed())
             {
                 return PlayState.PlayerAttack;
             }

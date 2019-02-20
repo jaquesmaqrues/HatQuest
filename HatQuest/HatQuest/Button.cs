@@ -113,7 +113,7 @@ namespace HatQuest
         /// Returns if the button is currently being pressed
         /// </summary>
         /// <returns>True if the cursor is over the button and being clicked for the first time</returns>
-        public bool IsPressed(MouseState current, MouseState last)
+        public bool IsPressed()
         {
             mousePrev = mouse;
             mouse = Mouse.GetState();
@@ -122,8 +122,7 @@ namespace HatQuest
             {
                 if(mouse.LeftButton == ButtonState.Pressed && mouse.LeftButton != ButtonState.Pressed)
                 {
-                    if(rect.Contains(current.Position))
-                        return true;
+                    return true;
                 }
             }
             return false;
