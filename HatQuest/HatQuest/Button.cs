@@ -7,22 +7,43 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace MonoGame
+namespace HatQuest
 {
     class Button
     {
         //Fields
+        private bool active;
+        private bool visible;
         private string text;
         private Rectangle rect;
         private Vector2 position;
         private SpriteFont font;
         private Texture2D buttonBack;
-        private MouseState mouse;
         private float scale;
         private int padding;
 
         //Value not changed from the default
         private Vector2 origin;
+
+        //Properties
+        public bool IsActive
+        {
+            get { return active; }
+            set { active = value; }
+        }
+        
+        public bool IsVisible
+        {
+            get { return visible; }
+            set { visible = value; }
+        }
+
+        public string Text
+        {
+            get { return text; }
+            set { text = value; }
+        }
+
 
         /// <summary>
         /// Constructor
@@ -59,19 +80,11 @@ namespace MonoGame
         /// <param name="batch">SpriteBatch that us drawing all the assets for the game</param>
         public void Draw(SpriteBatch batch)
         {
-            mouse = Mouse.GetState();
-
-            //Draw the background of the button
-            batch.Draw(buttonBack, rect, Color.OrangeRed);
-
-            //Makes the button text white if it is being hovered over
-            if (rect.Contains(mouse.Position))
+            if(visible)
             {
-                batch.DrawString(font, text, position, Color.White, 0, origin, scale, 0, 1);
-            }
-            //Button text is black by default
-            else
-            {
+                //Draw the background of the button
+                batch.Draw(buttonBack, rect, Color.OrangeRed);
+                //Draw the text of the button
                 batch.DrawString(font, text, position, Color.Black, 0, origin, scale, 0, 1);
             }
         }
@@ -79,16 +92,15 @@ namespace MonoGame
         /// <summary>
         /// Returns if the button is currently being pressed
         /// </summary>
-        /// <returns>True if the cursor is over the button and being clicked</returns>
-        public bool IsPressed()
+        /// <returns>True if the cursor is over the button and being clicked for the first time</returns>
+        public bool IsPressed(MouseState current, MouseState last)
         {
-            mouse = Mouse.GetState();
-
-            if(rect.Contains(mouse.Position))
+            if(active)
             {
-                if(mouse.LeftButton == ButtonState.Pressed)
+                if(current.LeftButton == ButtonState.Pressed && last.LeftButton == ButtonState.Pressed)
                 {
-                    return true;
+                    if(rect.Contains(current.Position))
+                        return true;
                 }
             }
             return false;

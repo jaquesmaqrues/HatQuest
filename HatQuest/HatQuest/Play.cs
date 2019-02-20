@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using HatQuest.Init;
 
 namespace HatQuest
 {
@@ -18,6 +19,19 @@ namespace HatQuest
         private Queue<Room> floor;
         private PlayState state;
         private int floorLevel;
+        private float timer;
+        private MouseState mouseCurrent;
+        private MouseState mouseLast;
+        private KeyboardState keyboardCurrent;
+        private KeyboardState keyboardLast;
+
+        //Buttons for the player UI
+        private Button cryButton;
+        private Button defendButton;
+        private Button abilityButton1;
+        private Button abilityButton2;
+        private Button abilityButton3;
+        private Button abilityButton4;
 
         public Play()
         {
@@ -26,9 +40,17 @@ namespace HatQuest
 
         public MainState Update()
         {
+            //Update the current keyboard and mouse state
+            mouseLast = mouseCurrent;
+            mouseCurrent = Mouse.GetState();
+            keyboardLast = keyboardCurrent;
+            keyboardCurrent = Keyboard.GetState();
+
+            //Update the gameplay based on the currebnt state and inputs
             switch(state)
             {
                 case PlayState.PlayerInput:
+                    state = GetPlayerInput();
                     break;
                 case PlayState.PlayerAttack:
                     break;
@@ -43,6 +65,14 @@ namespace HatQuest
 
         public void Draw(SpriteBatch batch)
         {
+            //Draw the player and enemies
+            player.Draw(batch);
+            for(int k = 0; k < 5; k++)
+            {
+                floor.Peek()[k].Draw(batch);
+            }
+
+            //Draw 
             switch (state)
             {
                 case PlayState.PlayerInput:
@@ -66,7 +96,34 @@ namespace HatQuest
 
         private PlayState GetPlayerInput()
         {
-            return PlayState.PlayerInput;
+            if(cryButton.IsPressed(mouseCurrent, mouseLast))
+            {
+                return PlayState.PlayerAttack;
+            }
+            else if (defendButton.IsPressed(mouseCurrent, mouseLast))
+            {
+                return PlayState.PlayerAttack;
+            }
+            else if (abilityButton1.IsPressed(mouseCurrent, mouseLast))
+            {
+                return PlayState.PlayerAttack;
+            }
+            else if (abilityButton2.IsPressed(mouseCurrent, mouseLast))
+            {
+                return PlayState.PlayerAttack;
+            }
+            else if (abilityButton3.IsPressed(mouseCurrent, mouseLast))
+            {
+                return PlayState.PlayerAttack;
+            }
+            else if (abilityButton4.IsPressed(mouseCurrent, mouseLast))
+            {
+                return PlayState.PlayerAttack;
+            }
+            else
+            {
+                return PlayState.PlayerInput;
+            } 
         }
     }
 }
