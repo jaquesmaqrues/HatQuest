@@ -84,27 +84,28 @@ namespace HatQuest
         /// <param name="batch">SpriteBatch that us drawing all the assets for the game</param>
         public void Draw(SpriteBatch batch)
         {
-            if(visible)
+            if (visible)
             {
                 //Draw the background of the button
                 batch.Draw(buttonBack, rect, Color.OrangeRed);
                 //Draw the text of the button
-            mousePrev = mouse;
-            mouse = Mouse.GetState();
-            
+                mousePrev = mouse;
+                mouse = Mouse.GetState();
 
-            //Draw the background of the button
-            batch.Draw(buttonBack, rect, Color.OrangeRed);
 
-            //Makes the button text white if it is being hovered over
-            if (rect.Contains(mouse.Position))
-            {
-                batch.DrawString(font, text, position, Color.White, 0, origin, scale, 0, 1);
-            }
-            //Button text is black by default
-            else
-            {
-                batch.DrawString(font, text, position, Color.Black, 0, origin, scale, 0, 1);
+                //Draw the background of the button
+                batch.Draw(buttonBack, rect, Color.OrangeRed);
+
+                //Makes the button text white if it is being hovered over
+                if (rect.Contains(mouse.Position))
+                {
+                    batch.DrawString(font, text, position, Color.White, 0, origin, scale, 0, 1);
+                }
+                //Button text is black by default
+                else
+                {
+                    batch.DrawString(font, text, position, Color.Black, 0, origin, scale, 0, 1);
+                }
             }
         }
 
