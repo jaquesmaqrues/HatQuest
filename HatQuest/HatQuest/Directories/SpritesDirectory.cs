@@ -19,6 +19,7 @@ namespace HatQuest.Init
             //Load in sprites
             spriteDirectory = new Dictionary<string, Texture2D>();
             spriteDirectory.Add("Lucario", game.Content.Load<Texture2D>("lucario"));
+            spriteDirectory.Add("Elion", game.Content.Load<Texture2D>("Main_Character_Color"));
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();
