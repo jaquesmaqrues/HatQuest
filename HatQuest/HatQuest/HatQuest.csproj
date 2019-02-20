@@ -48,11 +48,11 @@
     <Compile Include="Entity.cs" />
     <Compile Include="HatGame.cs" />
     <Compile Include="Hats\Hat.cs" />
-    <Compile Include="Directories\AbilitiesDirectory.cs" />
-    <Compile Include="Directories\EnemiesDirectory.cs" />
-    <Compile Include="Directories\HatsDirectory.cs" />
-    <Compile Include="Directories\RoomsDirectory.cs" />
-    <Compile Include="Directories\SpritesDirectory.cs" />
+    <Compile Include="Init\Abilities.cs" />
+    <Compile Include="Init\Enemies.cs" />
+    <Compile Include="Init\Hats.cs" />
+    <Compile Include="Init\Rooms.cs" />
+    <Compile Include="Init\Sprites.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Play.cs" />
     <Compile Include="Player.cs" />

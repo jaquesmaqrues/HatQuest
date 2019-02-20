@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HatQuest.Init
 {
-    static class SpritesDirectory
+    static class Sprites
     {
         public static Dictionary<string, Texture2D> spriteDirectory;
         public static Dictionary<string, SpriteFont> fontDirectory;

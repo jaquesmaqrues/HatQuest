@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HatQuest.Init
 {
-    static class HatsDirectory
+    static class Hats
     {
         //Yall already know what it is bois
     }

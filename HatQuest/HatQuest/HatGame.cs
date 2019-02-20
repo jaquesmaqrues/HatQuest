@@ -54,7 +54,7 @@ namespace HatQuest
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            SpritesDirectory.Init(this);
+            Sprites.Init(this);
         }
 
         /// <summary>
