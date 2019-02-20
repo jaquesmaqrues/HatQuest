@@ -18,6 +18,7 @@ namespace MonoGame
         private SpriteFont font;
         private Texture2D buttonBack;
         private MouseState mouse;
+        private MouseState mousePrev;
         private float scale;
         private int padding;
 
@@ -51,6 +52,8 @@ namespace MonoGame
             //Centers the text position
             position = new Vector2(rect.X + ((rect.Width - (stringX * scale)) * 0.5f), 
                                    rect.Y + ((rect.Height - (stringY * scale)) * 0.5f));
+
+            mouse = Mouse.GetState();
         }
 
         /// <summary>
@@ -59,7 +62,9 @@ namespace MonoGame
         /// <param name="batch">SpriteBatch that us drawing all the assets for the game</param>
         public void Draw(SpriteBatch batch)
         {
+            mousePrev = mouse;
             mouse = Mouse.GetState();
+            
 
             //Draw the background of the button
             batch.Draw(buttonBack, rect, Color.OrangeRed);
@@ -82,11 +87,12 @@ namespace MonoGame
         /// <returns>True if the cursor is over the button and being clicked</returns>
         public bool IsPressed()
         {
+            mousePrev = mouse;
             mouse = Mouse.GetState();
 
             if(rect.Contains(mouse.Position))
             {
-                if(mouse.LeftButton == ButtonState.Pressed)
+                if(mouse.LeftButton == ButtonState.Pressed && mouse.LeftButton != ButtonState.Pressed)
                 {
                     return true;
                 }
