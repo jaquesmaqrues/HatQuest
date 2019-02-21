@@ -87,14 +87,14 @@ namespace HatQuest
             if (visible)
             {
                 //Draw the background of the button
-                batch.Draw(buttonBack, rect, Color.OrangeRed);
+                batch.Draw(buttonBack, rect, Color.White);
                 //Draw the text of the button
                 mousePrev = mouse;
                 mouse = Mouse.GetState();
 
 
                 //Draw the background of the button
-                batch.Draw(buttonBack, rect, Color.OrangeRed);
+                batch.Draw(buttonBack, rect, Color.White);
 
                 //Makes the button text white if it is being hovered over
                 if (rect.Contains(mouse.Position))

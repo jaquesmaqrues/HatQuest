@@ -35,20 +35,25 @@ namespace HatQuest
 
         public Play()
         {
-            player = new Player(SpritesDirectory.GetSprite("Elion"), new Point(100, 100), 50, 50);
+            player = new Player(SpritesDirectory.GetSprite("Elion"), new Point(100, 150), 100, 200);
             floor = new Queue<Room>();
             GenerateFloor();
             state = PlayState.PlayerInput;
             floorLevel = 1;
 
             //Buttons
-            Rectangle buttRect = new Rectangle(10, 10, 50, 20);
-            cryButton = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
-            defendButton = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
-            abilityButton1 = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
-            abilityButton2 = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
-            abilityButton3 = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
-            abilityButton4 = new Button("Cry", buttRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Lucario"));
+            Rectangle cryRect = new Rectangle(600, 400, 150, 50);
+            Rectangle defendRect = new Rectangle(600, 325, 150, 50);
+            Rectangle ability1Rect = new Rectangle(50, 325, 150, 50);
+            Rectangle ability2Rect = new Rectangle(300, 325, 150, 50);
+            Rectangle ability3Rect = new Rectangle(50, 400, 150, 50);
+            Rectangle ability4Rect = new Rectangle(300, 400, 150, 50);
+            cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton1 = new Button("Ability 1", ability1Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton2 = new Button("Ability 2", ability2Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton3 = new Button("Ability 3", ability3Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton4 = new Button("Ability 4", ability4Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
 
             cryButton.IsActive = cryButton.IsVisible = false;
             defendButton.IsActive = defendButton.IsVisible = false;
@@ -97,8 +102,33 @@ namespace HatQuest
             switch (state)
             {
                 case PlayState.PlayerInput:
+                    //Cry Button
+                    cryButton.IsVisible = true;
+                    cryButton.Draw(batch);
+                    //Defend Button
+                    defendButton.IsVisible = true;
+                    defendButton.Draw(batch);
+                    //Ability 1 Button
+                    abilityButton1.IsVisible = true;
+                    abilityButton1.Draw(batch);
+                    //Ability 2 Button
+                    abilityButton2.IsVisible = true;
+                    abilityButton2.Draw(batch);
+                    //Ability 3 Button
+                    abilityButton3.IsVisible = true;
+                    abilityButton3.Draw(batch);
+                    //Ability 4 Button
+                    abilityButton4.IsVisible = true;
+                    abilityButton4.Draw(batch);
                     break;
                 case PlayState.PlayerAttack:
+                    //Hide buttons
+                    cryButton.IsVisible = false;
+                    defendButton.IsVisible = false;
+                    abilityButton1.IsVisible = false;
+                    abilityButton2.IsVisible = false;
+                    abilityButton3.IsVisible = false;
+                    abilityButton4.IsVisible = false;
                     break;
                 case PlayState.EnemyTurn:
                     break;
