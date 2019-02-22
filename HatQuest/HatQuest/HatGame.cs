@@ -39,6 +39,8 @@ namespace HatQuest
             // TODO: Add your initialization logic here
             menu = new Menu();
             state = MainState.Menu;
+            //Makes mouse visible 
+            this.IsMouseVisible = true;
 
             base.Initialize();
         }
