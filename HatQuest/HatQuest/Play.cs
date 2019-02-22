@@ -88,6 +88,8 @@ namespace HatQuest
 
         public void Draw(SpriteBatch batch)
         {
+            //Draw background
+            
             //Draw the player and enemies
             player.Draw(batch);
             for(int k = 0; k < 5; k++)
@@ -140,7 +142,7 @@ namespace HatQuest
         /// </summary>
         private void GenerateFloor()
         {
-            floor.Enqueue(new Room(new Enemy(SpritesDirectory.GetSprite("Lucario"), new Point(150), 50, 50, player)));
+            floor.Enqueue(new Room(new Enemy(SpritesDirectory.GetSprite("Goblin"), new Point(600,175), 97, 150, player)));
         }
 
         private PlayState GetPlayerInput()

@@ -20,7 +20,9 @@ namespace HatQuest.Init
             spriteDirectory = new Dictionary<string, Texture2D>();
             spriteDirectory.Add("Lucario", game.Content.Load<Texture2D>("lucario"));
             spriteDirectory.Add("Elion", game.Content.Load<Texture2D>("Main_Character_Color"));
-            spriteDirectory.Add("Button", game.Content.Load<Texture2D>("Sprites/buttonBackground"));
+            spriteDirectory.Add("Button", game.Content.Load<Texture2D>("Sprites/ButtonBackground"));
+            spriteDirectory.Add("CombatBackground", game.Content.Load<Texture2D>("Sprites/Combat_Background"));
+            spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();
