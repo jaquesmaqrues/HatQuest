@@ -17,6 +17,9 @@ namespace HatQuest
     {
         protected Texture2D texture;
         protected Rectangle position;
+        protected bool isVisible;
+        protected bool isActive;
+        protected List<Ability> abilities;
         protected int currentHealth;
         protected int maxHealth;
         protected int def;
@@ -45,6 +48,15 @@ namespace HatQuest
         }
 
         /// <summary>
+        /// The entities known abilities
+        /// </summary>
+        public List<Ability> Abilities
+        {
+            get { return abilities; }
+        }
+
+
+        /// <summary>
         /// The constructor defines the Position and Texture of the Entity
         /// </summary>
         /// <param name="texture">The Entity's Texture</param>
@@ -55,6 +67,8 @@ namespace HatQuest
         {
             this.position = new Rectangle(position.X, position.Y, width, height);
             this.texture = texture;
+            abilities = new List<Ability>();
+            isVisible = isActive = true;
         }
 
         /// <summary>
@@ -63,18 +77,26 @@ namespace HatQuest
         /// <param name="sb">The SpriteBatch that Draws the Entity</param>
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(texture, position, Color.White);
+            if(isVisible)
+                sb.Draw(texture, position, Color.White);
         }
 
         /// <summary>
         /// This allows the players and enemies to take an amount of damage reduced by their defense from abilities
         /// </summary>
         /// <param name="damage">The damage provided by the ability</param>
-        protected void TakeDamage(int damage)
+        public void TakeDamage(int damage)
         {
             if (damage - def > 0)
             {
                 currentHealth -= (damage - def);
+            }
+
+            //Check if the enemy should die
+            if (currentHealth < 1)
+            {
+                isActive = false;
+                isVisible = false;
             }
         }
     }

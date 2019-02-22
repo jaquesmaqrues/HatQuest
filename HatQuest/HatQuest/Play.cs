@@ -28,10 +28,7 @@ namespace HatQuest
         //Buttons for the player UI
         private Button cryButton;
         private Button defendButton;
-        private Button abilityButton1;
-        private Button abilityButton2;
-        private Button abilityButton3;
-        private Button abilityButton4;
+        private Button[] abilityButton;
 
         public Play()
         {
@@ -50,17 +47,18 @@ namespace HatQuest
             Rectangle ability4Rect = new Rectangle(300, 400, 150, 50);
             cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
             defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton1 = new Button("Ability 1", ability1Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton2 = new Button("Ability 2", ability2Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton3 = new Button("Ability 3", ability3Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton4 = new Button("Ability 4", ability4Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton = new Button[4];
+            abilityButton[0] = new Button("Ability 1", ability1Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[1] = new Button("Ability 2", ability2Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[2] = new Button("Ability 3", ability3Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[3] = new Button("Ability 4", ability4Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
 
             cryButton.IsActive = cryButton.IsVisible = false;
             defendButton.IsActive = defendButton.IsVisible = false;
-            abilityButton1.IsActive = abilityButton1.IsVisible = false;
-            abilityButton2.IsActive = abilityButton2.IsVisible = false;
-            abilityButton3.IsActive = abilityButton3.IsVisible = false;
-            abilityButton4.IsActive = abilityButton4.IsVisible = false;
+            abilityButton[0].IsActive = abilityButton[0].IsVisible = false;
+            abilityButton[1].IsActive = abilityButton[1].IsVisible = false;
+            abilityButton[2].IsActive = abilityButton[2].IsVisible = false;
+            abilityButton[3].IsActive = abilityButton[3].IsVisible = false;
         }   
 
         public MainState Update()
@@ -109,26 +107,26 @@ namespace HatQuest
                     defendButton.IsVisible = true;
                     defendButton.Draw(batch);
                     //Ability 1 Button
-                    abilityButton1.IsVisible = true;
-                    abilityButton1.Draw(batch);
+                    abilityButton[0].IsVisible = true;
+                    abilityButton[0].Draw(batch);
                     //Ability 2 Button
-                    abilityButton2.IsVisible = true;
-                    abilityButton2.Draw(batch);
+                    abilityButton[1].IsVisible = true;
+                    abilityButton[1].Draw(batch);
                     //Ability 3 Button
-                    abilityButton3.IsVisible = true;
-                    abilityButton3.Draw(batch);
+                    abilityButton[2].IsVisible = true;
+                    abilityButton[2].Draw(batch);
                     //Ability 4 Button
-                    abilityButton4.IsVisible = true;
-                    abilityButton4.Draw(batch);
+                    abilityButton[3].IsVisible = true;
+                    abilityButton[3].Draw(batch);
                     break;
                 case PlayState.PlayerAttack:
                     //Hide buttons
                     cryButton.IsVisible = false;
                     defendButton.IsVisible = false;
-                    abilityButton1.IsVisible = false;
-                    abilityButton2.IsVisible = false;
-                    abilityButton3.IsVisible = false;
-                    abilityButton4.IsVisible = false;
+                    abilityButton[0].IsVisible = false;
+                    abilityButton[1].IsVisible = false;
+                    abilityButton[2].IsVisible = false;
+                    abilityButton[3].IsVisible = false;
                     break;
                 case PlayState.EnemyTurn:
                     break;
@@ -155,19 +153,27 @@ namespace HatQuest
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton1.IsPressed())
+            else if (abilityButton[0].IsPressed())
+            {
+                if (player.Abilities[0] != null && floor.Peek()[0] != null)
+                {
+                    player.AttackEnemy(floor.Peek()[0], player.Abilities[0]);
+                    return PlayState.EnemyTurn;
+                }
+                else
+                {
+                    return PlayState.PlayerAttack;
+                }     
+            }
+            else if (abilityButton[1].IsPressed())
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton2.IsPressed())
+            else if (abilityButton[2].IsPressed())
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton3.IsPressed())
-            {
-                return PlayState.PlayerAttack;
-            }
-            else if (abilityButton4.IsPressed())
+            else if (abilityButton[3].IsPressed())
             {
                 return PlayState.PlayerAttack;
             }

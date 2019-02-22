@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using HatQuest.Init;
 
 /* Iain Davis
  * The Player Class
@@ -49,7 +50,11 @@ namespace HatQuest
         /// <param name="height">How tall the player is</param>
         public Player(Texture2D texture, Point position, int width, int height) : base(texture, position, width, height)
         {
-
+            maxHealth = currentHealth = 10;
+            maxMP = currentMP = 10;
+            atk = 10;
+            def = 1;
+            abilities.Add(AbilitiesDirectory.ATTACK);
         }
 
         /// <summary>
