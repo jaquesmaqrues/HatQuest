@@ -28,6 +28,11 @@ namespace HatQuest
             }
         }
 
+        public Ability(int manaCost)
+        {
+            this.manaCost = manaCost;
+        }
+
         /// <summary>
         /// The logic behind activating an ability
         /// </summary>
