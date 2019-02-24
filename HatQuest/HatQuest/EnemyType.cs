@@ -19,6 +19,7 @@ namespace HatQuest
         public int Health { get; }
         public int Attack { get; }
         public int Defense { get; }
+        public int Level { get; }
         public List<Ability> Abilities { get; }
 
         /// <summary>
@@ -29,13 +30,14 @@ namespace HatQuest
         /// <param name="attack">Base attack</param>
         /// <param name="defense">Base defense</param>
         /// <param name="abilities">Base abilities</param>
-        public EnemyType(string name, Texture2D sprite, int health, int attack, int defense, Ability[] abilities)
+        public EnemyType(string name, Texture2D sprite, int health, int attack, int defense, Ability[] abilities, int level = 1)
         {
+            Level = level;
             Name = name;
             Sprite = sprite;
-            Health = health;
-            Attack = attack;
-            Defense = defense;
+            Health = health * level;
+            Attack = attack * level;
+            Defense = defense * level;
             Abilities = abilities.ToList<Ability>();
         }
     }
