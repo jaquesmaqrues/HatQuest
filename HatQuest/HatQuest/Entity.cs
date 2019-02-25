@@ -155,7 +155,7 @@ namespace HatQuest
                 sb.Draw(texture, position, Color.White);
                 foreach(Hat h in hats)
                 {
-                    h.Draw(sb);
+                    h.Draw(sb);     //Hats won't draw to screen, but hats are in list
                 }
             }
         }

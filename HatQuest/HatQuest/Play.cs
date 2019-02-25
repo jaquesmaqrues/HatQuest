@@ -109,8 +109,7 @@ namespace HatQuest
                 }
             }
 
-            //Draw hats
-            hat.Draw(batch);
+            //batch.Draw(SpritesDirectory.GetSprite("Hat"), new Rectangle(100, 100, 100, 100), Color.White);
 
             //Draw player Stats
             batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(10, 10, 120, 70), Color.White);      //Box
