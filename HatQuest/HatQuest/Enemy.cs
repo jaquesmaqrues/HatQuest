@@ -19,6 +19,11 @@ namespace HatQuest
         /// A reference to the player for attacks
         /// </summary>
         protected Player player;
+        private string name;
+
+        //Properties
+        public string Name { get { return name; } }
+
 
         /// <summary>
         /// A modified ctor from Entity that takes the player in as a parameter
@@ -28,13 +33,13 @@ namespace HatQuest
         /// <param name="width">The width of the enemy</param>
         /// <param name="height">The height of the enemy</param>
         /// <param name="player">The player</param>
-        public Enemy(Point position, int width, int height, Player player, EnemyType enemyType, int level) : base(enemyType.Sprite, position, width, height)
+        public Enemy(EnemyType enemyType, int level, Point position, int width, int height, Player player) : base(enemyType.Sprite, position, width, height)
         {
+            name = enemyType.Name;
             this.player = player;
             atk = enemyType.Attack * level;
             def = enemyType.Defense * level;
-            maxHealth = enemyType.Health * level;
-            currentHealth = maxHealth;
+            maxHealth = currentHealth = enemyType.Health * level;
             abilities = enemyType.Abilities;
         }
 

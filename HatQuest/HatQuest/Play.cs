@@ -100,10 +100,13 @@ namespace HatQuest
             
             //Draw the player and enemies
             player.Draw(batch);
-            for(int k = 0; k < 5; k++)
+            if (floor != null && floor.Count > 0)
             {
-                if(floor.Peek()[k] != null)
-                    floor.Peek()[k].Draw(batch);
+                for (int k = 0; k < 5; k++)
+                {
+                    if (floor.Peek()[k] != null)
+                        floor.Peek()[k].Draw(batch);
+                }
             }
 
             //Draw hats
@@ -164,7 +167,7 @@ namespace HatQuest
         /// </summary>
         private void GenerateFloor()
         {
-            floor.Enqueue(new Room(new Enemy(SpritesDirectory.GetSprite("Goblin"), new Point(600,175), 97, 150, player)));
+            floor.Enqueue(new Room(new Enemy(EnemiesDirectory.GOBLIN, 1, new Point(600,175), 97, 150, player)));
         }
 
         private PlayState GetPlayerInput()
