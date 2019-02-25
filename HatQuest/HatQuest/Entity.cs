@@ -141,6 +141,7 @@ namespace HatQuest
             this.texture = texture;
             abilities = new List<Ability>();
             isVisible = isActive = true;
+            hats = new List<Hat>();
         }
 
         /// <summary>
@@ -152,6 +153,10 @@ namespace HatQuest
             if (isVisible)
             {
                 sb.Draw(texture, position, Color.White);
+                foreach(Hat h in hats)
+                {
+                    h.Draw(sb);
+                }
             }
         }
 

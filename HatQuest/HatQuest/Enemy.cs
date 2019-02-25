@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Input;
 
 /* Iain Davis
  * The Enemy class that each enemy will inherit from
- * THIS IS WHAT YOU ARE FIGHTING
  * There are no known issues */
 
 namespace HatQuest
