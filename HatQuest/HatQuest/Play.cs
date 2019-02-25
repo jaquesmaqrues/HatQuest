@@ -175,6 +175,7 @@ namespace HatQuest
             }
             else if (defendButton.IsPressed(mouseLast, mouseCurrent))
             {
+                player.Defend();
                 return PlayState.PlayerAttack;
             }
             else if (abilityButton[0].IsPressed(mouseLast, mouseCurrent))
