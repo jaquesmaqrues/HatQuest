@@ -43,7 +43,7 @@ namespace HatQuest
 
             //Hats
             hat = new Hats.Hat(SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
-            //hat.Equip(player);  //Error: Maxhealth in Entity is never set(?)  System.StackOverflowException from Public int MaxHealth get{}
+            hat.Equip(player);  //Error: Maxhealth in Entity is never set(?)  System.StackOverflowException from Public int MaxHealth get{}
 
             //Buttons
             Rectangle cryRect = new Rectangle(600, 400, 150, 50);
@@ -110,7 +110,7 @@ namespace HatQuest
             }
 
             //Draw hats
-            //hat.Draw(batch);
+            hat.Draw(batch);
 
             //Draw player Stats
             batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(10, 10, 120, 70), Color.White);      //Box

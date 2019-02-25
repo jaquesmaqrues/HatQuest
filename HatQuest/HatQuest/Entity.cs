@@ -79,11 +79,11 @@ namespace HatQuest
         {
             get
             {
-                return MaxHealth;
+                return maxHealth;
             }
             set
             {
-                MaxHealth = value;
+                maxHealth = value;
             }
         }
 
