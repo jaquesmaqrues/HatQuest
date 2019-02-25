@@ -9,15 +9,17 @@ namespace HatQuest.Abilities
     class Attack: Ability
     {
         /// <summary>
-        /// Constructor
+        /// The base attack ability
         /// </summary>
-        public Attack()
+        public Attack() : base(0)
         {
-            //Since the mana cost isnt defined in the Ability class 
-            //  it has to be first defined in the constructor
-            manaCost = 0;
         }
 
+        /// <summary>
+        /// The attack ability just deals damage equal to the attacker's Atk stat to the defender
+        /// </summary>
+        /// <param name="attacker">The attacking Entity</param>
+        /// <param name="defender">The defending Entity</param>
         public override void Activate(Entity attacker, Entity defender)
         {
             defender.TakeDamage(attacker.Atk);

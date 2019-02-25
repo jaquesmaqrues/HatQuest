@@ -28,6 +28,10 @@ namespace HatQuest
             {
                 return currentMP;
             }
+            set
+            {
+                currentMP = value;
+            }
         }
 
         /// <summary>
@@ -38,6 +42,10 @@ namespace HatQuest
             get
             {
                 return maxMP;
+            }
+            set
+            {
+                maxMP = value;
             }
         }
 

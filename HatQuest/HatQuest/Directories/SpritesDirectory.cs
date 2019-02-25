@@ -23,6 +23,7 @@ namespace HatQuest.Init
             spriteDirectory.Add("Button", game.Content.Load<Texture2D>("Sprites/ButtonBackground"));
             spriteDirectory.Add("CombatBackground", game.Content.Load<Texture2D>("Sprites/Combat_Background"));
             spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
+            spriteDirectory.Add("Hat", game.Content.Load<Texture2D>("Sprites/SuperFancyHat"));
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();

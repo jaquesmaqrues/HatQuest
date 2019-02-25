@@ -30,6 +30,9 @@ namespace HatQuest
         private Button defendButton;
         private Button[] abilityButton;
 
+        //Hats
+        private Hats.Hat hat;
+
         public Play()
         {
             player = new Player(SpritesDirectory.GetSprite("Elion"), new Point(100, 150), 100, 200);
@@ -37,6 +40,10 @@ namespace HatQuest
             GenerateFloor();
             state = PlayState.PlayerInput;
             floorLevel = 1;
+
+            //Hats
+            hat = new Hats.Hat(SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
+            //hat.Equip(player);  //Error: Maxhealth in Entity is never set(?)  System.StackOverflowException from Public int MaxHealth get{}
 
             //Buttons
             Rectangle cryRect = new Rectangle(600, 400, 150, 50);
@@ -89,6 +96,7 @@ namespace HatQuest
         public void Draw(SpriteBatch batch)
         {
             //Draw background
+            batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, 800, 600), Color.White);
             
             //Draw the player and enemies
             player.Draw(batch);
@@ -97,6 +105,20 @@ namespace HatQuest
                 if(floor.Peek()[k] != null)
                     floor.Peek()[k].Draw(batch);
             }
+
+            //Draw hats
+            //hat.Draw(batch);
+
+            //Draw player Stats
+            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(10, 10, 120, 70), Color.White);      //Box
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), "Elion", new Vector2(25, 15), Color.White);     //Name
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", player.Health), new Vector2(25, 35), Color.White);     //Health
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("MP: (0)", player.CurrentMP), new Vector2(25, 55), Color.White);        //MP
+
+            //Draw enemy stats (Hardcoded for now)
+            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), "Goblin", new Vector2(685, 15), Color.White);     //Name
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[0].Health), new Vector2(685, 35), Color.White);     //Health
 
             //Draw 
             switch (state)

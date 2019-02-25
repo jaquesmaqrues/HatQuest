@@ -34,6 +34,10 @@ namespace HatQuest
             {
                 return atk;
             }
+            set
+            {
+                atk = value;
+            }
         }
 
         /// <summary>
@@ -45,6 +49,40 @@ namespace HatQuest
             {
                 return currentHealth;
             }
+            set
+            {
+                currentHealth = value;
+            }
+        }
+
+        /// <summary>
+        /// The Entity's defense
+        /// </summary>
+        public int Def
+        {
+            get
+            {
+                return def;
+            }
+            set
+            {
+                def = value;
+            }
+        }
+
+        /// <summary>
+        /// The Entity's Maximum health
+        /// </summary>
+        public int MaxHealth
+        {
+            get
+            {
+                return MaxHealth;
+            }
+            set
+            {
+                MaxHealth = value;
+            }
         }
 
         /// <summary>
@@ -55,6 +93,16 @@ namespace HatQuest
             get { return abilities; }
         }
 
+        /// <summary>
+        /// The Entity's current location
+        /// </summary>
+        public Rectangle Position
+        {
+            get
+            {
+                return position;
+            }
+        }
 
         /// <summary>
         /// The constructor defines the Position and Texture of the Entity
@@ -77,8 +125,10 @@ namespace HatQuest
         /// <param name="sb">The SpriteBatch that Draws the Entity</param>
         public void Draw(SpriteBatch sb)
         {
-            if(isVisible)
+            if (isVisible)
+            {
                 sb.Draw(texture, position, Color.White);
+            }
         }
 
         /// <summary>
