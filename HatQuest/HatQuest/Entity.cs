@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using HatQuest.Hats;
 
 /* Iain Davis
  * This is the Base Entity class that the player and enemies are children of
@@ -24,6 +25,7 @@ namespace HatQuest
         protected int maxHealth;
         protected int def;
         protected int atk;
+        protected List<Hat> hats;
 
         /// <summary>
         /// The attack modifier for the entity
@@ -101,6 +103,28 @@ namespace HatQuest
             get
             {
                 return position;
+            }
+        }
+
+        /// <summary>
+        /// An indexer for the hats list
+        /// </summary>
+        /// <param name="i">Whichever index you're trying to look at</param>
+        /// <returns>A hat that's equipped to the Entity</returns>
+        public Hat this[int i] => hats[i];
+
+        /// <summary>
+        /// The list of hats equipped by the Entity
+        /// </summary>
+        public List<Hat> Hats
+        {
+            get
+            {
+                return hats;
+            }
+            set
+            {
+                hats = value;
             }
         }
 
