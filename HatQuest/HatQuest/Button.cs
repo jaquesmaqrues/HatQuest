@@ -120,7 +120,7 @@ namespace HatQuest
 
             if(rect.Contains(mouse.Position))
             {
-                if(mouse.LeftButton == ButtonState.Pressed && mouse.LeftButton != ButtonState.Pressed)
+                if(mouse.LeftButton == ButtonState.Pressed && prev.LeftButton != ButtonState.Pressed)
                 {
                     return true;
                 }

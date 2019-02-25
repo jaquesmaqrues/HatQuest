@@ -60,12 +60,12 @@ namespace HatQuest
             abilityButton[2] = new Button("Ability 3", ability3Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
             abilityButton[3] = new Button("Ability 4", ability4Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
 
-            cryButton.IsActive = cryButton.IsVisible = false;
-            defendButton.IsActive = defendButton.IsVisible = false;
+            cryButton.IsActive = cryButton.IsVisible = true;
+            defendButton.IsActive = defendButton.IsVisible = true;
             abilityButton[0].IsActive = abilityButton[0].IsVisible = true;
-            abilityButton[1].IsActive = abilityButton[1].IsVisible = false;
-            abilityButton[2].IsActive = abilityButton[2].IsVisible = false;
-            abilityButton[3].IsActive = abilityButton[3].IsVisible = false;
+            abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
+            abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
+            abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
         }   
 
         public MainState Update()
