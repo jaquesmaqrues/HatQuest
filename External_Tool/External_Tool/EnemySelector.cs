@@ -67,10 +67,13 @@ namespace External_Tool
             comboBoxCombats.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
+        //Mousdown for source Pictureboxes 
         private void pictureBoxSource_MouseDown(object sender, EventArgs e)
         {
+            //Saves the index of the chosen pictureBox
             currentSourceEnemy = groupBoxEnemSource.Controls.IndexOf(((PictureBox)sender));
 
+            //Code for drag and drop
             PictureBox temp = (PictureBox)sender;
             Image img = temp.Image;
             if (temp == null)
@@ -79,6 +82,7 @@ namespace External_Tool
                 temp.Image = temp.Image;
         }
 
+        //Code for Drag Entering a result pictureBox
         private void pictureBoxResult_DragEnter(object sender, DragEventArgs e)
         {
 
@@ -86,29 +90,33 @@ namespace External_Tool
                 e.Effect = DragDropEffects.Move;
         }
 
+        //Sets the pictureBox in results groupbox image when you drag an image
         private void pictureBoxResult_DragDrop(object sender, DragEventArgs e)
         {
             Image temp = (Bitmap)e.Data.GetData(DataFormats.Bitmap);
             ((PictureBox)sender).Image = temp;
 
+            //Adds a new enemy to the array
             combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(((PictureBox)sender))] = new Enemy(Difficulty.Easy, currentSourceEnemy);//UGLY
         }
 
+        //pictureBoxResult method  for when clicking on a pictureBoxResult
         private void pictureBoxResult_MouseClick(object sender, EventArgs e)
         {
-
             currentEnemy.Padding = new Padding(0);
             currentEnemy.BackColor = Color.Black;
             currentEnemy = ((PictureBox)sender);
             
-
-            
+            //Checks if enemy is not null
             if (combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(currentEnemy)] != null)
             {
+                //Turns on the slider if not yet on
                 sliderDiff.Enabled = true;
 
+                //Sets slider value based on enemy value
                 sliderDiff.Value = (int)combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(currentEnemy)].Diff;
 
+                //Changes backColor based on enemy difficulty
                 switch (combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(currentEnemy)].Diff)
                 {
                     case Difficulty.Easy:
@@ -123,17 +131,17 @@ namespace External_Tool
                 }
             }
             currentEnemy.Padding = new Padding(3);
-
         }
     
-
+        //Method called when moving sliderDiff
         private void sliderDiff_ValueChanged(object sender, EventArgs e)
         {
-            
+            //Goes through all pictureboxes and checks if it is equal to currentEnemy
             for (int x = 0; x < numResultEnemies; x++)
             {
                 if (combats[comboBoxCombats.SelectedIndex][x] != null && groupBoxEnemResult.Controls[x].Equals(currentEnemy))
                 {
+                    //Changes enemy difficult and background color
                     combats[comboBoxCombats.SelectedIndex][x].Diff = (Difficulty)sliderDiff.Value;
                     switch (combats[comboBoxCombats.SelectedIndex][x].Diff)
                     {
@@ -154,36 +162,37 @@ namespace External_Tool
             
         }
 
+        //Adds a new combat
         private void buttonAddCombat_Click(object sender, EventArgs e)
         {
-
-            combats.Add(new Combat(new Enemy[5]));
+            
+            combats.Add(new Combat(new Enemy[numResultEnemies]));
             comboBoxCombats.Items.Add("Combat " + comboBoxCombats.Items.Count);
             comboBoxCombats.SelectedItem = comboBoxCombats.Items[comboBoxCombats.Items.Count - 1];
+
+            //Resets picturebox color
             foreach(PictureBox pb in groupBoxEnemResult.Controls)
             {
                 pb.BackColor = Color.Black;
             }
         }
 
+        //Removes a combat
         private void buttonRemoveCombat_Click(object sender, EventArgs e)
         {
-
+            //Checks if combat is the last combat
             if (comboBoxCombats.SelectedIndex != 0)
             {
                 int currentIndex = comboBoxCombats.SelectedIndex - 1;
                 combats.RemoveAt(comboBoxCombats.SelectedIndex);
                 comboBoxCombats.Items.Remove(comboBoxCombats.Text);
                 comboBoxCombats.SelectedIndex = currentIndex;
-
-
+                //Renames all the combats in the comboBox list
                 for (int x = 0; x < comboBoxCombats.Items.Count; x++)
                 {
                     comboBoxCombats.Items[x] = "Combat " + x;
                 }
-
-
-
+                //Changes the images to the previous combat entry
                 for (int x = 0; x < groupBoxEnemResult.Controls.Count; x++)
                 {
                     if (combats[comboBoxCombats.SelectedIndex][x] != null)
@@ -194,15 +203,15 @@ namespace External_Tool
                     {
                         ((PictureBox)groupBoxEnemResult.Controls[x]).Image = null;
                     }
-
                 }
             }
         }
 
-
+        //Changes images when the index in the comboBox is changed
         private void comboBoxCombats_SelectedIndexChanged(object sender, EventArgs e)
         {
             int z = 0;
+            //Goes through all the pictureBoxes and changes image and difficulty
             foreach(PictureBox pb in groupBoxEnemResult.Controls)
             {
                 pb.Image = null;
@@ -228,6 +237,7 @@ namespace External_Tool
             }
         }
 
+        //Loads a .combat file and draws it to the screen
         private void buttonLoad_Click(object sender, EventArgs e)
         {
             //Opens file menu to choose file
@@ -261,7 +271,6 @@ namespace External_Tool
                             {
                                 combats[x][y] = new Enemy((Difficulty)readerValue, reader.ReadInt32());
                                 ((PictureBox)groupBoxEnemResult.Controls[y]).Image = ((PictureBox)groupBoxEnemSource.Controls[combats[x][y].EnemyNum]).Image;
-
                             }
 
                             else
@@ -269,14 +278,12 @@ namespace External_Tool
                                 combats[x][y] = null;
                             }
                         }
-
                         comboBoxCombats.Items.Add("Combot " + x);
                         comboBoxCombats.Text = "Combot " + x;
                     }
 
                     Text = "Combat Creator - " + openFileDialog.SafeFileName;
                     MessageBox.Show("File loaded successfully", "File loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
 
                     if (!Visible)
                     {
