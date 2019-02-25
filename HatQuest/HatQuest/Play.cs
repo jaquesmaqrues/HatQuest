@@ -76,7 +76,7 @@ namespace HatQuest
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
 
-            //Update the gameplay based on the currebnt state and inputs
+            //Update the gameplay based on the current state and inputs
             switch(state)
             {
                 case PlayState.PlayerInput:
@@ -164,7 +164,7 @@ namespace HatQuest
         /// </summary>
         private void GenerateFloor()
         {
-            floor.Enqueue(new Room(new Enemy(SpritesDirectory.GetSprite("Goblin"), new Point(600,175), 97, 150, player)));
+            floor.Enqueue(new Room(new Enemy(new Point(600,175), 97, 150, player, EnemiesDirectory.GOBLIN, 1)));
         }
 
         private PlayState GetPlayerInput()
