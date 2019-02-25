@@ -153,6 +153,10 @@ namespace HatQuest
             if (isVisible)
             {
                 sb.Draw(texture, position, Color.White);
+                foreach(Hat h in hats)
+                {
+                    h.Draw(sb);
+                }
             }
         }
 
