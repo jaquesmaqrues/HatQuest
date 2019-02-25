@@ -45,7 +45,7 @@ namespace HatQuest.Hats
         public void Equip(Entity entity)
         {
             this.entity = entity;
-            position = new Rectangle(entity.Position.Location, new Point(entity.Position.Right, (int)(entity.Position.Y - 0.8 * entity.Position.Height)));
+            position = new Rectangle(entity.Position.Location, new Point(entity.Position.Right, (int)(0.8 * entity.Position.Height)));
             if (entity is Player)
             {
                 ((Player)entity).MaxMP += maxMana;
