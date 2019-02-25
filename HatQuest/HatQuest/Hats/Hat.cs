@@ -55,6 +55,7 @@ namespace HatQuest.Hats
             entity.Health += maxHealth;
             entity.Def += def;
             entity.Atk += atk;
+            entity.Hats.Add(this);
         }
 
         /// <summary>

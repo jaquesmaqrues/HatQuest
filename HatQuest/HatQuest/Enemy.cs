@@ -34,14 +34,15 @@ namespace HatQuest
         /// <param name="width">The width of the enemy</param>
         /// <param name="height">The height of the enemy</param>
         /// <param name="player">The player</param>
-        public Enemy(EnemyType type, Point position, int width, int height, Player player) : base(type.Sprite, position, width, height)
+        public Enemy(EnemyType enemyType, int level, Point position, int width, int height, Player player) : base(type.Sprite, position, width, height)
         {
-            abilities = type.Abilities;
-            name = type.Name;
-            maxHealth = currentHealth = type.Health;
-            atk = type.Attack;
-            def = type.Defense;
+            name = enemyType.Name;
+
             this.player = player;
+            atk = enemyType.Attack * level;
+            def = enemyType.Defense * level;
+            maxHealth = currentHealth = enemyType.Health * level;
+            abilities = enemyType.Abilities;
         }
 
         /// <summary>
