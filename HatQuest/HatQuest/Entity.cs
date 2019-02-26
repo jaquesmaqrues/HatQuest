@@ -192,5 +192,17 @@ namespace HatQuest
                 isVisible = false;
             }
         }
+
+        public Entity Selected(MouseState ms)
+        {
+            if (position.Contains(ms.Position))
+            {
+                return this;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
