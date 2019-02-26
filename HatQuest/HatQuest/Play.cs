@@ -125,22 +125,16 @@ namespace HatQuest
             {
                 case PlayState.PlayerInput:
                     //Cry Button
-                    cryButton.IsVisible = true;
                     cryButton.Draw(batch);
                     //Defend Button
-                    defendButton.IsVisible = true;
                     defendButton.Draw(batch);
                     //Ability 1 Button
-                    abilityButton[0].IsVisible = true;
                     abilityButton[0].Draw(batch);
                     //Ability 2 Button
-                    abilityButton[1].IsVisible = true;
                     abilityButton[1].Draw(batch);
                     //Ability 3 Button
-                    abilityButton[2].IsVisible = true;
                     abilityButton[2].Draw(batch);
                     //Ability 4 Button
-                    abilityButton[3].IsVisible = true;
                     abilityButton[3].Draw(batch);
                     break;
                 case PlayState.PlayerAttack:
