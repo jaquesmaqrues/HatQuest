@@ -43,7 +43,7 @@ namespace HatQuest
 
             //Hats
             hat = new Hats.Hat(SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
-            //hat.Equip(player);  //Error: Maxhealth in Entity is never set(?)  System.StackOverflowException from Public int MaxHealth get{}
+            hat.Equip(player);  //Error: Maxhealth in Entity is never set(?)  System.StackOverflowException from Public int MaxHealth get{}
 
             //Buttons
             Rectangle cryRect = new Rectangle(600, 400, 150, 50);
@@ -60,12 +60,12 @@ namespace HatQuest
             abilityButton[2] = new Button("Ability 3", ability3Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
             abilityButton[3] = new Button("Ability 4", ability4Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
 
-            cryButton.IsActive = cryButton.IsVisible = false;
-            defendButton.IsActive = defendButton.IsVisible = false;
-            abilityButton[0].IsActive = abilityButton[0].IsVisible = false;
-            abilityButton[1].IsActive = abilityButton[1].IsVisible = false;
-            abilityButton[2].IsActive = abilityButton[2].IsVisible = false;
-            abilityButton[3].IsActive = abilityButton[3].IsVisible = false;
+            cryButton.IsActive = cryButton.IsVisible = true;
+            defendButton.IsActive = defendButton.IsVisible = true;
+            abilityButton[0].IsActive = abilityButton[0].IsVisible = true;
+            abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
+            abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
+            abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
         }   
 
         public MainState Update()
@@ -76,7 +76,7 @@ namespace HatQuest
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
 
-            //Update the gameplay based on the currebnt state and inputs
+            //Update the gameplay based on the current state and inputs
             switch(state)
             {
                 case PlayState.PlayerInput:
@@ -109,14 +109,11 @@ namespace HatQuest
                 }
             }
 
-            //Draw hats
-            //hat.Draw(batch);
-
             //Draw player Stats
             batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(10, 10, 120, 70), Color.White);      //Box
             batch.DrawString(SpritesDirectory.GetFont("Arial"), "Elion", new Vector2(25, 15), Color.White);     //Name
             batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", player.Health), new Vector2(25, 35), Color.White);     //Health
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("MP: (0)", player.CurrentMP), new Vector2(25, 55), Color.White);        //MP
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("MP: {0}", player.CurrentMP), new Vector2(25, 55), Color.White);        //MP
 
             //Draw enemy stats (Hardcoded for now)
             batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
@@ -172,15 +169,16 @@ namespace HatQuest
 
         private PlayState GetPlayerInput()
         {
-            if(cryButton.IsPressed())
+            if(cryButton.IsPressed(mouseLast, mouseCurrent))
             {
                 return PlayState.PlayerAttack;
             }
-            else if (defendButton.IsPressed())
+            else if (defendButton.IsPressed(mouseLast, mouseCurrent))
             {
+                player.Defend();
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton[0].IsPressed())
+            else if (abilityButton[0].IsPressed(mouseLast, mouseCurrent))
             {
                 if (player.Abilities[0] != null && floor.Peek()[0] != null)
                 {
@@ -192,15 +190,15 @@ namespace HatQuest
                     return PlayState.PlayerAttack;
                 }     
             }
-            else if (abilityButton[1].IsPressed())
+            else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton[2].IsPressed())
+            else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
             {
                 return PlayState.PlayerAttack;
             }
-            else if (abilityButton[3].IsPressed())
+            else if (abilityButton[3].IsPressed(mouseLast, mouseCurrent))
             {
                 return PlayState.PlayerAttack;
             }
