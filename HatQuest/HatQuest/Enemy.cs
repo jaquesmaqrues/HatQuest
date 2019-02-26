@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using HatQuest.Init;
 
 /* Iain Davis
  * The Enemy class that each enemy will inherit from
@@ -20,6 +21,7 @@ namespace HatQuest
         /// </summary>
         protected Player player;
         private string name;
+        Random random;
 
         //Properties
         public string Name { get { return name; } }
@@ -41,15 +43,17 @@ namespace HatQuest
             def = enemyType.Defense * level;
             maxHealth = currentHealth = enemyType.Health * level;
             abilities = enemyType.Abilities;
+            random = EnemiesDirectory.random;
         }
 
         /// <summary>
         /// This allows the monster to attack the player
         /// </summary>
         /// <param name="ability">The ability to be used to attack the player</param>
-        public void AttackPlayer(Ability ability)
+        public void AttackPlayer()
         {
-            ability.Activate(this, player);
+
+            abilities[random.Next(abilities.Count)].Activate(this, player);
         }
     }
 }

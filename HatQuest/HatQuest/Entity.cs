@@ -16,6 +16,7 @@ namespace HatQuest
 {
     class Entity
     {
+        //Fields
         protected Texture2D texture;
         protected Rectangle position;
         protected bool isVisible;
@@ -26,6 +27,19 @@ namespace HatQuest
         protected int def;
         protected int atk;
         protected List<Hat> hats;
+
+        //Properties
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; }
+        }
+
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set { isVisible = value; }
+        }
 
         /// <summary>
         /// The attack modifier for the entity

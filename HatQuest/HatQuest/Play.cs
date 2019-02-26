@@ -81,11 +81,30 @@ namespace HatQuest
             {
                 case PlayState.PlayerInput:
                     state = GetPlayerInput();
+                    if(state == PlayState.PlayerAttack)
+                    {
+                        cryButton.IsActive = false;
+                        defendButton.IsActive = false;
+                        abilityButton[0].IsActive = false;
+                        abilityButton[1].IsActive = false;
+                        abilityButton[2].IsActive = false;
+                        abilityButton[3].IsActive = false;
+                    }
                     break;
                 case PlayState.PlayerAttack:
+                    //Placeholder state for player animations
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
+                    if(state == PlayState.PlayerInput)
+                    {
+                        cryButton.IsActive = true;
+                        defendButton.IsActive = true;
+                        abilityButton[0].IsActive = true;
+                        abilityButton[1].IsActive = true;
+                        abilityButton[2].IsActive = true;
+                        abilityButton[3].IsActive = true;
+                    }
                     break;
                 case PlayState.SafeRoom:
                     break;
@@ -125,22 +144,16 @@ namespace HatQuest
             {
                 case PlayState.PlayerInput:
                     //Cry Button
-                    cryButton.IsVisible = true;
                     cryButton.Draw(batch);
                     //Defend Button
-                    defendButton.IsVisible = true;
                     defendButton.Draw(batch);
                     //Ability 1 Button
-                    abilityButton[0].IsVisible = true;
                     abilityButton[0].Draw(batch);
                     //Ability 2 Button
-                    abilityButton[1].IsVisible = true;
                     abilityButton[1].Draw(batch);
                     //Ability 3 Button
-                    abilityButton[2].IsVisible = true;
                     abilityButton[2].Draw(batch);
                     //Ability 4 Button
-                    abilityButton[3].IsVisible = true;
                     abilityButton[3].Draw(batch);
                     break;
                 case PlayState.PlayerAttack:
