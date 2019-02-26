@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
 
+//LASERS
+
 /* Iain Davis
  * The Player Class
  * There are no known issues */
@@ -73,8 +75,9 @@ namespace HatQuest
         /// <param name="ability">The ability being used</param>
         public bool AttackEnemy(Entity enemy, Ability ability)
         {
-            if(currentMP - ability.ManaCost > 0)
+            if(currentMP - ability.ManaCost >= 0)
             {
+                currentMP -= ability.ManaCost;
                 ability.Activate(this, enemy);
                 currentMP -= ability.ManaCost;
                 return true;
