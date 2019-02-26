@@ -42,61 +42,22 @@ namespace HatQuest
         /// <param name="player">The current player for the enemies to target</param>
         public PlayState TakeEnemyTurn(Player player)
         {
-            switch(currentAttacker)
+            if(currentAttacker >= 0 && currentAttacker <= 4)
             {
-                case 0:
-                    if (enemies[0] != null)
-                    {
-                        //enemies[0].AttackPlayer(ability);
-                    }
-                    else
-                    {
-                        currentAttacker++;
-                    }
-                    break;
-                case 1:
-                    if (enemies[1] != null)
-                    {
-                        //enemies[1].AttackPlayer(ability);
-                    }
-                    else
-                    {
-                        currentAttacker++;
-                    }
-                    break;
-                case 2:
-                    if (enemies[2] != null)
-                    {
-                        //enemies[2].AttackPlayer(ability);
-                    }
-                    else
-                    {
-                        currentAttacker++;
-                    }
-                    break;
-                case 3:
-                    if (enemies[3] != null)
-                    {
-                        //enemies[3].AttackPlayer(ability);
-                    }
-                    else
-                    {
-                        currentAttacker++;
-                    }
-                    break;
-                case 4:
-                    if (enemies[4] != null)
-                    {
-                        //enemies[4].AttackPlayer(ability);
-                    }
-                    else
-                    {
-                        currentAttacker++;
-                    }
-                    break;
-                default:
-                    return PlayState.PlayerInput;
+                if (enemies[currentAttacker] != null)
+                {
+                    //enemies[currentAttaker].AttackPlayer(ability);
+                }
+                else
+                {
+                    currentAttacker++;
+                }
             }
+            else
+            {
+                return PlayState.PlayerInput;
+            }
+            
             return PlayState.EnemyTurn;
         }
 
