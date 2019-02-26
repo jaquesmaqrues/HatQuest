@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
 
+//LASERS
+
 /* Iain Davis
  * The Player Class
  * There are no known issues */
