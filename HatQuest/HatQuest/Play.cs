@@ -178,7 +178,7 @@ namespace HatQuest
         /// </summary>
         private void GenerateFloor()
         {
-            floor.Enqueue(new Room(new Enemy(EnemiesDirectory.GOBLIN, 1, new Point(600,175), 97, 150, player)));
+            floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), player));
         }
 
         private PlayState GetPlayerInput()
