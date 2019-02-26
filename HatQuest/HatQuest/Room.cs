@@ -22,14 +22,20 @@ namespace HatQuest
             get { return enemies[i]; }
         }
 
-        public Room(Enemy en1, Enemy en2 = null, Enemy en3 = null, Enemy en4 = null, Enemy en5 = null)
+        public Room(EnemyType[] enemyTypes, Player player)
         {
             enemies = new Enemy[5];
-            enemies[0] = en1;
-            enemies[1] = en2;
-            enemies[2] = en3;
-            enemies[3] = en4;
-            enemies[4] = en5;
+            for(int k = 0; k < 5; k++)
+            {
+                if(enemyTypes[k] != null)
+                {
+                    enemies[k] = new Enemy(enemyTypes[k], 1, new Point(600, k*150), 75, 150, player);
+                }
+                else
+                {
+                    enemies[k] = null;
+                }
+            }
 
             //A currentAttacker of 5 indicates that all enemies have attacked
             currentAttacker = 0;

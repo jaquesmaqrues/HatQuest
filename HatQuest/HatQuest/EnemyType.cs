@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HatQuest
 {
-    struct EnemyType
+    class EnemyType
     {
         //Fields
         //All vales are the baseline maximums
