@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace HatQuest
 {
-    class RoomLayout
+    struct RoomLayout
     {
-        //This class can store a single combat encounter which can then be stored in the Rooms class
-        //  for Room objects to reference
+        private EnemyType[] enemies;
+        private int difficulty;
     }
 }
