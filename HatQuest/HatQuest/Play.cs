@@ -42,7 +42,7 @@ namespace HatQuest
             floorLevel = 1;
 
             //Hats
-            hat = new Hats.Hat(SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
+            hat = new Hats.Hat("Base Hat", "Most basic hat you can get... that does nothing", SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
             hat.Equip(player);  //Error: Maxhealth in Entity is never set(?)  System.StackOverflowException from Public int MaxHealth get{}
 
             //Buttons
