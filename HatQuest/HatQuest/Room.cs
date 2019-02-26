@@ -130,5 +130,17 @@ namespace HatQuest
                     en.Draw(batch);
             }
         }
+
+        public Enemy SelectedEnemy(MouseState ms)
+        {
+            foreach(Enemy e in enemies)
+            {
+                if(e.Selected(ms) != null)
+                {
+                    return e;
+                }
+            }
+            return null;
+        }
     }
 }
