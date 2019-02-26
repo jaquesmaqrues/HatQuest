@@ -45,7 +45,7 @@ namespace HatQuest.Hats
         public void Equip(Entity entity)
         {
             this.entity = entity;
-            position = new Rectangle(entity.Position.Location, new Point(entity.Position.Right, (int)(0.8 * entity.Position.Height)));
+            position = new Rectangle(new Point(entity.Position.Location.X, entity.Position.Location.Y - 80), new Point(100, 92));       //Have hats all same size, just change (x,y) coordinates
             if (entity is Player)
             {
                 ((Player)entity).MaxMP += maxMana;
