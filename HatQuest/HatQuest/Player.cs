@@ -75,6 +75,7 @@ namespace HatQuest
         {
             if(currentMP - ability.ManaCost > 0)
             {
+                currentMP -= ability.ManaCost;
                 ability.Activate(this, enemy);
                 return true;
             }
