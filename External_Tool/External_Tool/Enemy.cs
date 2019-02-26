@@ -16,14 +16,7 @@ namespace External_Tool
     //enemy gets when the image is dragged in to the bottom picturebox
     class Enemy
     {
-        Difficulty diff;
         int enemyNum;
-
-        public Difficulty Diff
-        {
-            get{ return diff; }
-            set { diff = value; }
-        }
 
         public int EnemyNum
         {
@@ -32,9 +25,8 @@ namespace External_Tool
         }
 
 
-        public Enemy(Difficulty diff, int enemyNum)
+        public Enemy(int enemyNum)
         {
-            this.diff = diff;
             this.enemyNum = enemyNum;
         }
     }

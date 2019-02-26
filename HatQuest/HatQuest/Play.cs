@@ -117,7 +117,7 @@ namespace HatQuest
 
             //Draw enemy stats (Hardcoded for now)
             batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), "Goblin", new Vector2(685, 15), Color.White);     //Name
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0}", floor.Peek()[0].Name), new Vector2(685, 15), Color.White);     //Name
             batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[0].Health), new Vector2(685, 35), Color.White);     //Health
 
             //Draw 
