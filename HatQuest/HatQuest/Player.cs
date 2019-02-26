@@ -73,7 +73,7 @@ namespace HatQuest
         /// <param name="ability">The ability being used</param>
         public bool AttackEnemy(Entity enemy, Ability ability)
         {
-            if(currentMP - ability.ManaCost > 0)
+            if(currentMP - ability.ManaCost >= 0)
             {
                 ability.Activate(this, enemy);
                 currentMP -= ability.ManaCost;
