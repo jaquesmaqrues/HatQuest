@@ -12,5 +12,6 @@ namespace HatQuest.Init
         //This is where we could store a list of all abilities so  they only have to be made once and all entities
         //  just have refrences to the ability in this class
         public static Ability ATTACK = new Attack();
+        public static Ability QUICKATTACK = new QuickAttack();
     }
 }

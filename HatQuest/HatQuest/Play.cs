@@ -182,8 +182,14 @@ namespace HatQuest
             {
                 if (player.Abilities[0] != null && floor.Peek()[0] != null)
                 {
-                    player.AttackEnemy(floor.Peek()[0], player.Abilities[0]);
-                    return PlayState.EnemyTurn;
+                    if(player.AttackEnemy(floor.Peek()[0], player.Abilities[0]))
+                    {
+                        return PlayState.EnemyTurn;
+                    }
+                    else
+                    {
+                        return PlayState.PlayerAttack;
+                    }
                 }
                 else
                 {
@@ -192,7 +198,21 @@ namespace HatQuest
             }
             else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
             {
-                return PlayState.PlayerAttack;
+                if (player.Abilities[0] != null && floor.Peek()[0] != null)
+                {
+                    if (player.AttackEnemy(floor.Peek()[0], player.Abilities[1]))
+                    {
+                        return PlayState.EnemyTurn;
+                    }
+                    else
+                    {
+                        return PlayState.PlayerAttack;
+                    }
+                }
+                else
+                {
+                    return PlayState.PlayerAttack;
+                }
             }
             else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
             {
