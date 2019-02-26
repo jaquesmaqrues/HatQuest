@@ -26,6 +26,9 @@ namespace HatQuest
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            //In case we want broken full screen mode
+            //graphics.IsFullScreen = true;
         }
 
         /// <summary>

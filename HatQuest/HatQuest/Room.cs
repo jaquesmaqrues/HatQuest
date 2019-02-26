@@ -29,7 +29,14 @@ namespace HatQuest
             {
                 if(enemyTypes[k] != null)
                 {
-                    enemies[k] = new Enemy(enemyTypes[k], 1, new Point(600, k*150), 75, 150, player);
+                    if (k % 2 == 0)
+                    {
+                        enemies[k] = new Enemy(enemyTypes[k], 1, new Point(650, (k * 50) + 25), 75, 150, player);
+                    }
+                    else
+                    {
+                        enemies[k] = new Enemy(enemyTypes[k], 1, new Point(550, (k * 50) + 25), 75, 150, player);
+                    }
                 }
                 else
                 {
