@@ -63,6 +63,7 @@ namespace HatQuest
             atk = 10;
             def = 1;
             abilities.Add(AbilitiesDirectory.ATTACK);
+            abilities.Add(AbilitiesDirectory.QUICKATTACK);
         }
 
         /// <summary>
@@ -70,10 +71,17 @@ namespace HatQuest
         /// </summary>
         /// <param name="enemy">The Enemy to be attacked</param>
         /// <param name="ability">The ability being used</param>
-        public void AttackEnemy(Entity enemy, Ability ability)
+        public bool AttackEnemy(Entity enemy, Ability ability)
         {
-            currentMP -= ability.ManaCost;
-            ability.Activate(this, enemy);
+            if(currentMP - ability.ManaCost > 0)
+            {
+                ability.Activate(this, enemy);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
