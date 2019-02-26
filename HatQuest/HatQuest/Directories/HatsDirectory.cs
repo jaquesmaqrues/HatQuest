@@ -11,5 +11,7 @@ namespace HatQuest.Init
     {
         //Yall already know what it is bois
         public static Hat ATKHAT = new Hat(SpritesDirectory.GetSprite("Hat"), 0, 0, 5);
+
+        //Erin's hat
     }
 }
