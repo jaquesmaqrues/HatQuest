@@ -81,11 +81,30 @@ namespace HatQuest
             {
                 case PlayState.PlayerInput:
                     state = GetPlayerInput();
+                    if(state == PlayState.PlayerAttack)
+                    {
+                        cryButton.IsActive = false;
+                        defendButton.IsActive = false;
+                        abilityButton[0].IsActive = false;
+                        abilityButton[1].IsActive = false;
+                        abilityButton[2].IsActive = false;
+                        abilityButton[3].IsActive = false;
+                    }
                     break;
                 case PlayState.PlayerAttack:
+                    //Placeholder state for player animations
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
+                    if(state == PlayState.PlayerInput)
+                    {
+                        cryButton.IsActive = true;
+                        defendButton.IsActive = true;
+                        abilityButton[0].IsActive = true;
+                        abilityButton[1].IsActive = true;
+                        abilityButton[2].IsActive = true;
+                        abilityButton[3].IsActive = true;
+                    }
                     break;
                 case PlayState.SafeRoom:
                     break;

@@ -42,12 +42,13 @@ namespace HatQuest
         /// <param name="player">The current player for the enemies to target</param>
         public PlayState TakeEnemyTurn(Player player)
         {
+            //Let the current attacker take their turn
             switch(currentAttacker)
             {
                 case 0:
-                    if (enemies[0] != null)
+                    if (enemies[0] != null && enemies[0].IsActive)
                     {
-                        //enemies[0].AttackPlayer(ability);
+                        enemies[0].AttackPlayer();
                     }
                     else
                     {
@@ -55,9 +56,9 @@ namespace HatQuest
                     }
                     break;
                 case 1:
-                    if (enemies[1] != null)
+                    if (enemies[1] != null && enemies[1].IsActive)
                     {
-                        //enemies[1].AttackPlayer(ability);
+                        enemies[1].AttackPlayer();
                     }
                     else
                     {
@@ -65,9 +66,9 @@ namespace HatQuest
                     }
                     break;
                 case 2:
-                    if (enemies[2] != null)
+                    if (enemies[2] != null && enemies[2].IsActive)
                     {
-                        //enemies[2].AttackPlayer(ability);
+                        enemies[2].AttackPlayer();
                     }
                     else
                     {
@@ -75,9 +76,9 @@ namespace HatQuest
                     }
                     break;
                 case 3:
-                    if (enemies[3] != null)
+                    if (enemies[3] != null && enemies[3].IsActive)
                     {
-                        //enemies[3].AttackPlayer(ability);
+                        enemies[3].AttackPlayer();
                     }
                     else
                     {
@@ -85,18 +86,30 @@ namespace HatQuest
                     }
                     break;
                 case 4:
-                    if (enemies[4] != null)
+                    if (enemies[4] != null && enemies[4].IsActive)
                     {
-                        //enemies[4].AttackPlayer(ability);
+                        enemies[4].AttackPlayer();
                     }
                     else
                     {
                         currentAttacker++;
                     }
                     break;
+                //Ends the enemy turn 
                 default:
-                    return PlayState.PlayerInput;
+                    //Returns the player to their turn if there are still live e
+                    foreach (Enemy enemy in enemies)
+                    {
+                        if(enemy.IsActive)
+                        {
+                            return PlayState.PlayerInput;
+                        }
+                    }
+                    //Sends the player to the safe room if all enemies are dead
+                    return PlayState.SafeRoom;
             }
+
+            //Continues the enemies' turn if they haven't all finished
             return PlayState.EnemyTurn;
         }
 

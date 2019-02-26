@@ -22,7 +22,6 @@ namespace HatQuest.Init
             EnemyType enemy3;
             EnemyType enemy4;
             EnemyType enemy5;
-            int difficulty;
         }
 
         /// <summary>
