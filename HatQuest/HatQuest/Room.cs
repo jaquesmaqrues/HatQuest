@@ -32,7 +32,7 @@ namespace HatQuest
             enemies[4] = en5;
 
             //A currentAttacker of 5 indicates that all enemies have attacked
-            currentAttacker = 5;
+            currentAttacker = 0;
             timer = 0;
         }
 
@@ -49,6 +49,7 @@ namespace HatQuest
                     if (enemies[0] != null && enemies[0].IsActive)
                     {
                         enemies[0].AttackPlayer();
+                        currentAttacker++;
                     }
                     else
                     {
@@ -59,6 +60,7 @@ namespace HatQuest
                     if (enemies[1] != null && enemies[1].IsActive)
                     {
                         enemies[1].AttackPlayer();
+                        currentAttacker++;
                     }
                     else
                     {
@@ -69,6 +71,7 @@ namespace HatQuest
                     if (enemies[2] != null && enemies[2].IsActive)
                     {
                         enemies[2].AttackPlayer();
+                        currentAttacker++;
                     }
                     else
                     {
@@ -79,6 +82,7 @@ namespace HatQuest
                     if (enemies[3] != null && enemies[3].IsActive)
                     {
                         enemies[3].AttackPlayer();
+                        currentAttacker++;
                     }
                     else
                     {
@@ -89,6 +93,7 @@ namespace HatQuest
                     if (enemies[4] != null && enemies[4].IsActive)
                     {
                         enemies[4].AttackPlayer();
+                        currentAttacker++;
                     }
                     else
                     {
@@ -100,12 +105,14 @@ namespace HatQuest
                     //Returns the player to their turn if there are still live e
                     foreach (Enemy enemy in enemies)
                     {
-                        if(enemy.IsActive)
+                        if(enemy != null && enemy.IsActive)
                         {
+                            currentAttacker = 0;
                             return PlayState.PlayerInput;
                         }
                     }
                     //Sends the player to the safe room if all enemies are dead
+                    currentAttacker = 0;
                     return PlayState.SafeRoom;
             }
 

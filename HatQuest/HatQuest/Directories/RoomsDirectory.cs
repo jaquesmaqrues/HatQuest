@@ -9,7 +9,7 @@ namespace HatQuest.Init
     class RoomsDirectory
     {
         private Random random = new Random();
-        public static List<RoomLayout> layouts = new List<RoomLayout>();
+        public static List<EnemyType[]> enemyTypes = new List<EnemyType[]>();
         
         /// <summary>
         /// Called once during initialization to load all the room layouts
@@ -22,15 +22,19 @@ namespace HatQuest.Init
             EnemyType enemy3;
             EnemyType enemy4;
             EnemyType enemy5;
+
+
+
+            
         }
 
         /// <summary>
         /// Returns a random room from the list. DO NOT USE YET
         /// </summary>
         /// <returns>A random room layout</returns>
-        public RoomLayout GetRandomLayout()
+        public EnemyType[] GetRandomLayout()
         {
-            return layouts[random.Next(layouts.Count)];
+            return enemyTypes[random.Next(enemyTypes.Count)];
         }
     }
 }
