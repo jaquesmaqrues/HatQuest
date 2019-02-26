@@ -107,6 +107,7 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.SafeRoom:
+                    //Currently just being used as a dead end state
                     break;
             }
             return MainState.Play;
