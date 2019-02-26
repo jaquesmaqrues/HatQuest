@@ -12,14 +12,6 @@ using System.IO;
 
 namespace External_Tool
 {
-    //Enum  value for three difficult levels
-    //used in diffSlider and Enemy class
-    enum Difficulty
-    {
-        Easy,
-        Medium,
-        Hard
-    }
 
     public partial class CombatCreator : Form
     {
@@ -57,7 +49,6 @@ namespace External_Tool
                 pb.AllowDrop = true;
                 pb.DragEnter += pictureBoxResult_DragEnter;
                 pb.DragEnter += pictureBoxResult_DragDrop;
-                pb.MouseClick += pictureBoxResult_MouseClick;
                 pb.SizeMode = PictureBoxSizeMode.StretchImage;
             }
             //Creates the first entry in the combats list and add an option in comboBox
@@ -97,70 +88,10 @@ namespace External_Tool
             ((PictureBox)sender).Image = temp;
 
             //Adds a new enemy to the array
-            combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(((PictureBox)sender))] = new Enemy(Difficulty.Easy, currentSourceEnemy);//UGLY
+            combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(((PictureBox)sender))] = new Enemy(currentSourceEnemy);//UGLY
         }
 
-        //pictureBoxResult method  for when clicking on a pictureBoxResult
-        private void pictureBoxResult_MouseClick(object sender, EventArgs e)
-        {
-            currentEnemy.Padding = new Padding(0);
-            currentEnemy.BackColor = Color.Black;
-            currentEnemy = ((PictureBox)sender);
-            
-            //Checks if enemy is not null
-            if (combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(currentEnemy)] != null)
-            {
-                //Turns on the slider if not yet on
-                sliderDiff.Enabled = true;
-
-                //Sets slider value based on enemy value
-                sliderDiff.Value = (int)combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(currentEnemy)].Diff;
-
-                //Changes backColor based on enemy difficulty
-                switch (combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(currentEnemy)].Diff)
-                {
-                    case Difficulty.Easy:
-                        currentEnemy.BackColor = Color.Green;
-                        break;
-                    case Difficulty.Medium:
-                        currentEnemy.BackColor = Color.Yellow;
-                        break;
-                    case Difficulty.Hard:
-                        currentEnemy.BackColor = Color.Red;
-                        break;
-                }
-            }
-            currentEnemy.Padding = new Padding(3);
-        }
-    
-        //Method called when moving sliderDiff
-        private void sliderDiff_ValueChanged(object sender, EventArgs e)
-        {
-            //Goes through all pictureboxes and checks if it is equal to currentEnemy
-            for (int x = 0; x < numResultEnemies; x++)
-            {
-                if (combats[comboBoxCombats.SelectedIndex][x] != null && groupBoxEnemResult.Controls[x].Equals(currentEnemy))
-                {
-                    //Changes enemy difficult and background color
-                    combats[comboBoxCombats.SelectedIndex][x].Diff = (Difficulty)sliderDiff.Value;
-                    switch (combats[comboBoxCombats.SelectedIndex][x].Diff)
-                    {
-                        case Difficulty.Easy:
-                            currentEnemy.BackColor = Color.Green;
-                            break;
-                        case Difficulty.Medium:
-                            currentEnemy.BackColor = Color.Yellow;
-                            break;
-                        case Difficulty.Hard:
-                            currentEnemy.BackColor = Color.Red;
-                            break;
-                    }
-
-                    break;
-                }
-            }
-            
-        }
+        
 
         //Adds a new combat
         private void buttonAddCombat_Click(object sender, EventArgs e)
@@ -218,20 +149,7 @@ namespace External_Tool
                 if (combats.Count != 0 && combats[((ComboBox)sender).SelectedIndex][z] != null)
                 {
                     pb.Image = ((PictureBox)groupBoxEnemSource.Controls[combats[((ComboBox)sender).SelectedIndex][z].EnemyNum]).Image;
-
-                    switch (combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(pb)].Diff)
-                    {
-                        case Difficulty.Easy:
-                            currentEnemy.BackColor = Color.Green;
-                            break;
-                        case Difficulty.Medium:
-                            currentEnemy.BackColor = Color.Yellow;
-                            break;
-                        case Difficulty.Hard:
-                            currentEnemy.BackColor = Color.Red;
-                            break;
-                    }
-
+                    
                 }
                 z++;
             }
@@ -269,7 +187,7 @@ namespace External_Tool
                             int readerValue = reader.ReadInt32();
                             if (readerValue != -1)
                             {
-                                combats[x][y] = new Enemy((Difficulty)readerValue, reader.ReadInt32());
+                                combats[x][y] = new Enemy(readerValue);
                                 ((PictureBox)groupBoxEnemResult.Controls[y]).Image = ((PictureBox)groupBoxEnemSource.Controls[combats[x][y].EnemyNum]).Image;
                             }
 
@@ -333,7 +251,6 @@ namespace External_Tool
                         {
                             if(combats[x][y] != null)
                             {
-                                writer.Write((int)combats[x][y].Diff);
                                 writer.Write((int)combats[x][y].EnemyNum);
                             }
                             else
