@@ -193,15 +193,15 @@ namespace HatQuest
             }
         }
 
-        public Entity Selected(MouseState ms)
+        public bool Selected(MouseState ms)
         {
-            if (position.Contains(ms.Position))
+            if (position.Contains(ms.Position) && isActive)
             {
-                return this;
+                return true;
             }
             else
             {
-                return null;
+                return false;
             }
         }
     }

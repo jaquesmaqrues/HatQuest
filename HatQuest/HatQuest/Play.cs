@@ -236,9 +236,18 @@ namespace HatQuest
             if(selectedAbility != -1 && player.Abilities[selectedAbility].IsTargeted)
             {
                 #region target selection
-                //Placeholder enemy selection
-                if (floor.Peek()[0] != null && floor.Peek()[0].IsActive)
-                    selectedTarget = 0;
+                if(mouseCurrent.LeftButton == ButtonState.Pressed)
+                {
+                    //Checks for enemies in reverse order since the later enemies are drawn on top of the previous ones
+                    for (int k = 4; k > -1; k--)
+                    {
+                        if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
+                        {
+                            selectedTarget = k;
+                            break;
+                        }
+                    }
+                }
                 #endregion
             }
 
@@ -247,7 +256,7 @@ namespace HatQuest
             {
                 #region ability activation
                 //For targeted abilities
-                if (player.Abilities[selectedAbility].IsTargeted)
+                if (player.Abilities[selectedAbility].IsTargeted && selectedTarget != -1)
                 {
                     if(floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
