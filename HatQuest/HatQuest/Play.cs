@@ -145,11 +145,18 @@ namespace HatQuest
             batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", player.Health), new Vector2(25, 35), Color.White);     //Health
             batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("MP: {0}", player.CurrentMP), new Vector2(25, 55), Color.White);        //MP
 
-            //Draw enemy stats (Hardcoded for now)
-            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0}", floor.Peek()[0].Name), new Vector2(685, 15), Color.White);     //Name
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[0].Health), new Vector2(685, 35), Color.White);     //Health
-
+            //Draw stats of enemy being hovered over
+            for (int k = 4; k > -1; k--)
+            {
+                if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
+                {
+                    batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
+                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0}", floor.Peek()[k].Name), new Vector2(685, 15), Color.White);     //Name
+                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[k].Health), new Vector2(685, 35), Color.White);     //Health
+                    break;
+                }
+            }
+            
             //Draw 
             switch (state)
             {
