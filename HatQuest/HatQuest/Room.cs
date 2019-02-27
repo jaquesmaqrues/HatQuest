@@ -159,7 +159,7 @@ namespace HatQuest
         {
             foreach(Enemy e in enemies)
             {
-                if(e.Selected(ms) != null)
+                if(e.Selected(ms) != true)
                 {
                     return e;
                 }
