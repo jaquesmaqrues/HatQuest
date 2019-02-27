@@ -20,6 +20,10 @@ namespace HatQuest
         private PlayState state;
         private int floorLevel;
         private float timer;
+
+        //Fields for player input
+        private int selectedAbility;
+        private int selectedTarget;
         private MouseState mouseCurrent;
         private MouseState mouseLast;
         private KeyboardState keyboardCurrent;
@@ -40,6 +44,9 @@ namespace HatQuest
             GenerateFloor();
             state = PlayState.PlayerInput;
             floorLevel = 1;
+            //-1 for selectedTarget and selectedAbility indicates no selection
+            selectedAbility = -1;
+            selectedTarget = -1;
 
             //Hats
             hat = new Hats.Hat("Base Hat", "Most basic hat you can get... that does nothing", SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
@@ -83,27 +90,30 @@ namespace HatQuest
                     state = GetPlayerInput();
                     if(state == PlayState.PlayerAttack)
                     {
-                        cryButton.IsActive = false;
-                        defendButton.IsActive = false;
-                        abilityButton[0].IsActive = false;
-                        abilityButton[1].IsActive = false;
-                        abilityButton[2].IsActive = false;
-                        abilityButton[3].IsActive = false;
+                        //Hide buttons
+                        cryButton.IsVisible = cryButton.IsActive = false;
+                        defendButton.IsVisible = defendButton.IsActive = false;
+                        abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
+                        abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
+                        abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
+                        abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
                     }
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
+                    state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        cryButton.IsActive = true;
-                        defendButton.IsActive = true;
-                        abilityButton[0].IsActive = true;
-                        abilityButton[1].IsActive = true;
-                        abilityButton[2].IsActive = true;
-                        abilityButton[3].IsActive = true;
+                        //Reveal buttons
+                        cryButton.IsVisible = cryButton.IsActive = true;
+                        defendButton.IsVisible = defendButton.IsActive = true;
+                        abilityButton[0].IsVisible = abilityButton[0].IsActive = true;
+                        abilityButton[1].IsVisible = abilityButton[1].IsActive = true;
+                        abilityButton[2].IsVisible = abilityButton[2].IsActive = true;
+                        abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
                     }
                     break;
                 case PlayState.SafeRoom:
@@ -158,13 +168,7 @@ namespace HatQuest
                     abilityButton[3].Draw(batch);
                     break;
                 case PlayState.PlayerAttack:
-                    //Hide buttons
-                    cryButton.IsVisible = false;
-                    defendButton.IsVisible = false;
-                    abilityButton[0].IsVisible = false;
-                    abilityButton[1].IsVisible = false;
-                    abilityButton[2].IsVisible = false;
-                    abilityButton[3].IsVisible = false;
+                    //Hiding the buttons should be done in the Update method
                     break;
                 case PlayState.EnemyTurn:
                     break;
@@ -183,63 +187,88 @@ namespace HatQuest
 
         private PlayState GetPlayerInput()
         {
-            if(cryButton.IsPressed(mouseLast, mouseCurrent))
+            //Gets player input for their selected ability
+            if (selectedAbility == -1)
             {
-                return PlayState.PlayerAttack;
-            }
-            else if (defendButton.IsPressed(mouseLast, mouseCurrent))
-            {
-                player.Defend();
-                return PlayState.PlayerAttack;
-            }
-            else if (abilityButton[0].IsPressed(mouseLast, mouseCurrent))
-            {
-                if (player.Abilities[0] != null && floor.Peek()[0] != null)
+                #region ability selection
+                if (cryButton.IsPressed(mouseLast, mouseCurrent))
                 {
-                    if(player.AttackEnemy(floor.Peek()[0], player.Abilities[0]))
-                    {
-                        return PlayState.EnemyTurn;
-                    }
-                    else
-                    {
-                        return PlayState.PlayerAttack;
-                    }
-                }
-                else
-                {
-                    return PlayState.PlayerAttack;
-                }     
-            }
-            else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
-            {
-                if (player.Abilities[0] != null && floor.Peek()[0] != null)
-                {
-                    if (player.AttackEnemy(floor.Peek()[0], player.Abilities[1]))
-                    {
-                        return PlayState.EnemyTurn;
-                    }
-                    else
-                    {
-                        return PlayState.PlayerAttack;
-                    }
-                }
-                else
-                {
+                    //Currently unimplemented
                     return PlayState.PlayerAttack;
                 }
+                else if (defendButton.IsPressed(mouseLast, mouseCurrent))
+                {
+                    player.Defend();
+                    return PlayState.PlayerAttack;
+                }
+                else if (abilityButton[0].IsPressed(mouseLast, mouseCurrent))
+                {
+                    if (player.Abilities[0] != null)
+                    {
+                        selectedAbility = 0;
+                    }
+                }
+                else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
+                {
+                    if (player.Abilities[1] != null)
+                    {
+                        selectedAbility = 1;
+                    }
+                }
+                else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
+                {
+                    if (player.Abilities[2] != null)
+                    {
+                        selectedAbility = 2;
+                    }
+                }
+                else if (abilityButton[3].IsPressed(mouseLast, mouseCurrent))
+                {
+                    if (player.Abilities[3] != null)
+                    {
+                        selectedAbility = 3;
+                    }
+                }
+                #endregion
             }
-            else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
+
+            //Gets the player's target if the ability is targeted and activates the ability
+            if(selectedAbility != -1 && player.Abilities[selectedAbility].IsTargeted)
             {
-                return PlayState.PlayerAttack;
+                #region target selection
+                //Placeholder enemy selection
+                if (floor.Peek()[0] != null && floor.Peek()[0].IsActive)
+                    selectedTarget = 0;
+                #endregion
             }
-            else if (abilityButton[3].IsPressed(mouseLast, mouseCurrent))
+
+            //Attempt to activate the ability
+            if(selectedAbility != -1 && player.Abilities[selectedAbility] != null)
             {
-                return PlayState.PlayerAttack;
+                #region ability activation
+                //For targeted abilities
+                if (player.Abilities[selectedAbility].IsTargeted)
+                {
+                    if(floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
+                    {
+                        if(player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
+                        {
+                            //Reset the selectedAbility and selectedTarget fields after a successful attack
+                            selectedAbility = selectedTarget = -1;
+                            return PlayState.PlayerAttack;
+                        }
+                    }
+                }
+                //For untargeted abilities
+                else
+                {
+                    //There are currently no untargeted abilities and the AttackEnemy method isnt set up to handle them
+                }
+                #endregion
             }
-            else
-            {
-                return PlayState.PlayerInput;
-            } 
+
+            //This return will only be reached if an ability could not be activated
+            return PlayState.PlayerInput;
         }
     }
 }
