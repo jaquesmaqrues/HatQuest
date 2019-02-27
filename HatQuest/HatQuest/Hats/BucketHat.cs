@@ -16,5 +16,11 @@ namespace HatQuest.Hats
         {
 
         }
+
+        public override void Equip(Entity entity)
+        {
+            base.Equip(entity);
+            
+        }
     }
 }
