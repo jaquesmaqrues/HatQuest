@@ -58,6 +58,7 @@ namespace HatQuest
             //Let the current attacker take their turn
             switch(currentAttacker)
             {
+                #region Enemy turn
                 case 0:
                     if (enemies[0] != null && enemies[0].IsActive)
                     {
@@ -127,10 +128,20 @@ namespace HatQuest
                     //Sends the player to the safe room if all enemies are dead
                     currentAttacker = 0;
                     return PlayState.SafeRoom;
+                    #endregion
             }
 
-            //Continues the enemies' turn if they haven't all finished
-            return PlayState.EnemyTurn;
+            //Continues the enemies' turn if they haven't all finished and the player is still alive
+            if (player.IsActive)
+            {
+                return PlayState.EnemyTurn;
+            }
+            //Skips to the SafeRoom if the player has died
+            else
+            {
+                return PlayState.SafeRoom;
+            }
+            
         }
 
         public void Draw(SpriteBatch batch)

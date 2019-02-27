@@ -114,6 +114,11 @@ namespace HatQuest
                         abilityButton[1].IsVisible = abilityButton[1].IsActive = true;
                         abilityButton[2].IsVisible = abilityButton[2].IsActive = true;
                         abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
+                        
+                    }
+                    else if(state == PlayState.SafeRoom)
+                    {
+                        //Should occur when the player dies
                     }
                     break;
                 case PlayState.SafeRoom:
@@ -151,7 +156,7 @@ namespace HatQuest
                 if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
                 {
                     batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
-                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0}", floor.Peek()[k].Name), new Vector2(685, 15), Color.White);     //Name
+                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), new Vector2(685, 15), Color.White);     //Name
                     batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[k].Health), new Vector2(685, 35), Color.White);     //Health
                     break;
                 }
@@ -195,49 +200,46 @@ namespace HatQuest
         private PlayState GetPlayerInput()
         {
             //Gets player input for their selected ability
-            if (selectedAbility == -1)
+            #region ability selection
+            if (cryButton.IsPressed(mouseLast, mouseCurrent))
             {
-                #region ability selection
-                if (cryButton.IsPressed(mouseLast, mouseCurrent))
-                {
-                    //Currently unimplemented
-                    return PlayState.PlayerAttack;
-                }
-                else if (defendButton.IsPressed(mouseLast, mouseCurrent))
-                {
-                    player.Defend();
-                    return PlayState.PlayerAttack;
-                }
-                else if (abilityButton[0].IsPressed(mouseLast, mouseCurrent))
-                {
-                    if (player.Abilities[0] != null)
-                    {
-                        selectedAbility = 0;
-                    }
-                }
-                else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
-                {
-                    if (player.Abilities[1] != null)
-                    {
-                        selectedAbility = 1;
-                    }
-                }
-                else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
-                {
-                    if (player.Abilities[2] != null)
-                    {
-                        selectedAbility = 2;
-                    }
-                }
-                else if (abilityButton[3].IsPressed(mouseLast, mouseCurrent))
-                {
-                    if (player.Abilities[3] != null)
-                    {
-                        selectedAbility = 3;
-                    }
-                }
-                #endregion
+                //Currently unimplemented
+                return PlayState.PlayerAttack;
             }
+            else if (defendButton.IsPressed(mouseLast, mouseCurrent))
+            {
+                player.Defend();
+                return PlayState.PlayerAttack;
+            }
+            else if (abilityButton[0].IsPressed(mouseLast, mouseCurrent))
+            {
+                if (player.Abilities[0] != null)
+                {
+                    selectedAbility = 0;
+                }
+            }
+            else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
+            {
+                if (player.Abilities[1] != null)
+                {
+                    selectedAbility = 1;
+                }
+            }
+            else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
+            {
+                if (player.Abilities[2] != null)
+                {
+                    selectedAbility = 2;
+                }
+            }
+            else if (abilityButton[3].IsPressed(mouseLast, mouseCurrent))
+            {
+                if (player.Abilities[3] != null)
+                {
+                    selectedAbility = 3;
+                }
+            }
+            #endregion
 
             //Gets the player's target if the ability is targeted and activates the ability
             if(selectedAbility != -1 && player.Abilities[selectedAbility].IsTargeted)
