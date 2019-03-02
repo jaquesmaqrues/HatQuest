@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
+using HatQuest.Hats;
 
 //LASERS
 
@@ -99,6 +100,20 @@ namespace HatQuest
             else
             {
                 currentMP = maxMP;
+            }
+        }
+
+        /// <summary>
+        /// Does nothing unless you have the Bucket Hat equipped
+        /// </summary>
+        public void Cry()
+        {
+            foreach(Hat h in hats)
+            {
+                if(h.Name == "Bucket Hat")
+                {
+                    currentHealth += 5;
+                }
             }
         }
     }

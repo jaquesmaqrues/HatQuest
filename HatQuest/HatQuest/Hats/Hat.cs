@@ -22,6 +22,14 @@ namespace HatQuest.Hats
         protected Entity entity;
         protected Rectangle position;
 
+        public String Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+
         /// <summary>
         /// Hats modify the stats of the Entity it's equipped to, but you must call the Equip method to actually apply
         /// the modifications
