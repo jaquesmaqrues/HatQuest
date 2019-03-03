@@ -36,6 +36,7 @@ namespace HatQuest
 
         //Hats
         private Hats.Hat hat;
+        private Hats.BucketHat bucketHat;
 
         public Play()
         {
@@ -50,7 +51,10 @@ namespace HatQuest
 
             //Hats
             hat = new Hats.Hat("Base Hat", "Most basic hat you can get... that does nothing", SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
-            hat.Equip(player);  //Error: Maxhealth in Entity is never set(?)  System.StackOverflowException from Public int MaxHealth get{}
+            hat.Equip(player);
+
+            bucketHat = new Hats.BucketHat(SpritesDirectory.GetSprite("Hat"));
+            bucketHat.Equip(player);
 
             //Buttons
             Rectangle cryRect = new Rectangle(600, 400, 150, 50);
