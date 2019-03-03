@@ -14,5 +14,6 @@ namespace HatQuest.Init
         public static Ability ATTACK = new Attack();
         public static Ability QUICKATTACK = new QuickAttack();
         public static Ability LIFESIPHON = new LifeSiphon();
+        public static Ability BERSERK = new Berserk();
     }
 }

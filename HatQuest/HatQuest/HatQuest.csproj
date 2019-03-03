@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Abilities\Attack.cs" />
+    <Compile Include="Abilities\Berserk.cs" />
     <Compile Include="Abilities\LifeSiphon.cs" />
     <Compile Include="Abilities\QuickAttack.cs" />
     <Compile Include="Button.cs" />

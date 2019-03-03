@@ -6,17 +6,16 @@ using System.Threading.Tasks;
 
 namespace HatQuest.Abilities
 {
-    class LifeSiphon : Ability
+    class Berserk : Ability
     {
-        public LifeSiphon() : base(3, true)
+        public Berserk() : base(5, true)
         {
-
         }
 
         public override void Activate(Entity attacker, Entity defender)
         {
-            defender.TakeDamage((int)(attacker.Atk / 2));
-            attacker.Health += attacker.Atk;
+            attacker.TakeDamage((int)((attacker.Atk + attacker.Def) / 3));
+            defender.TakeDamage(attacker.Atk * 2);
         }
     }
 }
