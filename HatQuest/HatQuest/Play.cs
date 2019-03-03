@@ -39,7 +39,6 @@ namespace HatQuest
         {
             player = new Player(SpritesDirectory.GetSprite("Elion"), new Point(100, 150), 100, 200);
             floor = new Queue<Room>();
-            GenerateFloor();
             state = PlayState.PlayerInput;
             floorLevel = 1;
             //-1 for selectedTarget and selectedAbility indicates no selection
@@ -74,7 +73,17 @@ namespace HatQuest
         /// </summary>
         public void SetUp()
         {
+            player.Reset();
+            GenerateFloor();
+            floorLevel = 1;
+            state = PlayState.PlayerInput;
 
+            cryButton.IsActive = cryButton.IsVisible = true;
+            defendButton.IsActive = defendButton.IsVisible = true;
+            abilityButton[0].IsActive = abilityButton[0].IsVisible = true;
+            abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
+            abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
+            abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
         }
 
         public MainState Update()
@@ -197,6 +206,7 @@ namespace HatQuest
         /// </summary>
         private void GenerateFloor()
         {
+            floor.Clear();
             floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), player));
         }
 

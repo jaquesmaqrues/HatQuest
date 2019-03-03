@@ -122,9 +122,9 @@ namespace HatQuest
         }
 
         /// <summary>
-        /// Clears all the player data
+        /// Reset all the player data
         /// </summary>
-        public void Clear()
+        public void Reset()
         {
             maxHealth = currentHealth = 10;
             maxMP = currentMP = 10;
@@ -132,7 +132,12 @@ namespace HatQuest
             def = 1;
             abilities.Clear();
             abilities.Add(AbilitiesDirectory.ATTACK);
+            abilities.Add(AbilitiesDirectory.QUICKATTACK);
+            abilities.Add(AbilitiesDirectory.LIFESIPHON);
+            abilities.Add(AbilitiesDirectory.BERSERK);
             hats.Clear();
+            HatsDirectory.ATKHAT.Equip(this);
+            HatsDirectory.BUCKETHAT.Equip(this);
         }
     }
 }

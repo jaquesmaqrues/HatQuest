@@ -97,8 +97,14 @@ namespace HatQuest
             {
                 case MainState.Menu:
                     state = menu.Update();
+                    if(state == MainState.Play)
+                    {
+                        play.SetUp();
+                    }
                     break;
                 case MainState.HatSelect:
+                    //Currently unused
+                    //May be cut in the future
                     break;
                 case MainState.Play:
                     state = play.Update();
