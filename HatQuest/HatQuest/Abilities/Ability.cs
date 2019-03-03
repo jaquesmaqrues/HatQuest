@@ -17,6 +17,7 @@ namespace HatQuest
     {
         protected int manaCost;
         protected bool isTargeted;
+        protected string name;
 
         /// <summary>
         /// The MP cost of the ability
@@ -29,6 +30,14 @@ namespace HatQuest
             }
         }
 
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+        }
+
         /// <summary>
         /// Whether the ability is targeted or not
         /// </summary>
@@ -37,10 +46,11 @@ namespace HatQuest
             get { return isTargeted; }
         }
 
-        public Ability(int manaCost, bool isTargeted)
+        public Ability(int manaCost, bool isTargeted, string name)
         {
             this.manaCost = manaCost;
             this.isTargeted = isTargeted;
+            this.name = name;
         }
 
         /// <summary>
