@@ -28,7 +28,7 @@ namespace HatQuest
             Content.RootDirectory = "Content";
 
             //In case we want broken full screen mode
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
         }
 
         /// <summary>
