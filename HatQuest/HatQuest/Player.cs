@@ -116,7 +116,14 @@ namespace HatQuest
             {
                 if(h.Name == "Bucket Hat")
                 {
-                    currentHealth += 5;
+                    if(currentHealth + 5 < maxHealth)
+                    {
+                        currentHealth += 5;
+                    }
+                    else
+                    {
+                        currentHealth = maxHealth;
+                    }
                 }
             }
         }
