@@ -28,6 +28,7 @@ namespace HatQuest.Init
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();
             fontDirectory.Add("Arial", game.Content.Load<SpriteFont>("File"));
+            fontDirectory.Add("Arial40", game.Content.Load<SpriteFont>("Fonts/Arial40"));
         }
 
         /// <summary>
