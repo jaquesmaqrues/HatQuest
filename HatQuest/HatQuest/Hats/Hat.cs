@@ -19,8 +19,15 @@ namespace HatQuest.Hats
         protected string name;
         protected string description;
         protected Texture2D texture;
-        protected Entity entity;
         protected Rectangle position;
+
+        public String Name
+        {
+            get
+            {
+                return name;
+            }
+        }
 
         /// <summary>
         /// Hats modify the stats of the Entity it's equipped to, but you must call the Equip method to actually apply
@@ -46,10 +53,17 @@ namespace HatQuest.Hats
         /// Equips the Hat to an Entity and modifies their stats accordingly
         /// </summary>
         /// <param name="entity">The Entity that the Hat will be equipped to</param>
-        public void Equip(Entity entity)
+        public virtual void Equip(Entity entity)
         {
-            this.entity = entity;
-            position = new Rectangle(new Point(entity.Position.Location.X, entity.Position.Location.Y - 80), new Point(100, 92));       //Have hats all same size, just change (x,y) coordinates
+            if(entity.Hats.Count == 0)
+            {
+                position = new Rectangle(new Point(entity.Position.Location.X, entity.Position.Location.Y - 80), new Point(100, 92));       //Have hats all same size, just change (x,y) coordinates
+            }
+            else
+            {
+                position = new Rectangle(new Point(entity.Hats[entity.Hats.Count].position.Location.X, entity.Hats[entity.Hats.Count].position.Location.Y - 80), new Point(100, 92));       //Have hats all same size, just change (x,y) coordinates
+            }
+
             if (entity is Player)
             {
                 ((Player)entity).MaxMP += maxMana;
