@@ -61,7 +61,7 @@ namespace HatQuest.Hats
             }
             else
             {
-                position = new Rectangle(new Point(entity.Hats[entity.Hats.Count].position.Location.X, entity.Hats[entity.Hats.Count].position.Location.Y - 80), new Point(100, 92));       //Have hats all same size, just change (x,y) coordinates
+                position = new Rectangle(new Point(entity.Hats[entity.Hats.Count-1].position.Location.X, entity.Hats[entity.Hats.Count-1].position.Location.Y - 80), new Point(100, 92));       //Have hats all same size, just change (x,y) coordinates
             }
 
             if (entity is Player)

@@ -206,7 +206,7 @@ namespace HatQuest
             #region ability selection
             if (cryButton.IsPressed(mouseLast, mouseCurrent))
             {
-                //Currently unimplemented
+                player.Cry();
                 return PlayState.PlayerAttack;
             }
             else if (defendButton.IsPressed(mouseLast, mouseCurrent))
