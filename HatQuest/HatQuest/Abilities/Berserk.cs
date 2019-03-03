@@ -8,7 +8,7 @@ namespace HatQuest.Abilities
 {
     class Berserk : Ability
     {
-        public Berserk() : base(5, true, "Berserk".)
+        public Berserk() : base(5, true, "Berserk")
         {
         }
 
