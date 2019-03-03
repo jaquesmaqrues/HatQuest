@@ -10,7 +10,7 @@ namespace HatQuest.Abilities
     {
         Random r;
 
-        public QuickAttack() : base(5, true)
+        public QuickAttack() : base(5, true, "Quick Attack")
         {
             this.r = new Random(50);
         }

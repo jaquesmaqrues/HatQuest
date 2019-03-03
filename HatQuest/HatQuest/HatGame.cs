@@ -40,7 +40,6 @@ namespace HatQuest
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            menu = new Menu();
             state = MainState.Menu;
             
             //Makes mouse visible 
@@ -78,6 +77,7 @@ namespace HatQuest
         private void PostInitialize()
         {
             RoomsDirectory.ReadRooms("temp");
+            menu = new Menu();
             play = new Play();
             
         }

@@ -8,7 +8,7 @@ namespace HatQuest.Abilities
 {
     class LifeSiphon : Ability
     {
-        public LifeSiphon() : base(3, true)
+        public LifeSiphon() : base(3, true, "Life Siphon")
         {
 
         }
@@ -16,7 +16,14 @@ namespace HatQuest.Abilities
         public override void Activate(Entity attacker, Entity defender)
         {
             defender.TakeDamage((int)(attacker.Atk / 2));
-            attacker.Health += attacker.Atk;
+            if(attacker.Health + attacker.Atk < attacker.MaxHealth)
+            {
+                attacker.Health += attacker.Atk;
+            }
+            else
+            {
+                attacker.Health = attacker.MaxHealth;
+            }
         }
     }
 }
