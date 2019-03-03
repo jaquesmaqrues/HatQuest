@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using HatQuest.Init;
 
 namespace HatQuest
 {
@@ -13,6 +14,9 @@ namespace HatQuest
     {
         private Texture2D image;
         private Rectangle position;
+
+        //Buttons
+        private Button playButton;
 
         //---------PROPERTIES---------
 
@@ -29,11 +33,14 @@ namespace HatQuest
         }
 
         //---------CONSTRUCTORS---------
-        //We can't pass images into the constructor for the Menu since the menu is initialized before images are
-        public Menu(/*Texture2D image, Rectangle position*/)
+
+        public Menu()
         {
-            //this.image = image;
-            //this.position = position;
+            //Buttons
+            Rectangle playRect = new Rectangle(600, 400, 150, 50);
+            playButton = new Button("Play", playRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+
+            playButton.IsActive = playButton.IsVisible = true;
         }
 
         //---------METHODS---------
@@ -45,6 +52,15 @@ namespace HatQuest
         public void Draw(SpriteBatch batch)
         {
             //Call sprite using Sprite.cs to draw for menu 
+
+            //Draw background
+            batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, 800, 600), Color.White);
+
+            //Draw Name
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), "Hat Quest", new Vector2(100, 50), Color.White);
+
+            //Draw Button
+            playButton.Draw(batch);
         }
     }
 }
