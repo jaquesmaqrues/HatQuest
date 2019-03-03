@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
+using HatQuest.Hats;
 
 namespace HatQuest
 {
@@ -34,27 +35,15 @@ namespace HatQuest
         private Button defendButton;
         private Button[] abilityButton;
 
-        //Hats
-        private Hats.Hat hat;
-        private Hats.BucketHat bucketHat;
-
         public Play()
         {
             player = new Player(SpritesDirectory.GetSprite("Elion"), new Point(100, 150), 100, 200);
             floor = new Queue<Room>();
-            GenerateFloor();
             state = PlayState.PlayerInput;
             floorLevel = 1;
             //-1 for selectedTarget and selectedAbility indicates no selection
             selectedAbility = -1;
             selectedTarget = -1;
-
-            //Hats
-            hat = new Hats.Hat("Base Hat", "Most basic hat you can get... that does nothing", SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
-            hat.Equip(player);
-
-            bucketHat = new Hats.BucketHat(SpritesDirectory.GetSprite("Hat"));
-            bucketHat.Equip(player);
 
             //Buttons
             Rectangle cryRect = new Rectangle(600, 400, 150, 50);
@@ -66,10 +55,10 @@ namespace HatQuest
             cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
             defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
             abilityButton = new Button[4];
-            abilityButton[0] = new Button("Ability 1", ability1Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[1] = new Button("Ability 2", ability2Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[2] = new Button("Ability 3", ability3Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[3] = new Button("Ability 4", ability4Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[0] = new Button(player.Abilities[0].Name, ability1Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
 
             cryButton.IsActive = cryButton.IsVisible = true;
             defendButton.IsActive = defendButton.IsVisible = true;
@@ -78,6 +67,24 @@ namespace HatQuest
             abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
             abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
         }   
+
+        /// <summary>
+        /// Sets up the play class for a new game
+        /// </summary>
+        public void SetUp()
+        {
+            player.Reset();
+            GenerateFloor();
+            floorLevel = 1;
+            state = PlayState.PlayerInput;
+
+            cryButton.IsActive = cryButton.IsVisible = true;
+            defendButton.IsActive = defendButton.IsVisible = true;
+            abilityButton[0].IsActive = abilityButton[0].IsVisible = true;
+            abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
+            abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
+            abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
+        }
 
         public MainState Update()
         {
@@ -127,7 +134,8 @@ namespace HatQuest
                     break;
                 case PlayState.SafeRoom:
                     //Currently just being used as a dead end state
-                    break;
+                    //if(!player.IsActive)
+                    return MainState.Menu;
             }
             return MainState.Play;
         }
@@ -198,6 +206,7 @@ namespace HatQuest
         /// </summary>
         private void GenerateFloor()
         {
+            floor.Clear();
             floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), player));
         }
 

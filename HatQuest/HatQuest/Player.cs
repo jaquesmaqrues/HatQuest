@@ -69,6 +69,8 @@ namespace HatQuest
             abilities.Add(AbilitiesDirectory.QUICKATTACK);
             abilities.Add(AbilitiesDirectory.LIFESIPHON);
             abilities.Add(AbilitiesDirectory.BERSERK);
+            HatsDirectory.ATKHAT.Equip(this);
+            HatsDirectory.BUCKETHAT.Equip(this);
         }
 
         /// <summary>
@@ -117,6 +119,25 @@ namespace HatQuest
                     currentHealth += 5;
                 }
             }
+        }
+
+        /// <summary>
+        /// Reset all the player data
+        /// </summary>
+        public void Reset()
+        {
+            maxHealth = currentHealth = 10;
+            maxMP = currentMP = 10;
+            atk = 10;
+            def = 1;
+            abilities.Clear();
+            abilities.Add(AbilitiesDirectory.ATTACK);
+            abilities.Add(AbilitiesDirectory.QUICKATTACK);
+            abilities.Add(AbilitiesDirectory.LIFESIPHON);
+            abilities.Add(AbilitiesDirectory.BERSERK);
+            hats.Clear();
+            HatsDirectory.ATKHAT.Equip(this);
+            HatsDirectory.BUCKETHAT.Equip(this);
         }
     }
 }
