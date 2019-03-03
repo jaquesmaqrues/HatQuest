@@ -11,7 +11,7 @@ namespace HatQuest.Abilities
         /// <summary>
         /// The base attack ability
         /// </summary>
-        public Attack() : base(0, true)
+        public Attack() : base(0, true, "Attack")
         {
         }
 
