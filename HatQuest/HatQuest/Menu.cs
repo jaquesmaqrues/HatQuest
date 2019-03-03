@@ -15,6 +15,10 @@ namespace HatQuest
         private Texture2D image;
         private Rectangle position;
 
+        //Fields for player input
+        private MouseState mouseCurrent;
+        private MouseState mouseLast;
+
         //Buttons
         private Button playButton;
 
@@ -46,7 +50,18 @@ namespace HatQuest
         //---------METHODS---------
         public MainState Update()
         {
-            return MainState.Play;
+            //Update the current keyboard and mouse state
+            mouseLast = mouseCurrent;
+            mouseCurrent = Mouse.GetState();
+
+            if (playButton.IsPressed(mouseLast, mouseCurrent))
+            {
+                return MainState.Play;
+            }
+            else
+            {
+                return MainState.Menu;
+            }
         }
 
         public void Draw(SpriteBatch batch)
