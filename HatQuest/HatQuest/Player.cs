@@ -67,6 +67,8 @@ namespace HatQuest
             def = 1;
             abilities.Add(AbilitiesDirectory.ATTACK);
             abilities.Add(AbilitiesDirectory.QUICKATTACK);
+            abilities.Add(AbilitiesDirectory.LIFESIPHON);
+            abilities.Add(AbilitiesDirectory.BERSERK);
         }
 
         /// <summary>
