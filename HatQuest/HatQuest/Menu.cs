@@ -51,13 +51,11 @@ namespace HatQuest
 
         public void Draw(SpriteBatch batch)
         {
-            //Call sprite using Sprite.cs to draw for menu 
-
             //Draw background
             batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, 800, 600), Color.White);
 
             //Draw Name
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), "Hat Quest", new Vector2(100, 50), Color.White);
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("Hi"), new Vector2(685, 15), Color.White);
 
             //Draw Button
             playButton.Draw(batch);
