@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
+using HatQuest.Hats;
 
 namespace HatQuest
 {
@@ -34,9 +35,6 @@ namespace HatQuest
         private Button defendButton;
         private Button[] abilityButton;
 
-        //Hats
-        private Hats.Hat hat;
-
         public Play()
         {
             player = new Player(SpritesDirectory.GetSprite("Elion"), new Point(100, 150), 100, 200);
@@ -47,10 +45,6 @@ namespace HatQuest
             //-1 for selectedTarget and selectedAbility indicates no selection
             selectedAbility = -1;
             selectedTarget = -1;
-
-            //Hats
-            hat = new Hats.Hat("Base Hat", "Most basic hat you can get... that does nothing", SpritesDirectory.GetSprite("Hat"), 0, 0, 0, 5);
-            hat.Equip(player);  //Error: Maxhealth in Entity is never set(?)  System.StackOverflowException from Public int MaxHealth get{}
 
             //Buttons
             Rectangle cryRect = new Rectangle(600, 400, 150, 50);
@@ -74,6 +68,14 @@ namespace HatQuest
             abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
             abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
         }   
+
+        /// <summary>
+        /// Sets up the play class for a new game
+        /// </summary>
+        public void SetUp()
+        {
+
+        }
 
         public MainState Update()
         {
@@ -123,7 +125,8 @@ namespace HatQuest
                     break;
                 case PlayState.SafeRoom:
                     //Currently just being used as a dead end state
-                    break;
+                    //if(!player.IsActive)
+                    return MainState.Menu;
             }
             return MainState.Play;
         }

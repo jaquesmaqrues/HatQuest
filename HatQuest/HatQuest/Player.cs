@@ -67,6 +67,8 @@ namespace HatQuest
             def = 1;
             abilities.Add(AbilitiesDirectory.ATTACK);
             abilities.Add(AbilitiesDirectory.QUICKATTACK);
+            HatsDirectory.ATKHAT.Equip(this);
+            HatsDirectory.BUCKETHAT.Equip(this);
         }
 
         /// <summary>
@@ -115,6 +117,20 @@ namespace HatQuest
                     currentHealth += 5;
                 }
             }
+        }
+
+        /// <summary>
+        /// Clears all the player data
+        /// </summary>
+        public void Clear()
+        {
+            maxHealth = currentHealth = 10;
+            maxMP = currentMP = 10;
+            atk = 10;
+            def = 1;
+            abilities.Clear();
+            abilities.Add(AbilitiesDirectory.ATTACK);
+            hats.Clear();
         }
     }
 }
