@@ -19,6 +19,7 @@ namespace HatQuest.Init
         //---- S-Tier Hats ----//
         public static Hat BUCKETHAT = new BucketHat(SpritesDirectory.GetSprite("Hat"));
 
-        //Erin's hat
+        //---- SSSSSSSSSSSSSSSSS-Tier Hats ----//
+        public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), 5000, 5000, 5000, 5000);
     }
 }
