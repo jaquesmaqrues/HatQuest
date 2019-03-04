@@ -37,7 +37,7 @@ namespace HatQuest
 
         public Play()
         {
-            player = new Player(SpritesDirectory.GetSprite("Elion"), new Point((int)(SpritesDirectory.width * .125), (int)(SpritesDirectory.height * .3125)), 100, 200);
+            player = new Player(SpritesDirectory.GetSprite("Elion"), new Point((int)(SpritesDirectory.width * .125), (int)(SpritesDirectory.height * .3125)), (int)(SpritesDirectory.width * .125), (int)(SpritesDirectory.height * .4167));
             floor = new Queue<Room>();
             state = PlayState.PlayerInput;
             floorLevel = 1;
@@ -46,12 +46,12 @@ namespace HatQuest
             selectedTarget = -1;
 
             //Buttons
-            Rectangle cryRect = new Rectangle(600, 400, 150, 50);
-            Rectangle defendRect = new Rectangle(600, 325, 150, 50);
-            Rectangle ability1Rect = new Rectangle(50, 325, 150, 50);
-            Rectangle ability2Rect = new Rectangle(300, 325, 150, 50);
-            Rectangle ability3Rect = new Rectangle(50, 400, 150, 50);
-            Rectangle ability4Rect = new Rectangle(300, 400, 150, 50);
+            Rectangle cryRect = new Rectangle((int)(SpritesDirectory.width * .75), (int)(SpritesDirectory.height * .833), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
+            Rectangle defendRect = new Rectangle((int)(SpritesDirectory.width * .75), (int)(SpritesDirectory.height * .6771), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
+            Rectangle ability1Rect = new Rectangle((int)(SpritesDirectory.width * .0625), (int)(SpritesDirectory.height * .6771), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
+            Rectangle ability2Rect = new Rectangle((int)(SpritesDirectory.width * .375), (int)(SpritesDirectory.height * .6771), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
+            Rectangle ability3Rect = new Rectangle((int)(SpritesDirectory.width * .0625), (int)(SpritesDirectory.height * .833), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
+            Rectangle ability4Rect = new Rectangle((int)(SpritesDirectory.width * .375), (int)(SpritesDirectory.height * .833), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
             cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
             defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
             abilityButton = new Button[4];
@@ -143,7 +143,7 @@ namespace HatQuest
         public void Draw(SpriteBatch batch)
         {
             //Draw background
-            batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, 800, 600), Color.White);
+            batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, (SpritesDirectory.width), (int)(SpritesDirectory.height * 1.25)), Color.White);
             
             //Draw the player and enemies
             player.Draw(batch);
@@ -157,10 +157,11 @@ namespace HatQuest
             }
 
             //Draw player Stats
-            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(10, 10, 120, 70), Color.White);      //Box
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), "Elion", new Vector2(25, 15), Color.White);     //Name
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", player.Health), new Vector2(25, 35), Color.White);     //Health
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("MP: {0}", player.CurrentMP), new Vector2(25, 55), Color.White);        //MP
+            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle((int)(SpritesDirectory.width * .0125), (int)(SpritesDirectory.height * .02083), (int)(SpritesDirectory.width * .15), (int)(SpritesDirectory.height * .14583)), Color.White);      //Box
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), "Elion", new Vector2((int)(SpritesDirectory.width * .03125), (int)(SpritesDirectory.height * .03125)), Color.White);     //Name
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", player.Health), new Vector2((int)(SpritesDirectory.width * .03125), (int)(SpritesDirectory.height * .07292)), Color.White);     //Health
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("MP: {0}", player.CurrentMP), new Vector2((int)(SpritesDirectory.width * .03125), (int)(SpritesDirectory.height * .114583)), Color.White);        //MP
+            //batch.DrawString(SpritesDirectory.GetFont("Arial40"), "Elion", new Vector2(25, 15), Color.White, 0, new Vector2(0, 0), .3f, SpriteEffects.None, 100);     //For scaling font, currently doesn't work
 
             //Draw stats of enemy being hovered over
             for (int k = 4; k > -1; k--)
