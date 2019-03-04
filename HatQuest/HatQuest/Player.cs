@@ -137,6 +137,7 @@ namespace HatQuest
             maxMP = currentMP = 10;
             atk = 10;
             def = 1;
+            isActive = isVisible = true;
             abilities.Clear();
             abilities.Add(AbilitiesDirectory.ATTACK);
             abilities.Add(AbilitiesDirectory.QUICKATTACK);
