@@ -121,7 +121,7 @@ namespace HatQuest
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            
             spriteBatch.Begin();
 
             //Main FSM
