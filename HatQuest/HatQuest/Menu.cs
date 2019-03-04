@@ -41,7 +41,8 @@ namespace HatQuest
         public Menu()
         {
             //Buttons
-            Rectangle playRect = new Rectangle(325, 400, 150, 50);
+
+            Rectangle playRect = new Rectangle(150, 400, 150, 50);
             playButton = new Button("Play", playRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
 
             playButton.IsActive = playButton.IsVisible = true;
