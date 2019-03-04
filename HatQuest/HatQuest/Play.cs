@@ -37,7 +37,7 @@ namespace HatQuest
 
         public Play()
         {
-            player = new Player(SpritesDirectory.GetSprite("Elion"), new Point(100, 150), 100, 200);
+            player = new Player(SpritesDirectory.GetSprite("Elion"), new Point((int)(SpritesDirectory.width * .125), (int)(SpritesDirectory.height * .3125)), 100, 200);
             floor = new Queue<Room>();
             state = PlayState.PlayerInput;
             floorLevel = 1;
