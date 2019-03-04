@@ -70,7 +70,7 @@ namespace HatQuest
             batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, 800, 600), Color.White);
 
             //Draw Name
-            batch.DrawString(SpritesDirectory.GetFont("Arial40"), string.Format("Hat Quest"), new Vector2(400, 15), Color.White);
+            batch.DrawString(SpritesDirectory.GetFont("Arial40"), string.Format("Hat Quest"), new Vector2(282, 100), Color.White);
 
             //Draw Button
             playButton.Draw(batch);
