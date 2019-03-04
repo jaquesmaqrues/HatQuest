@@ -71,6 +71,9 @@ namespace HatQuest
             abilities.Add(AbilitiesDirectory.BERSERK);
             HatsDirectory.ATKHAT.Equip(this);
             HatsDirectory.BUCKETHAT.Equip(this);
+            HatsDirectory.DEFHAT.Equip(this);
+            HatsDirectory.HPHAT.Equip(this);
+            HatsDirectory.MANAHAT.Equip(this);
         }
 
         /// <summary>
@@ -146,6 +149,9 @@ namespace HatQuest
             hats.Clear();
             HatsDirectory.ATKHAT.Equip(this);
             HatsDirectory.BUCKETHAT.Equip(this);
+            HatsDirectory.DEFHAT.Equip(this);
+            HatsDirectory.HPHAT.Equip(this);
+            HatsDirectory.MANAHAT.Equip(this);
         }
     }
 }
