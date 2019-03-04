@@ -52,13 +52,13 @@ namespace HatQuest
             Rectangle ability2Rect = new Rectangle(300, 325, 150, 50);
             Rectangle ability3Rect = new Rectangle(50, 400, 150, 50);
             Rectangle ability4Rect = new Rectangle(300, 400, 150, 50);
-            cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
+            defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
             abilityButton = new Button[4];
-            abilityButton[0] = new Button(player.Abilities[0].Name, ability1Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[0] = new Button(player.Abilities[0].Name, ability1Rect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
 
             cryButton.IsActive = cryButton.IsVisible = true;
             defendButton.IsActive = defendButton.IsVisible = true;
