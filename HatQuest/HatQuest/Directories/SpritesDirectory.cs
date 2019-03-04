@@ -13,6 +13,8 @@ namespace HatQuest.Init
     {
         public static Dictionary<string, Texture2D> spriteDirectory;
         public static Dictionary<string, SpriteFont> fontDirectory;
+        public static int width;
+        public static int height;
 
         public static void Init(Game game)
         {
@@ -29,6 +31,9 @@ namespace HatQuest.Init
             fontDirectory = new Dictionary<string, SpriteFont>();
             fontDirectory.Add("Arial", game.Content.Load<SpriteFont>("File"));
             fontDirectory.Add("Arial40", game.Content.Load<SpriteFont>("Fonts/Arial40"));
+
+            height = game.GraphicsDevice.Viewport.Height;
+            width = game.GraphicsDevice.Viewport.Width;
         }
 
         /// <summary>

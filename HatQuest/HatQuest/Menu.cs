@@ -41,8 +41,9 @@ namespace HatQuest
         public Menu()
         {
             //Buttons
-            Rectangle playRect = new Rectangle(325, 400, 150, 50);
-            playButton = new Button("Play", playRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
+            
+            position = new Rectangle(SpritesDirectory.width / 2 - 75, 400, 150, 50);
+            playButton = new Button("Play", position, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
 
             playButton.IsActive = playButton.IsVisible = true;
             
@@ -70,8 +71,9 @@ namespace HatQuest
             //Draw background
             batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, 800, 600), Color.White);
 
+            //SpriteFont font = SpritesDirectory.GetFont();
             //Draw Name
-            batch.DrawString(SpritesDirectory.GetFont("Arial40"), string.Format("Hat Quest"), new Vector2(282, 100), Color.White);
+            batch.DrawString(SpritesDirectory.GetFont("Arial40"), string.Format("Hat Quest"), new Vector2(SpritesDirectory.width / 2, 100), Color.White);
 
             //Draw Button
             playButton.Draw(batch);
