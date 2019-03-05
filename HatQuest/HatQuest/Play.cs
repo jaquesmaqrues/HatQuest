@@ -18,8 +18,9 @@ namespace HatQuest
         //Fields
         private Player player;
         private Queue<Room> floor;
+        private SafeRoom safeRoom;
         private PlayState state;
-        private int floorLevel;
+        private double floorLevel;
         private float timer;
 
         //Fields for player input
@@ -39,6 +40,7 @@ namespace HatQuest
         {
             player = new Player(SpritesDirectory.GetSprite("Elion"), new Point((int)(SpritesDirectory.width * .125), (int)(SpritesDirectory.height * .3125)), (int)(SpritesDirectory.width * .125), (int)(SpritesDirectory.height * .4167));
             floor = new Queue<Room>();
+            safeRoom = new SafeRoom();
             state = PlayState.PlayerInput;
             floorLevel = 1;
             //-1 for selectedTarget and selectedAbility indicates no selection
@@ -86,7 +88,7 @@ namespace HatQuest
             abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
         }
 
-        public MainState Update()
+        public MainState Update(GameTime time)
         {
             //Update the current keyboard and mouse state
             mouseLast = mouseCurrent;
@@ -129,13 +131,44 @@ namespace HatQuest
                     }
                     else if(state == PlayState.SafeRoom)
                     {
-                        //Should occur when the player dies
+                        //Always call setup before entering the safe room
+                        safeRoom.SetUp();
+
+                        //Hide buttons
+                        cryButton.IsVisible = cryButton.IsActive = false;
+                        defendButton.IsVisible = defendButton.IsActive = false;
+                        abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
+                        abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
+                        abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
+                        abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
                     }
                     break;
                 case PlayState.SafeRoom:
-                    //Currently just being used as a dead end state
-                    //if(!player.IsActive)
-                    return MainState.Menu;
+                    //Automatically returns the player to the menu if they're dead
+                    if(!player.IsActive)
+                    {
+                        return MainState.Menu;
+                    }
+
+                    state = safeRoom.Update(time);
+
+                    if(state == PlayState.PlayerInput)
+                    {
+                        player.CurrentMP = player.MaxMP;
+                        player.Health = player.MaxHealth;
+                        floorLevel++;
+                        GenerateFloor();
+
+                        //Reveal buttons
+                        cryButton.IsVisible = cryButton.IsActive = true;
+                        defendButton.IsVisible = defendButton.IsActive = true;
+                        abilityButton[0].IsVisible = abilityButton[0].IsActive = true;
+                        abilityButton[1].IsVisible = abilityButton[1].IsActive = true;
+                        abilityButton[2].IsVisible = abilityButton[2].IsActive = true;
+                        abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
+                    }
+                    break;
+                    
             }
             return MainState.Play;
         }
@@ -198,6 +231,7 @@ namespace HatQuest
                 case PlayState.EnemyTurn:
                     break;
                 case PlayState.SafeRoom:
+                    safeRoom.Draw(batch);
                     break;
             }
         }
@@ -208,7 +242,7 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), player));
+            floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
         }
 
         private PlayState GetPlayerInput()

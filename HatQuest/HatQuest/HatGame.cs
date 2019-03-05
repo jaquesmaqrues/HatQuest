@@ -107,7 +107,7 @@ namespace HatQuest
                     //May be cut in the future
                     break;
                 case MainState.Play:
-                    state = play.Update();
+                    state = play.Update(gameTime);
                     break;
             }
 

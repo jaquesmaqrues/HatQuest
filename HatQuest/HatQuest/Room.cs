@@ -22,7 +22,7 @@ namespace HatQuest
             get { return enemies[i]; }
         }
 
-        public Room(EnemyType[] enemyTypes, Player player)
+        public Room(EnemyType[] enemyTypes, double level, Player player)
         {
             enemies = new Enemy[5];
             for(int k = 0; k < 5; k++)
@@ -31,11 +31,11 @@ namespace HatQuest
                 {
                     if (k % 2 == 0)
                     {
-                        enemies[k] = new Enemy(enemyTypes[k], 1, new Point(650, (k * 50) + 25), 75, 150, player);
+                        enemies[k] = new Enemy(enemyTypes[k], level, new Point(650, (k * 50) + 25), 75, 150, player);
                     }
                     else
                     {
-                        enemies[k] = new Enemy(enemyTypes[k], 1, new Point(550, (k * 50) + 25), 75, 150, player);
+                        enemies[k] = new Enemy(enemyTypes[k], level, new Point(550, (k * 50) + 25), 75, 150, player);
                     }
                 }
                 else
@@ -129,6 +129,7 @@ namespace HatQuest
                     currentAttacker = 0;
                     return PlayState.SafeRoom;
                     #endregion
+                //Checks if all enemies have been defeated after they have all had a chance to take their turn
             }
 
             //Continues the enemies' turn if they haven't all finished and the player is still alive
