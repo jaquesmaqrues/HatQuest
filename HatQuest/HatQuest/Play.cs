@@ -20,8 +20,8 @@ namespace HatQuest
         private Queue<Room> floor;
         private SafeRoom safeRoom;
         private PlayState state;
-        private double floorLevel;
-        private double levelIncrease;
+        private float floorLevel;
+        private float levelIncrease;
         private float timer;
 
         //Fields for player input
@@ -44,7 +44,7 @@ namespace HatQuest
             safeRoom = new SafeRoom();
             state = PlayState.PlayerInput;
             floorLevel = 1;
-            levelIncrease = 1.125;
+            levelIncrease = 1.125f;
             //-1 for selectedTarget and selectedAbility indicates no selection
             selectedAbility = -1;
             selectedTarget = -1;

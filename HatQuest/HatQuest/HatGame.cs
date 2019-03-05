@@ -41,7 +41,7 @@ namespace HatQuest
         {
             // TODO: Add your initialization logic here
             state = MainState.Menu;
-            
+
             //Makes mouse visible 
             this.IsMouseVisible = true;
 
@@ -77,6 +77,7 @@ namespace HatQuest
         private void PostInitialize()
         {
             RoomsDirectory.ReadRooms("temp");
+            HatsDirectory.SetUp();
             menu = new Menu();
             play = new Play();
             

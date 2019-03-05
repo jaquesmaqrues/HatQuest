@@ -10,22 +10,35 @@ using HatQuest.Init;
 
 namespace HatQuest.Hats
 {
+    enum HatRarity { Common, Uncommon, Rare, Epic, Developer };
+
     class Hat
     {
+        //Fields
         protected int maxHealth;
         protected int def;
         protected int atk;
         protected int maxMana;
         protected string name;
         protected string description;
+        protected HatRarity rarity;
         protected Texture2D texture;
         protected Rectangle position;
 
+        //Properties
         public String Name
         {
             get
             {
                 return name;
+            }
+        }
+
+        public HatRarity Rarity
+        {
+            get
+            {
+                return rarity;
             }
         }
 
@@ -38,7 +51,7 @@ namespace HatQuest.Hats
         /// <param name="def">Any modification to the equipped Entity's defense</param>
         /// <param name="atk">Any modification to the equipped Entity's attack</param>
         /// <param name="maxMana">If the Entity's a player, this modifies their maximum mana</param>
-        public Hat(string name, string description, Texture2D texture, int maxHealth = 0, int def = 0, int atk = 0, int maxMana = 0)
+        public Hat(string name, string description, Texture2D texture, HatRarity rarity, int maxHealth = 0, int def = 0, int atk = 0, int maxMana = 0)
         {
             this.texture = texture;
             this.maxHealth = maxHealth;
@@ -47,6 +60,7 @@ namespace HatQuest.Hats
             this.maxMana = maxMana;
             this.name = name;
             this.description = description;
+            this.rarity = rarity;
         }
 
         /// <summary>

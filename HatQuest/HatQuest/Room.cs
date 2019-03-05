@@ -24,6 +24,7 @@ namespace HatQuest
 
         public Room(EnemyType[] enemyTypes, double level, Player player)
         {
+            //Fill the room with enemies
             enemies = new Enemy[5];
             for(int k = 0; k < 5; k++)
             {
@@ -42,6 +43,13 @@ namespace HatQuest
                 {
                     enemies[k] = null;
                 }
+            }
+
+            //Give the enemies hats
+            int hats = (int)level;
+            for(int k = 0; k < level; k++)
+            {
+
             }
 
             //A currentAttacker of 5 indicates that all enemies have attacked
