@@ -42,7 +42,7 @@ namespace HatQuest
 
         public void Draw(SpriteBatch batch)
         {
-            batch.DrawString(font, string.Format("{0:3D}", timer), new Vector2(150, 150), Color.Black);
+            batch.DrawString(font, string.Format("{0:F3}", timer), new Vector2(150, 150), Color.Black);
         }
 
         /// <summary>

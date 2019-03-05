@@ -21,6 +21,7 @@ namespace HatQuest
         private SafeRoom safeRoom;
         private PlayState state;
         private double floorLevel;
+        private double levelIncrease;
         private float timer;
 
         //Fields for player input
@@ -43,6 +44,7 @@ namespace HatQuest
             safeRoom = new SafeRoom();
             state = PlayState.PlayerInput;
             floorLevel = 1;
+            levelIncrease = 1.125;
             //-1 for selectedTarget and selectedAbility indicates no selection
             selectedAbility = -1;
             selectedTarget = -1;
@@ -156,7 +158,8 @@ namespace HatQuest
                     {
                         player.CurrentMP = player.MaxMP;
                         player.Health = player.MaxHealth;
-                        floorLevel++;
+                        //Makes evey floor 12.5% harder than the last
+                        floorLevel *= levelIncrease;
                         GenerateFloor();
 
                         //Reveal buttons
@@ -242,7 +245,10 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
+            for(int k = 0; k < Math.Round(floorLevel); k++)
+            {
+                floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
+            }
         }
 
         private PlayState GetPlayerInput()
@@ -265,28 +271,28 @@ namespace HatQuest
             }
             else if (abilityButton[0].IsPressed(mouseLast, mouseCurrent))
             {
-                if (player.Abilities[0] != null)
+                if (player.Abilities[0] != null && player.CurrentMP >= player.Abilities[0].ManaCost)
                 {
                     selectedAbility = 0;
                 }
             }
             else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
             {
-                if (player.Abilities[1] != null)
+                if (player.Abilities[1] != null && player.CurrentMP >= player.Abilities[1].ManaCost)
                 {
                     selectedAbility = 1;
                 }
             }
             else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
             {
-                if (player.Abilities[2] != null)
+                if (player.Abilities[2] != null && player.CurrentMP >= player.Abilities[2].ManaCost)
                 {
                     selectedAbility = 2;
                 }
             }
             else if (abilityButton[3].IsPressed(mouseLast, mouseCurrent))
             {
-                if (player.Abilities[3] != null)
+                if (player.Abilities[3] != null && player.CurrentMP >= player.Abilities[3].ManaCost)
                 {
                     selectedAbility = 3;
                 }
