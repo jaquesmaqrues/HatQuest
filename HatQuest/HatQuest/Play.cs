@@ -303,30 +303,16 @@ namespace HatQuest
                     //Ability 4 Button
                     abilityButton[3].Draw(batch);
 
+
+
                     //Draw stats of enemy being hovered over
                     for (int k = 4; k > -1; k--)
                     {
                         if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
                         {
-                            //Background
-                            batch.Draw(SpritesDirectory.GetSprite("Button"), 
-                                       new Rectangle((int)(SpritesDirectory.width * .8375), 
-                                                     (int)(SpritesDirectory.height * .02083), 
-                                                     (int)(SpritesDirectory.width * .15), 
-                                                     (int)(SpritesDirectory.height * .14583)), 
-                                       Color.White);
-                            //Name
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                                             string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), 
-                                             new Vector2((int)(SpritesDirectory.width * .85625), 
-                                                         (int)(SpritesDirectory.height * .03125)), 
-                                             Color.White);
-                            //Health
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                                             string.Format("HP: {0}", floor.Peek()[k].Health), 
-                                             new Vector2((int)(SpritesDirectory.width * .85625), 
-                                                         (int)(SpritesDirectory.height * .0729)), 
-                                             Color.White);
+                            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), new Vector2(685, 15), new Color(1f, 1 / floorLevel, 1 / floorLevel));   //Name
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[k].Health), new Vector2(685, 35), Color.White);     //Health
                             break;
                         }
                     }
