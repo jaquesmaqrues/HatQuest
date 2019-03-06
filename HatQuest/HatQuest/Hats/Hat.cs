@@ -23,7 +23,6 @@ namespace HatQuest.Hats
         protected string description;
         protected HatRarity rarity;
         protected Texture2D texture;
-        protected Rectangle position;
 
         //Properties
         public String Name
@@ -69,15 +68,6 @@ namespace HatQuest.Hats
         /// <param name="entity">The Entity that the Hat will be equipped to</param>
         public virtual void Equip(Entity entity)
         {
-            if(entity.Hats.Count == 0)
-            {
-                position = new Rectangle(new Point(entity.Position.Location.X, entity.Position.Location.Y - 80), new Point(100, 92));       //Have hats all same size, just change (x,y) coordinates
-            }
-            else
-            {
-                position = new Rectangle(new Point(entity.Hats[entity.Hats.Count-1].position.Location.X, entity.Hats[entity.Hats.Count-1].position.Location.Y - 80), new Point(100, 92));       //Have hats all same size, just change (x,y) coordinates
-            }
-
             if (entity is Player)
             {
                 ((Player)entity).MaxMP += maxMana;
@@ -94,9 +84,12 @@ namespace HatQuest.Hats
         /// Draws the hat
         /// </summary>
         /// <param name="sb">The SpriteBatch that draws the hat</param>
-        public void Draw(SpriteBatch sb)
+        public void Draw(SpriteBatch sb, Entity wearer, int hatNumber)
         {
-            sb.Draw(texture, position, Color.White);
+            sb.Draw(texture, 
+                    new Rectangle(new Point(wearer.Position.Location.X, (wearer.Position.Location.Y - 50) - (50 * hatNumber)), 
+                                  new Point(100, 75)), 
+                    Color.White);
         }
     }
 }

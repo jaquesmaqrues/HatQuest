@@ -167,9 +167,9 @@ namespace HatQuest
             if (isVisible)
             {
                 sb.Draw(texture, position, Color.White);
-                foreach(Hat h in hats)
+                for(int k = 0; k < hats.Count; k++)
                 {
-                    h.Draw(sb);     //Hats won't draw to screen, but hats are in list
+                    hats[k].Draw(sb, this, k);     
                 }
             }
         }
