@@ -251,13 +251,15 @@ namespace HatQuest
                     //Ability 4 Button
                     abilityButton[3].Draw(batch);
 
+
+
                     //Draw stats of enemy being hovered over
                     for (int k = 4; k > -1; k--)
                     {
                         if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
                         {
                             batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), new Vector2(685, 15), Color.White);     //Name
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), new Vector2(685, 15), new Color(1f, 1 / floorLevel, 1 / floorLevel));   //Name
                             batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[k].Health), new Vector2(685, 35), Color.White);     //Health
                             break;
                         }
