@@ -40,7 +40,12 @@ namespace HatQuest
 
         public Play()
         {
-            player = new Player(SpritesDirectory.GetSprite("Elion"), new Point((int)(SpritesDirectory.width * .125), (int)(SpritesDirectory.height * .3125)), (int)(SpritesDirectory.width * .125), (int)(SpritesDirectory.height * .4167));
+            player = new Player(SpritesDirectory.GetSprite("Elion"), 
+                                new Point((int)(SpritesDirectory.width * .125), 
+                                          (int)(SpritesDirectory.height * .3125)), 
+                                          (int)(SpritesDirectory.width * .125), 
+                                          (int)(SpritesDirectory.height * .4167));
+
             floor = new Queue<Room>();
             safeRoom = new SafeRoom();
             state = PlayState.PlayerInput;
@@ -51,12 +56,36 @@ namespace HatQuest
             selectedTarget = -1;
 
             //Buttons
-            Rectangle cryRect = new Rectangle((int)(SpritesDirectory.width * .75), (int)(SpritesDirectory.height * .833), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
-            Rectangle defendRect = new Rectangle((int)(SpritesDirectory.width * .75), (int)(SpritesDirectory.height * .6771), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
-            Rectangle ability1Rect = new Rectangle((int)(SpritesDirectory.width * .0625), (int)(SpritesDirectory.height * .6771), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
-            Rectangle ability2Rect = new Rectangle((int)(SpritesDirectory.width * .375), (int)(SpritesDirectory.height * .6771), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
-            Rectangle ability3Rect = new Rectangle((int)(SpritesDirectory.width * .0625), (int)(SpritesDirectory.height * .833), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
-            Rectangle ability4Rect = new Rectangle((int)(SpritesDirectory.width * .375), (int)(SpritesDirectory.height * .833), (int)(SpritesDirectory.width * .1875), (int)(SpritesDirectory.height * .1042));
+            Rectangle cryRect = new Rectangle((int)(SpritesDirectory.width * .75), 
+                                              (int)(SpritesDirectory.height * .833), 
+                                              (int)(SpritesDirectory.width * .1875), 
+                                              (int)(SpritesDirectory.height * .1042));
+
+            Rectangle defendRect = new Rectangle((int)(SpritesDirectory.width * .75), 
+                                                 (int)(SpritesDirectory.height * .6771), 
+                                                 (int)(SpritesDirectory.width * .1875), 
+                                                 (int)(SpritesDirectory.height * .1042));
+
+            Rectangle ability1Rect = new Rectangle((int)(SpritesDirectory.width * .0625), 
+                                                   (int)(SpritesDirectory.height * .6771), 
+                                                   (int)(SpritesDirectory.width * .1875), 
+                                                   (int)(SpritesDirectory.height * .1042));
+
+            Rectangle ability2Rect = new Rectangle((int)(SpritesDirectory.width * .375), 
+                                                   (int)(SpritesDirectory.height * .6771), 
+                                                   (int)(SpritesDirectory.width * .1875), 
+                                                   (int)(SpritesDirectory.height * .1042));
+
+            Rectangle ability3Rect = new Rectangle((int)(SpritesDirectory.width * .0625), 
+                                                   (int)(SpritesDirectory.height * .833), 
+                                                   (int)(SpritesDirectory.width * .1875), 
+                                                   (int)(SpritesDirectory.height * .1042));
+
+            Rectangle ability4Rect = new Rectangle((int)(SpritesDirectory.width * .375), 
+                                                   (int)(SpritesDirectory.height * .833), 
+                                                   (int)(SpritesDirectory.width * .1875), 
+                                                   (int)(SpritesDirectory.height * .1042));
+
             cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
             defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
             abilityButton = new Button[4];
@@ -211,7 +240,9 @@ namespace HatQuest
         {
             #region Draw
             //Draw background
-            batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, (SpritesDirectory.width), (int)(SpritesDirectory.height * 1.25)), Color.White);
+            batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), 
+                       new Rectangle(0, 0, (SpritesDirectory.width), (int)(SpritesDirectory.height * 1.25)), 
+                       Color.White);
             
             //Draw the player and enemies
             player.Draw(batch);
@@ -224,12 +255,33 @@ namespace HatQuest
                 }
             }
 
-            //Draw player Stats
-            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle((int)(SpritesDirectory.width * .0125), (int)(SpritesDirectory.height * .02083), (int)(SpritesDirectory.width * .15), (int)(SpritesDirectory.height * .14583)), Color.White);      //Box
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), "Elion", new Vector2((int)(SpritesDirectory.width * .03125), (int)(SpritesDirectory.height * .03125)), Color.White);     //Name
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", player.Health), new Vector2((int)(SpritesDirectory.width * .03125), (int)(SpritesDirectory.height * .07292)), Color.White);     //Health
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("MP: {0}", player.CurrentMP), new Vector2((int)(SpritesDirectory.width * .03125), (int)(SpritesDirectory.height * .114583)), Color.White);        //MP
-            //batch.DrawString(SpritesDirectory.GetFont("Arial40"), "Elion", new Vector2(25, 15), Color.White, 0, new Vector2(0, 0), .3f, SpriteEffects.None, 100);     //For scaling font, currently doesn't work
+            //---------Draw player Stats---------
+            //Background
+            batch.Draw(SpritesDirectory.GetSprite("Button"), 
+                       new Rectangle((int)(SpritesDirectory.width * .0125), 
+                                     (int)(SpritesDirectory.height * .02083), 
+                                     (int)(SpritesDirectory.width * .15), 
+                                     (int)(SpritesDirectory.height * .14583)), 
+                       Color.White);
+            //Name
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
+                            "Elion", 
+                            new Vector2((int)(SpritesDirectory.width * .03125), 
+                                        (int)(SpritesDirectory.height * .03125)),
+                            Color.White);
+            //HP
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
+                            string.Format("HP: {0}", player.Health), 
+                            new Vector2((int)(SpritesDirectory.width * .03125), 
+                                        (int)(SpritesDirectory.height * .07292)),
+                            Color.White);
+            //MP
+            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
+                            string.Format("MP: {0}", player.CurrentMP), 
+                            new Vector2((int)(SpritesDirectory.width * .03125), 
+                                        (int)(SpritesDirectory.height * .114583)), 
+                            Color.White);
+
 
             
             //Draw based on the PlayState
@@ -256,9 +308,25 @@ namespace HatQuest
                     {
                         if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
                         {
-                            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), new Vector2(685, 15), Color.White);     //Name
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[k].Health), new Vector2(685, 35), Color.White);     //Health
+                            //Background
+                            batch.Draw(SpritesDirectory.GetSprite("Button"), 
+                                       new Rectangle((int)(SpritesDirectory.width * .8375), 
+                                                     (int)(SpritesDirectory.height * .02083), 
+                                                     (int)(SpritesDirectory.width * .15), 
+                                                     (int)(SpritesDirectory.height * .14583)), 
+                                       Color.White);
+                            //Name
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
+                                             string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), 
+                                             new Vector2((int)(SpritesDirectory.width * .85625), 
+                                                         (int)(SpritesDirectory.height * .03125)), 
+                                             Color.White);
+                            //Health
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
+                                             string.Format("HP: {0}", floor.Peek()[k].Health), 
+                                             new Vector2((int)(SpritesDirectory.width * .85625), 
+                                                         (int)(SpritesDirectory.height * .0729)), 
+                                             Color.White);
                             break;
                         }
                     }
