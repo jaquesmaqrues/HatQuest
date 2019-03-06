@@ -10,7 +10,7 @@ namespace HatQuest.Init
 {
     static class HatsDirectory
     {
-        public static Random random = new Random(628310);
+        public static Random random = new Random(Program.seedRandom.Next());
 
         #region Hat Creation
         //List for storing all hats. Filled by the SetUp() method
@@ -117,12 +117,15 @@ namespace HatQuest.Init
                 {
                     //Gets all dropped hats of the rolled rarity
                     List<Hat> possibleHats = new List<Hat>();
-                    foreach(Hat hat in droppedHats)
+                    if(droppedHats != null)
                     {
-                        if (hat.Rarity == (HatRarity)r)
-                            possibleHats.Add(hat);
+                        foreach (Hat hat in droppedHats)
+                        {
+                            if (hat.Rarity == (HatRarity)r)
+                                possibleHats.Add(hat);
+                        }
                     }
-
+                    
                     //Returns a random dropped hat of the rolled rarity if one exists
                     if(possibleHats.Count > 0)
                     {

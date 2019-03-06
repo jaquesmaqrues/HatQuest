@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using HatQuest.Init;
+using HatQuest.Hats;
 
 namespace HatQuest
 {
@@ -45,11 +47,18 @@ namespace HatQuest
                 }
             }
 
-            //Give the enemies hats
+            //Give the enemies hats based on the current level
             int hats = (int)level;
             for(int k = 0; k < level; k++)
             {
-
+                //get the index of a random non-null enemy
+                int randomEnemy = EnemiesDirectory.random.Next(5);
+                while(enemies[randomEnemy] == null)
+                {
+                    randomEnemy = EnemiesDirectory.random.Next(5);
+                }
+                //Give a random hat to the random enemy
+                HatsDirectory.GetRandomHat(level).Equip(enemies[randomEnemy]);
             }
 
             //A currentAttacker of 5 indicates that all enemies have attacked
@@ -135,7 +144,7 @@ namespace HatQuest
                     }
                     //Sends the player to the safe room if all enemies are dead
                     currentAttacker = 0;
-                    return PlayState.SafeRoom;
+                    return PlayState.CombatEnd;
                     #endregion
                 //Checks if all enemies have been defeated after they have all had a chance to take their turn
             }
@@ -145,10 +154,10 @@ namespace HatQuest
             {
                 return PlayState.EnemyTurn;
             }
-            //Skips to the SafeRoom if the player has died
+            //Ends combat if the player has died
             else
             {
-                return PlayState.SafeRoom;
+                return PlayState.CombatEnd;
             }
             
         }
@@ -164,6 +173,11 @@ namespace HatQuest
             }
         }
 
+        /// <summary>
+        /// Returns the enemy currently being hovered over
+        /// </summary>
+        /// <param name="ms">Current mouse state</param>
+        /// <returns></returns>
         public Enemy SelectedEnemy(MouseState ms)
         {
             foreach(Enemy e in enemies)
@@ -174,6 +188,23 @@ namespace HatQuest
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Get all of the hats worn by all enemies
+        /// </summary>
+        /// <returns>An array of all enemy hats</returns>
+        public Hat[] GetDroppedHats()
+        {
+            List<Hat> droppedHats = new List<Hat>();
+            foreach(Enemy e in enemies)
+            {
+                if(e != null)
+                {
+                    droppedHats.AddRange(e.Hats);
+                }
+            }
+            return droppedHats.ToArray();
         }
     }
 }

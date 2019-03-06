@@ -11,7 +11,7 @@ using HatQuest.Hats;
 
 namespace HatQuest
 {
-    enum PlayState { PlayerInput, PlayerAttack, EnemyTurn, SafeRoom }
+    enum PlayState { PlayerInput, PlayerAttack, EnemyTurn, SafeRoom, CombatEnd }
 
     class Play
     {
@@ -23,6 +23,7 @@ namespace HatQuest
         private float floorLevel;
         private float levelIncrease;
         private float timer;
+        private Hat droppedHat;
 
         //Fields for player input
         private int selectedAbility;
@@ -92,6 +93,7 @@ namespace HatQuest
 
         public MainState Update(GameTime time)
         {
+            #region Update
             //Update the current keyboard and mouse state
             mouseLast = mouseCurrent;
             mouseCurrent = Mouse.GetState();
@@ -131,10 +133,11 @@ namespace HatQuest
                         abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
                         
                     }
-                    else if(state == PlayState.SafeRoom)
+                    else if(state == PlayState.CombatEnd)
                     {
-                        //Always call setup before entering the safe room
-                        safeRoom.SetUp();
+                        //Get the dropped hat and remove the room
+                        droppedHat = HatsDirectory.GetRandomHat(floorLevel, floor.Dequeue().GetDroppedHats());
+                        droppedHat.Equip(player);
 
                         //Hide buttons
                         cryButton.IsVisible = cryButton.IsActive = false;
@@ -145,13 +148,40 @@ namespace HatQuest
                         abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
                     }
                     break;
-                case PlayState.SafeRoom:
-                    //Automatically returns the player to the menu if they're dead
-                    if(!player.IsActive)
+                case PlayState.CombatEnd:
+                    if(keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter))
                     {
-                        return MainState.Menu;
+                        //Automatically returns the player to the menu if they're dead
+                        if (!player.IsActive)
+                        {
+                            return MainState.Menu;
+                        }
+                        
+                        //Move to the next combat if the floor still has rooms left
+                        if(floor.Count > 0)
+                        {
+                            state = PlayState.PlayerInput;
+                        }
+                        //Move to the safe room if the current floor has been completed
+                        else
+                        {
+                            state = PlayState.SafeRoom;
+                            safeRoom.SetUp();
+                        }
                     }
 
+                    if(state == PlayState.PlayerInput)
+                    {
+                        //Reveal buttons
+                        cryButton.IsVisible = cryButton.IsActive = true;
+                        defendButton.IsVisible = defendButton.IsActive = true;
+                        abilityButton[0].IsVisible = abilityButton[0].IsActive = true;
+                        abilityButton[1].IsVisible = abilityButton[1].IsActive = true;
+                        abilityButton[2].IsVisible = abilityButton[2].IsActive = true;
+                        abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
+                    }
+                    break;
+                case PlayState.SafeRoom:
                     state = safeRoom.Update(time);
 
                     if(state == PlayState.PlayerInput)
@@ -174,10 +204,12 @@ namespace HatQuest
                     
             }
             return MainState.Play;
+            #endregion
         }
 
         public void Draw(SpriteBatch batch)
         {
+            #region Draw
             //Draw background
             batch.Draw(SpritesDirectory.GetSprite("CombatBackground"), new Rectangle(0, 0, (SpritesDirectory.width), (int)(SpritesDirectory.height * 1.25)), Color.White);
             
@@ -199,22 +231,13 @@ namespace HatQuest
             batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("MP: {0}", player.CurrentMP), new Vector2((int)(SpritesDirectory.width * .03125), (int)(SpritesDirectory.height * .114583)), Color.White);        //MP
             //batch.DrawString(SpritesDirectory.GetFont("Arial40"), "Elion", new Vector2(25, 15), Color.White, 0, new Vector2(0, 0), .3f, SpriteEffects.None, 100);     //For scaling font, currently doesn't work
 
-            //Draw stats of enemy being hovered over
-            for (int k = 4; k > -1; k--)
-            {
-                if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
-                {
-                    batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
-                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), new Vector2(685, 15), Color.White);     //Name
-                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[k].Health), new Vector2(685, 35), Color.White);     //Health
-                    break;
-                }
-            }
             
-            //Draw 
+            //Draw based on the PlayState
             switch (state)
             {
                 case PlayState.PlayerInput:
+                case PlayState.PlayerAttack:
+                case PlayState.EnemyTurn:
                     //Cry Button
                     cryButton.Draw(batch);
                     //Defend Button
@@ -227,16 +250,38 @@ namespace HatQuest
                     abilityButton[2].Draw(batch);
                     //Ability 4 Button
                     abilityButton[3].Draw(batch);
+
+                    //Draw stats of enemy being hovered over
+                    for (int k = 4; k > -1; k--)
+                    {
+                        if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
+                        {
+                            batch.Draw(SpritesDirectory.GetSprite("Button"), new Rectangle(670, 10, 120, 70), Color.White);     //Box
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), new Vector2(685, 15), Color.White);     //Name
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("HP: {0}", floor.Peek()[k].Health), new Vector2(685, 35), Color.White);     //Health
+                            break;
+                        }
+                    }
+
                     break;
-                case PlayState.PlayerAttack:
-                    //Hiding the buttons should be done in the Update method
-                    break;
-                case PlayState.EnemyTurn:
+                case PlayState.CombatEnd:
+                    //If the player won the combat
+                    if(player.IsActive)
+                    {
+                        batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You defeated the enemy and got a {0}!", droppedHat.Name), new Vector2(150), Color.Black);
+                    }
+                    //If the player lost the combat
+                    else
+                    {
+                        batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You were defeated :(", droppedHat.Name), new Vector2(150), Color.Black);
+                    }
+                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("Press \'ENTER\' to continue", droppedHat.Name), new Vector2(150, 200), Color.Black);
                     break;
                 case PlayState.SafeRoom:
                     safeRoom.Draw(batch);
                     break;
             }
+            #endregion
         }
 
         /// <summary>

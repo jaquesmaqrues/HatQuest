@@ -10,7 +10,7 @@ namespace HatQuest.Init
 {
     class RoomsDirectory
     {
-        private static Random random = new Random(01010001);
+        private static Random random = new Random(Program.seedRandom.Next());
         public static List<EnemyType[]> layouts = new List<EnemyType[]>();
 
 
