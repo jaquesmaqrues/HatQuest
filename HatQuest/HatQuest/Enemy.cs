@@ -19,7 +19,7 @@ namespace HatQuest
         /// <summary>
         /// A reference to the player for attacks
         /// </summary>
-        protected Player player;
+        private Player player;
         private string name;
         Random random;
 
@@ -37,6 +37,7 @@ namespace HatQuest
         /// <param name="player">The player</param>
         public Enemy(EnemyType enemyType, double level, Point position, int width, int height, Player player) : base(enemyType.Sprite, position, width, height)
         {
+            level = Math.Pow(1.125, level-1);
             name = enemyType.Name;
             this.player = player;
             atk = (int)(enemyType.Attack * level);

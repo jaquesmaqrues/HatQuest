@@ -24,10 +24,10 @@ namespace HatQuest.Init
 
         //---- Common Hats ----//
         private const float COMMON_RARITY = 0.8f;
-        public static Hat ATKHAT = new Hat("Attack Hat", "A hat that boosts your attack", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, 0, 0, 5);
-        public static Hat HPHAT = new Hat("Health Hat", "A hat that boosts your health", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, 5);
-        public static Hat DEFHAT = new Hat("Defense Hat", "A hat that boosts your defense", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, 0, 5);
-        public static Hat MANAHAT = new Hat("Mana Hat", "A hat that boosts your mana", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, 0, 0, 0, 5);
+        public static Hat ATKHAT = new Hat("Attack Hat", "A hat that boosts your attack", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 0, 5);
+        public static Hat HPHAT = new Hat("Health Hat", "A hat that boosts your health", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 5);
+        public static Hat DEFHAT = new Hat("Defense Hat", "A hat that boosts your defense", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 5);
+        public static Hat MANAHAT = new Hat("Mana Hat", "A hat that boosts your mana", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 0, 0, 5);
 
         //---- Uncommon Hats ----//
         private const float UNCOMMON_RARITY = 0.5f;
@@ -40,7 +40,7 @@ namespace HatQuest.Init
         public static Hat BUCKETHAT = new BucketHat(SpritesDirectory.GetSprite("Hat"));
 
         //---- Developer Hats ----//
-        public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), HatRarity.Developer, 5000, 5000, 5000, 5000);
+        public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), HatRarity.Developer, null, 5000, 5000, 5000, 5000);
         #endregion
 
         /// <summary>
@@ -94,6 +94,7 @@ namespace HatQuest.Init
             #region Get a random hat priortizing those dropped by enemies
             double hatRoll = random.NextDouble();
             double rarityValue = 0f;
+            floorLevel = Math.Pow(1.5, floorLevel-1);
 
             //Checks for hat drops of each rarity
             for(int r = 0; r < 4; r++)

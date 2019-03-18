@@ -23,6 +23,7 @@ namespace HatQuest.Init
             spriteDirectory.Add("Lucario", game.Content.Load<Texture2D>("lucario"));
             spriteDirectory.Add("Elion", game.Content.Load<Texture2D>("Main_Character_Color"));
             spriteDirectory.Add("Button", game.Content.Load<Texture2D>("Sprites/Button Background"));
+            spriteDirectory.Add("ButtonClicked", game.Content.Load<Texture2D>("Sprites/buttonBackground"));
             spriteDirectory.Add("CombatBackground", game.Content.Load<Texture2D>("Sprites/Combat_Background"));
             spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
             spriteDirectory.Add("Hat", game.Content.Load<Texture2D>("Sprites/SuperFancyHat"));
