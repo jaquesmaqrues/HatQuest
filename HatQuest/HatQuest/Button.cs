@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using HatQuest.Init;
 
 namespace HatQuest
 {
@@ -19,10 +20,12 @@ namespace HatQuest
         private Vector2 position;
         private SpriteFont font;
         private Texture2D buttonBack;
+        private Texture2D buttonBackClicked;
         private MouseState mouse;
         private MouseState mousePrev;
         private float scale;
         private int padding;
+        private bool clicked;
 
         //Value not changed from the default
         private Vector2 origin;
@@ -46,6 +49,12 @@ namespace HatQuest
             set { text = value; }
         }
 
+        public bool Clicked
+        {
+            get { return clicked; }
+            set { clicked = value; }
+        }
+
 
         /// <summary>
         /// Constructor
@@ -54,16 +63,19 @@ namespace HatQuest
         /// <param name="rect">Size and location of the button</param>
         /// <param name="font">Font for the text to be displayed in</param>
         /// <param name="padding">The distance between the text and the edge of the button</param>
-        public Button(string text, Rectangle rect, SpriteFont font, Texture2D buttonBack, int padding = 5)
+        public Button(string text, Rectangle rect, SpriteFont font, int padding = 5)
         {
             this.text = text;
             this.rect = rect;
             this.font = font;
-            this.buttonBack = buttonBack;
             this.padding = padding;
 
             //Un-used parameters in DrawString
             origin = new Vector2(0);
+
+            clicked = false;
+            buttonBack = SpritesDirectory.GetSprite("Button");
+            buttonBackClicked = SpritesDirectory.GetSprite("ButtonClicked");
 
             //Calclates the scale
             Vector2 stringSize = font.MeasureString(text);
@@ -87,14 +99,17 @@ namespace HatQuest
             if (visible)
             {
                 //Draw the background of the button
-                batch.Draw(buttonBack, rect, Color.White);
+                if (clicked)
+                {
+                    batch.Draw(buttonBackClicked, rect, Color.White);
+                }
+                else
+                {
+                    batch.Draw(buttonBack, rect, Color.White);
+                }
                 //Draw the text of the button
                 mousePrev = mouse;
                 mouse = Mouse.GetState();
-
-
-                //Draw the background of the button
-                batch.Draw(buttonBack, rect, Color.White);
 
                 //Makes the button text white if it is being hovered over
                 if (rect.Contains(mouse.Position))

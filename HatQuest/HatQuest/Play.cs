@@ -37,6 +37,8 @@ namespace HatQuest
         private Button cryButton;
         private Button defendButton;
         private Button[] abilityButton;
+        private Button lastClicked;
+        private Button currentClicked;
 
         public Play()
         {
@@ -50,7 +52,6 @@ namespace HatQuest
             safeRoom = new SafeRoom();
             state = PlayState.PlayerInput;
             floorLevel = 1;
-            levelIncrease = 1.125f;
             //-1 for selectedTarget and selectedAbility indicates no selection
             selectedAbility = -1;
             selectedTarget = -1;
@@ -86,13 +87,13 @@ namespace HatQuest
                                                    (int)(SpritesDirectory.width * .1875), 
                                                    (int)(SpritesDirectory.height * .1042));
 
-            cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
-            defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
+            cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial40"));
+            defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial40"));
             abilityButton = new Button[4];
-            abilityButton[0] = new Button(player.Abilities[0].Name, ability1Rect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
-            abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
+            abilityButton[0] = new Button(player.Abilities[0].Name, ability1Rect, SpritesDirectory.GetFont("Arial40"));
+            abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial40"));
+            abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"));
+            abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"));
 
             cryButton.IsActive = cryButton.IsVisible = true;
             defendButton.IsActive = defendButton.IsVisible = true;
@@ -218,7 +219,7 @@ namespace HatQuest
                         player.CurrentMP = player.MaxMP;
                         player.Health = player.MaxHealth;
                         //Makes evey floor 12.5% harder than the last
-                        floorLevel *= levelIncrease;
+                        floorLevel++;
                         GenerateFloor();
 
                         //Reveal buttons
@@ -354,7 +355,7 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            for(int k = 0; k < Math.Round(floorLevel); k++)
+            for(int k = 0; k < Math.Round(floorLevel/3); k++)
             {
                 floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
             }
@@ -364,10 +365,28 @@ namespace HatQuest
         {
             //Gets player input for their selected ability
             #region ability selection
+            //Changes button background if button was clicked
+            if (lastClicked != null)
+            {
+                lastClicked.Clicked = false;
+            }
+            if (currentClicked != null)
+            {
+                currentClicked.Clicked = true;
+            }
+
             if (cryButton.IsPressed(mouseLast, mouseCurrent))
             {
                 selectedAbility = -1;
                 selectedTarget = -1;
+
+                if (currentClicked != null)
+                {
+                    currentClicked.Clicked = false;
+                }
+
+                currentClicked = null;
+                lastClicked = null;
                 player.Cry();
                 return PlayState.PlayerAttack;
             }
@@ -375,6 +394,14 @@ namespace HatQuest
             {
                 selectedAbility = -1;
                 selectedTarget = -1;
+
+                if (currentClicked != null)
+                {
+                    currentClicked.Clicked = false;
+                }
+
+                currentClicked = null;
+                lastClicked = null;
                 player.Defend();
                 return PlayState.PlayerAttack;
             }
@@ -383,6 +410,8 @@ namespace HatQuest
                 if (player.Abilities[0] != null && player.CurrentMP >= player.Abilities[0].ManaCost)
                 {
                     selectedAbility = 0;
+                    lastClicked = currentClicked;
+                    currentClicked = abilityButton[selectedAbility];
                 }
             }
             else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
@@ -390,6 +419,8 @@ namespace HatQuest
                 if (player.Abilities[1] != null && player.CurrentMP >= player.Abilities[1].ManaCost)
                 {
                     selectedAbility = 1;
+                    lastClicked = currentClicked;
+                    currentClicked = abilityButton[selectedAbility];
                 }
             }
             else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
@@ -397,15 +428,22 @@ namespace HatQuest
                 if (player.Abilities[2] != null && player.CurrentMP >= player.Abilities[2].ManaCost)
                 {
                     selectedAbility = 2;
+                    lastClicked = currentClicked;
+                    currentClicked = abilityButton[selectedAbility];
                 }
+
             }
             else if (abilityButton[3].IsPressed(mouseLast, mouseCurrent))
             {
                 if (player.Abilities[3] != null && player.CurrentMP >= player.Abilities[3].ManaCost)
                 {
                     selectedAbility = 3;
+                    lastClicked = currentClicked;
+                    currentClicked = abilityButton[selectedAbility];
                 }
             }
+        
+
             #endregion
 
             //Gets the player's target if the ability is targeted and activates the ability
@@ -440,6 +478,10 @@ namespace HatQuest
                         {
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
+                            //Resets selected button for next round of combat
+                            currentClicked.Clicked = false;
+                            currentClicked = null;
+                            lastClicked = null;
                             return PlayState.PlayerAttack;
                         }
                     }
