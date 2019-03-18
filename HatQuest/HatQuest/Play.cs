@@ -262,29 +262,41 @@ namespace HatQuest
                        new Rectangle((int)(SpritesDirectory.width * .0125), 
                                      (int)(SpritesDirectory.height * .02083), 
                                      (int)(SpritesDirectory.width * .15), 
-                                     (int)(SpritesDirectory.height * .14583)), 
+                                     (int)(SpritesDirectory.height * 0.26041)),//.14583 
                        Color.White);
             //Name
             batch.DrawString(SpritesDirectory.GetFont("Arial"), 
                             "Elion", 
                             new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * .03125)),
+                                        (int)(SpritesDirectory.height * 2/64)),//.03125
                             Color.White);
             //HP
             batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                            string.Format("HP: {0}", player.Health), 
+                            string.Format("HP: {0} / {1}", player.Health, player.MaxHealth), 
                             new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * .07292)),
+                                        (int)(SpritesDirectory.height * 5/64)), //.07292
                             Color.White);
             //MP
             batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                            string.Format("MP: {0}", player.CurrentMP), 
+                            string.Format("MP: {0} / {1}", player.CurrentMP, player.MaxMP), 
                             new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * .114583)), 
+                                        (int)(SpritesDirectory.height * 8/64)), //.114583
+                            Color.White);
+            //Defense
+            batch.DrawString(SpritesDirectory.GetFont("Arial"),
+                            string.Format("DF: {0}", player.Def),
+                            new Vector2((int)(SpritesDirectory.width * .03125),
+                                        (int)(SpritesDirectory.height * 11 / 64)),//0.15626
+                            Color.White);
+            //Attack
+            batch.DrawString(SpritesDirectory.GetFont("Arial"),
+                            string.Format("AK: {0}", player.Atk),
+                            new Vector2((int)(SpritesDirectory.width * .03125),
+                                        (int)(SpritesDirectory.height * 14 / 64)),//0.19793
                             Color.White);
 
 
-            
+
             //Draw based on the PlayState
             switch (state)
             {
