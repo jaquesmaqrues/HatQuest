@@ -355,7 +355,7 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            for(int k = 0; k < Math.Round(floorLevel/3); k++)
+            for(int k = 0; k < (floorLevel/3)+1; k++)
             {
                 floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
             }
