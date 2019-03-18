@@ -43,7 +43,7 @@ namespace HatQuest
             //Buttons
             
             position = new Rectangle(SpritesDirectory.width / 2 - 75, 400, 150, 50);
-            playButton = new Button("Play", position, SpritesDirectory.GetFont("Arial40"), SpritesDirectory.GetSprite("Button"));
+            playButton = new Button("Play", position, SpritesDirectory.GetFont("Arial40"));
 
             playButton.IsActive = playButton.IsVisible = true;
             
