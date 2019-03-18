@@ -23,6 +23,7 @@ namespace HatQuest.Hats
         protected string description;
         protected HatRarity rarity;
         protected Texture2D texture;
+        protected Ability ability;
 
         //Properties
         public String Name
@@ -50,7 +51,7 @@ namespace HatQuest.Hats
         /// <param name="def">Any modification to the equipped Entity's defense</param>
         /// <param name="atk">Any modification to the equipped Entity's attack</param>
         /// <param name="maxMana">If the Entity's a player, this modifies their maximum mana</param>
-        public Hat(string name, string description, Texture2D texture, HatRarity rarity, int maxHealth = 0, int def = 0, int atk = 0, int maxMana = 0)
+        public Hat(string name, string description, Texture2D texture, HatRarity rarity, Ability ability = null, int maxHealth = 0, int def = 0, int atk = 0, int maxMana = 0)
         {
             this.texture = texture;
             this.maxHealth = maxHealth;
@@ -60,6 +61,7 @@ namespace HatQuest.Hats
             this.name = name;
             this.description = description;
             this.rarity = rarity;
+            this.ability = ability;
         }
 
         /// <summary>
