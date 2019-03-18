@@ -52,7 +52,6 @@ namespace HatQuest
             safeRoom = new SafeRoom();
             state = PlayState.PlayerInput;
             floorLevel = 1;
-            levelIncrease = 1.125f;
             //-1 for selectedTarget and selectedAbility indicates no selection
             selectedAbility = -1;
             selectedTarget = -1;
@@ -220,7 +219,7 @@ namespace HatQuest
                         player.CurrentMP = player.MaxMP;
                         player.Health = player.MaxHealth;
                         //Makes evey floor 12.5% harder than the last
-                        floorLevel *= levelIncrease;
+                        floorLevel++;
                         GenerateFloor();
 
                         //Reveal buttons
@@ -346,7 +345,7 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            for(int k = 0; k < Math.Round(floorLevel); k++)
+            for(int k = 0; k < Math.Round(floorLevel/3); k++)
             {
                 floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
             }

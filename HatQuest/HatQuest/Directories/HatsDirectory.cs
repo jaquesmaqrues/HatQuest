@@ -94,6 +94,7 @@ namespace HatQuest.Init
             #region Get a random hat priortizing those dropped by enemies
             double hatRoll = random.NextDouble();
             double rarityValue = 0f;
+            floorLevel = Math.Pow(1.5, floorLevel-1);
 
             //Checks for hat drops of each rarity
             for(int r = 0; r < 4; r++)
