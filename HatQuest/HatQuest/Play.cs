@@ -167,7 +167,7 @@ namespace HatQuest
                     {
                         //Get the dropped hat and remove the room
                         droppedHat = HatsDirectory.GetRandomHat(floorLevel, floor.Dequeue().GetDroppedHats());
-                        droppedHat.Equip(player);
+                        player.Loot = droppedHat;
 
                         //Hide buttons
                         cryButton.IsVisible = cryButton.IsActive = false;
@@ -186,17 +186,34 @@ namespace HatQuest
                         {
                             return MainState.Menu;
                         }
-                        
-                        //Move to the next combat if the floor still has rooms left
-                        if(floor.Count > 0)
+
+                        //Make sure the player can equip the hat
+                        if (player.Loot != null)
                         {
-                            state = PlayState.PlayerInput;
+                            if(/*The hat has an ability*/ false)
+                            {
+
+                            }
+                            else
+                            {
+                                player.Loot.Equip(player);
+                                player.Loot = null;
+                            }
                         }
-                        //Move to the safe room if the current floor has been completed
+                        //The player has already recieved their loot
                         else
                         {
-                            state = PlayState.SafeRoom;
-                            safeRoom.SetUp();
+                            //Move to the next combat if the floor still has rooms left
+                            if (floor.Count > 0)
+                            {
+                                state = PlayState.PlayerInput;
+                            }
+                            //Move to the safe room if the current floor has been completed
+                            else
+                            {
+                                state = PlayState.SafeRoom;
+                                safeRoom.SetUp();
+                            }
                         }
                     }
 

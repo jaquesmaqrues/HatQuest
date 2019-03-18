@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
 using HatQuest.Hats;
 
-/* Iain Davis
+/* Iain Davis, Elijah
  * The Player Class
  * There are no known issues */
 
@@ -19,6 +19,7 @@ namespace HatQuest
     {
         private int currentMP;
         private int maxMP;
+        private Hat loot;
 
         /// <summary>
         /// The player's current mana
@@ -47,6 +48,18 @@ namespace HatQuest
             set
             {
                 maxMP = value;
+            }
+        }
+
+        public Hat Loot
+        {
+            get
+            {
+                return loot;
+            }
+            set
+            {
+                loot = value;
             }
         }
 
