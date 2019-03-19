@@ -34,8 +34,6 @@ namespace HatQuest
         private KeyboardState keyboardLast;
 
         //Buttons for the player UI
-        private Button cryButton;
-        private Button defendButton;
         private Button[] abilityButton;
         private Button lastClicked;
         private Button currentClicked;
@@ -87,20 +85,14 @@ namespace HatQuest
                                                    (int)(SpritesDirectory.width * .1875), 
                                                    (int)(SpritesDirectory.height * .1042));
 
-            cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial40"));
-            defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton = new Button[4];
+
+            abilityButton = new Button[6];
             abilityButton[0] = new Button(player.Abilities[0].Name, ability1Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"));
-
-            cryButton.IsActive = cryButton.IsVisible = true;
-            defendButton.IsActive = defendButton.IsVisible = true;
-            abilityButton[0].IsActive = abilityButton[0].IsVisible = true;
-            abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
-            abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
-            abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
+            abilityButton[4] = new Button(player.Abilities[4].Name, cryRect, SpritesDirectory.GetFont("Arial40"));
+            abilityButton[5] = new Button(player.Abilities[5].Name, defendRect, SpritesDirectory.GetFont("Arial40"));
         }   
 
         /// <summary>
@@ -113,12 +105,10 @@ namespace HatQuest
             floorLevel = 1;
             state = PlayState.PlayerInput;
 
-            cryButton.IsActive = cryButton.IsVisible = true;
-            defendButton.IsActive = defendButton.IsVisible = true;
-            abilityButton[0].IsActive = abilityButton[0].IsVisible = true;
-            abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
-            abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
-            abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
+            foreach (Button ab in abilityButton)
+            {
+                ab.IsActive = ab.IsVisible = true;
+            }
         }
 
         public MainState Update(GameTime time)
@@ -138,12 +128,10 @@ namespace HatQuest
                     if(state == PlayState.PlayerAttack)
                     {
                         //Hide buttons
-                        cryButton.IsVisible = cryButton.IsActive = false;
-                        defendButton.IsVisible = defendButton.IsActive = false;
-                        abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
-                        abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
-                        abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
-                        abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+                        foreach (Button ab in abilityButton)
+                        {
+                            ab.IsActive = ab.IsVisible = false;
+                        }
                     }
                     break;
                 case PlayState.PlayerAttack:
@@ -155,13 +143,11 @@ namespace HatQuest
                     if(state == PlayState.PlayerInput)
                     {
                         //Reveal buttons
-                        cryButton.IsVisible = cryButton.IsActive = true;
-                        defendButton.IsVisible = defendButton.IsActive = true;
-                        abilityButton[0].IsVisible = abilityButton[0].IsActive = true;
-                        abilityButton[1].IsVisible = abilityButton[1].IsActive = true;
-                        abilityButton[2].IsVisible = abilityButton[2].IsActive = true;
-                        abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
-                        
+                        foreach (Button ab in abilityButton)
+                        {
+                            ab.IsActive = ab.IsVisible = true;
+                        }
+
                     }
                     else if(state == PlayState.CombatEnd)
                     {
@@ -170,12 +156,10 @@ namespace HatQuest
                         player.Loot = droppedHat;
 
                         //Hide buttons
-                        cryButton.IsVisible = cryButton.IsActive = false;
-                        defendButton.IsVisible = defendButton.IsActive = false;
-                        abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
-                        abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
-                        abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
-                        abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+                        foreach (Button ab in abilityButton)
+                        {
+                            ab.IsActive = ab.IsVisible = false;
+                        }
                     }
                     break;
                 case PlayState.CombatEnd:
@@ -220,12 +204,10 @@ namespace HatQuest
                     if(state == PlayState.PlayerInput)
                     {
                         //Reveal buttons
-                        cryButton.IsVisible = cryButton.IsActive = true;
-                        defendButton.IsVisible = defendButton.IsActive = true;
-                        abilityButton[0].IsVisible = abilityButton[0].IsActive = true;
-                        abilityButton[1].IsVisible = abilityButton[1].IsActive = true;
-                        abilityButton[2].IsVisible = abilityButton[2].IsActive = true;
-                        abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
+                        foreach(Button ab in abilityButton)
+                        {
+                            ab.IsActive = ab.IsVisible = true;
+                        }
                     }
                     break;
                 case PlayState.SafeRoom:
@@ -240,12 +222,10 @@ namespace HatQuest
                         GenerateFloor();
 
                         //Reveal buttons
-                        cryButton.IsVisible = cryButton.IsActive = true;
-                        defendButton.IsVisible = defendButton.IsActive = true;
-                        abilityButton[0].IsVisible = abilityButton[0].IsActive = true;
-                        abilityButton[1].IsVisible = abilityButton[1].IsActive = true;
-                        abilityButton[2].IsVisible = abilityButton[2].IsActive = true;
-                        abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
+                        foreach (Button ab in abilityButton)
+                        {
+                            ab.IsActive = ab.IsVisible = true;
+                        }
                     }
                     break;
                     
@@ -320,19 +300,11 @@ namespace HatQuest
                 case PlayState.PlayerInput:
                 case PlayState.PlayerAttack:
                 case PlayState.EnemyTurn:
-                    //Cry Button
-                    cryButton.Draw(batch);
-                    //Defend Button
-                    defendButton.Draw(batch);
-                    //Ability 1 Button
-                    abilityButton[0].Draw(batch);
-                    //Ability 2 Button
-                    abilityButton[1].Draw(batch);
-                    //Ability 3 Button
-                    abilityButton[2].Draw(batch);
-                    //Ability 4 Button
-                    abilityButton[3].Draw(batch);
 
+                    foreach(Button ab in abilityButton)
+                    {
+                        ab.Draw(batch);
+                    }
 
 
                     //Draw stats of enemy being hovered over
@@ -404,82 +376,27 @@ namespace HatQuest
                 currentClicked.Clicked = true;
             }
 
-            if (cryButton.IsPressed(mouseLast, mouseCurrent))
+            for (int x = 0; x < abilityButton.Length; x++)
             {
-                selectedAbility = -1;
-                selectedTarget = -1;
-
-                if (currentClicked != null)
+                if (abilityButton[x].IsPressed(mouseLast, mouseCurrent))
                 {
-                    currentClicked.Clicked = false;
-                }
-
-                currentClicked = null;
-                lastClicked = null;
-                player.Cry();
-                return PlayState.PlayerAttack;
-            }
-            else if (defendButton.IsPressed(mouseLast, mouseCurrent))
-            {
-                selectedAbility = -1;
-                selectedTarget = -1;
-
-                if (currentClicked != null)
-                {
-                    currentClicked.Clicked = false;
-                }
-
-                currentClicked = null;
-                lastClicked = null;
-                player.Defend();
-                return PlayState.PlayerAttack;
-            }
-            else if (abilityButton[0].IsPressed(mouseLast, mouseCurrent))
-            {
-                if (player.Abilities[0] != null && player.CurrentMP >= player.Abilities[0].ManaCost)
-                {
-                    selectedAbility = 0;
-                    lastClicked = currentClicked;
-                    currentClicked = abilityButton[selectedAbility];
+                    if (player.Abilities[x] != null && player.CurrentMP >= player.Abilities[x].ManaCost)
+                    {
+                        selectedAbility = x;
+                        lastClicked = currentClicked;
+                        currentClicked = abilityButton[selectedAbility];
+                        break;
+                    }
                 }
             }
-            else if (abilityButton[1].IsPressed(mouseLast, mouseCurrent))
-            {
-                if (player.Abilities[1] != null && player.CurrentMP >= player.Abilities[1].ManaCost)
-                {
-                    selectedAbility = 1;
-                    lastClicked = currentClicked;
-                    currentClicked = abilityButton[selectedAbility];
-                }
-            }
-            else if (abilityButton[2].IsPressed(mouseLast, mouseCurrent))
-            {
-                if (player.Abilities[2] != null && player.CurrentMP >= player.Abilities[2].ManaCost)
-                {
-                    selectedAbility = 2;
-                    lastClicked = currentClicked;
-                    currentClicked = abilityButton[selectedAbility];
-                }
-
-            }
-            else if (abilityButton[3].IsPressed(mouseLast, mouseCurrent))
-            {
-                if (player.Abilities[3] != null && player.CurrentMP >= player.Abilities[3].ManaCost)
-                {
-                    selectedAbility = 3;
-                    lastClicked = currentClicked;
-                    currentClicked = abilityButton[selectedAbility];
-                }
-            }
-        
-
             #endregion
 
+
             //Gets the player's target if the ability is targeted and activates the ability
-            if(selectedAbility != -1 && player.Abilities[selectedAbility].IsTargeted)
+            if (selectedAbility != -1 && player.Abilities[selectedAbility].IsTargeted)
             {
                 #region target selection
-                if(mouseCurrent.LeftButton == ButtonState.Pressed)
+                if (mouseCurrent.LeftButton == ButtonState.Pressed)
                 {
                     //Checks for enemies in reverse order since the later enemies are drawn on top of the previous ones
                     for (int k = 4; k > -1; k--)
@@ -491,17 +408,17 @@ namespace HatQuest
                         }
                     }
                 }
-                #endregion
             }
+            #endregion
 
             //Attempt to activate the ability
-            if(selectedAbility != -1 && player.Abilities[selectedAbility] != null)
+            if (selectedAbility != -1 && player.Abilities[selectedAbility] != null)
             {
                 #region ability activation
                 //For targeted abilities
-                if (player.Abilities[selectedAbility].IsTargeted && selectedTarget != -1)
+                if (player.Abilities[selectedAbility].IsTargeted)
                 {
-                    if(floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
+                    if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
                         if(player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
@@ -519,6 +436,13 @@ namespace HatQuest
                 else
                 {
                     //There are currently no untargeted abilities and the AttackEnemy method isnt set up to handle them
+                    player.Abilities[selectedAbility].Activate(player, null);
+                    selectedAbility = selectedTarget = -1;
+                    //Resets selected button for next round of combat
+                    currentClicked.Clicked = false;
+                    currentClicked = null;
+                    lastClicked = null;
+                    return PlayState.PlayerAttack;
                 }
                 #endregion
             }
