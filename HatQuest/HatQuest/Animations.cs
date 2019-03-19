@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HatQuest
 {
+    /// <summary>
+    /// Kat
+    /// </summary>
     class Animations
     {
         private Texture2D spriteSheet;

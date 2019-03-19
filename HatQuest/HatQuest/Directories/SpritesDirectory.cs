@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 namespace HatQuest.Init
 {
     /// <summary>
-    /// Elijah
+    /// Elijah, Kat
     /// </summary>
     static class SpritesDirectory
     {

@@ -11,7 +11,7 @@ using HatQuest.Init;
 namespace HatQuest
 {
     /// <summary>
-    /// Elijah
+    /// Elijah, Kat
     /// </summary>
     class Menu
     {

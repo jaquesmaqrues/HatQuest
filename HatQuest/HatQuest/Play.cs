@@ -15,7 +15,7 @@ namespace HatQuest
     enum PlayState { PlayerInput, PlayerAttack, EnemyTurn, SafeRoom, CombatEnd }
 
     /// <summary>
-    /// Elijah
+    /// Elijah, Kat
     /// </summary>
     class Play
     {

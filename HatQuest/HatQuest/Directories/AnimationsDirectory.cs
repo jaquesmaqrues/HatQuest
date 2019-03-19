@@ -10,6 +10,9 @@ using HatQuest.Init;
 
 namespace HatQuest.Directories
 {
+    /// <summary>
+    /// Kat
+    /// </summary>
     static class AnimationsDirectory
     {
         private static Dictionary<string, Texture2D> animationsDirectory;
