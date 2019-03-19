@@ -14,6 +14,9 @@ namespace HatQuest
 {
     enum PlayState { PlayerInput, PlayerAttack, EnemyTurn, SafeRoom, CombatEnd }
 
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Play
     {
         //Fields
@@ -38,8 +41,17 @@ namespace HatQuest
         private Button cryButton;
         private Button defendButton;
         private Button[] abilityButton;
+        private Button newAbilityButton;
         private Button lastClicked;
         private Button currentClicked;
+
+        //Events
+        public delegate void CombatEvent(Player player, Entity target);
+        public event CombatEvent PlayerTurnStart;
+        public event CombatEvent PlayerAttackPre;
+        public event CombatEvent PlayerAttackPost;
+        public event CombatEvent PlayerTurnEnd;
+
 
         //Animation
         private double fps;
@@ -93,6 +105,11 @@ namespace HatQuest
                                                    (int)(SpritesDirectory.width * .1875), 
                                                    (int)(SpritesDirectory.height * .1042));
 
+            Rectangle newAbilityRect = new Rectangle((int)(SpritesDirectory.width * .75),
+                                                     (int)(SpritesDirectory.height * .755),
+                                                     (int)(SpritesDirectory.width * .1875),
+                                                     (int)(SpritesDirectory.height * .1042));
+
             cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial40"));
             defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial40"));
             abilityButton = new Button[4];
@@ -100,6 +117,7 @@ namespace HatQuest
             abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"));
+            newAbilityButton = new Button("null", newAbilityRect, SpritesDirectory.GetFont("Arial40"));
 
             cryButton.IsActive = cryButton.IsVisible = true;
             defendButton.IsActive = defendButton.IsVisible = true;
@@ -164,12 +182,15 @@ namespace HatQuest
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
+                    PlayerTurnEnd(player, null);
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
+                        PlayerTurnStart(player, null);
+
                         //Reveal buttons
                         cryButton.IsVisible = cryButton.IsActive = true;
                         defendButton.IsVisible = defendButton.IsActive = true;
@@ -183,19 +204,86 @@ namespace HatQuest
                     {
                         //Get the dropped hat and remove the room
                         droppedHat = HatsDirectory.GetRandomHat(floorLevel, floor.Dequeue().GetDroppedHats());
-                        player.Loot = droppedHat;
+                        if (player.IsActive)
+                        {
+                            player.Loot = droppedHat;
+                        }
 
                         //Hide buttons
                         cryButton.IsVisible = cryButton.IsActive = false;
                         defendButton.IsVisible = defendButton.IsActive = false;
-                        abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
-                        abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
-                        abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
-                        abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+
+                        if(droppedHat.HasAbility)
+                        {
+                            //Make and enable the ability to select the new ability
+                            Rectangle newAbilityRect = new Rectangle((int)(SpritesDirectory.width * .75),
+                                                                     (int)(SpritesDirectory.height * .755),
+                                                                     (int)(SpritesDirectory.width * .1875),
+                                                                     (int)(SpritesDirectory.height * .1042));
+
+                            newAbilityButton = new Button(droppedHat.Ability.Name, newAbilityRect, SpritesDirectory.GetFont("Arial40"));
+                            newAbilityButton.IsVisible = newAbilityButton.IsActive = true;
+                            abilityButton[0].IsVisible = abilityButton[0].IsActive = true;
+                            abilityButton[1].IsVisible = abilityButton[1].IsActive = true;
+                            abilityButton[2].IsVisible = abilityButton[2].IsActive = true;
+                            abilityButton[3].IsVisible = abilityButton[3].IsActive = true;
+                        }
+                        //Disable all the ability buttons if there is no new ability to select
+                        else
+                        {
+                            abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
+                            abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
+                            abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
+                            abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+                        }
                     }
                     break;
                 case PlayState.CombatEnd:
-                    if(keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter))
+                    //Make sure the player can equip the hat
+                    if (player.Loot != null)
+                    {
+                        if (player.Loot.HasAbility)
+                        {
+                            #region Ability selection
+                            //Enable ability buttons
+                            for (int k = 0; k < 4; k++)
+                            {
+                                if (abilityButton[k].IsPressed(mouseLast, mouseCurrent))
+                                {
+                                    player.Loot.Equip(player, k);
+                                    player.Loot = null;
+                                    abilityButton[k] = new Button(player.Abilities[k].Name,
+                                                                  abilityButton[k].Rect,
+                                                                  SpritesDirectory.GetFont("Arial40"));
+                                    break;
+                                }
+                            }
+                            if (newAbilityButton.IsPressed(mouseLast, mouseCurrent))
+                            {
+                                player.Loot.Equip(player);
+                                player.Loot = null;
+                                break;
+                            }
+
+                            //When the player has selected an ability to discard
+                            if(player.Loot == null)
+                            {
+                                //Disable ability buttons
+                                newAbilityButton.IsVisible = newAbilityButton.IsActive = false;
+                                abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
+                                abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
+                                abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
+                                abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+                            }
+                            #endregion
+                        }
+                        else
+                        {
+                            player.Loot.Equip(player);
+                            player.Loot = null;
+                        }
+                    }
+                    else if (keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter))
                     {
                         //Automatically returns the player to the menu if they're dead
                         if (!player.IsActive)
@@ -203,22 +291,11 @@ namespace HatQuest
                             return MainState.Menu;
                         }
 
-                        //Make sure the player can equip the hat
-                        if (player.Loot != null)
-                        {
-                            if(/*The hat has an ability*/ false)
-                            {
-
-                            }
-                            else
-                            {
-                                player.Loot.Equip(player);
-                                player.Loot = null;
-                            }
-                        }
+                        
                         //The player has already recieved their loot
                         else
                         {
+
                             //Move to the next combat if the floor still has rooms left
                             if (floor.Count > 0)
                             {
@@ -251,7 +328,6 @@ namespace HatQuest
                     {
                         player.CurrentMP = player.MaxMP;
                         player.Health = player.MaxHealth;
-                        //Makes evey floor 12.5% harder than the last
                         floorLevel++;
                         GenerateFloor();
 
@@ -384,11 +460,25 @@ namespace HatQuest
                     if(player.IsActive)
                     {
                         batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You defeated the enemy and got a {0}!", droppedHat.Name), new Vector2(150), Color.Black);
+                        if(droppedHat.HasAbility)
+                        {
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("Please select an ability to replace."), new Vector2(175), Color.Black);
+                            //Ability 1 Button
+                            abilityButton[0].Draw(batch);
+                            //Ability 2 Button
+                            abilityButton[1].Draw(batch);
+                            //Ability 3 Button
+                            abilityButton[2].Draw(batch);
+                            //Ability 4 Button
+                            abilityButton[3].Draw(batch);
+                            //New Ability Button
+                            newAbilityButton.Draw(batch);
+                        }
                     }
                     //If the player lost the combat
                     else
                     {
-                        batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You were defeated :(", droppedHat.Name), new Vector2(150), Color.Black);
+                        batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You were defeated :("), new Vector2(150), Color.Black);
                     }
                     batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("Press \'ENTER\' to continue", droppedHat.Name), new Vector2(150, 200), Color.Black);
                     break;
@@ -524,8 +614,10 @@ namespace HatQuest
                 {
                     if(floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        if(player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
+                        PlayerAttackPre(player, floor.Peek()[selectedTarget]);
+                        if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
+                            PlayerAttackPost(player, floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
                             //Resets selected button for next round of combat

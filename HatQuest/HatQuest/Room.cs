@@ -11,6 +11,9 @@ using HatQuest.Hats;
 
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Room
     {
         //Fields

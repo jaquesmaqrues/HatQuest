@@ -14,6 +14,9 @@ using HatQuest.Init;
 
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Enemy : Entity
     {
         /// <summary>

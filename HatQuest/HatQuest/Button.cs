@@ -10,6 +10,9 @@ using HatQuest.Init;
 
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Button
     {
         //Fields
@@ -53,6 +56,11 @@ namespace HatQuest
         {
             get { return clicked; }
             set { clicked = value; }
+        }
+
+        public Rectangle Rect
+        {
+            get { return rect; }
         }
 
 

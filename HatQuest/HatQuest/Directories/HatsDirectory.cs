@@ -8,6 +8,9 @@ using HatQuest.Hats;
 
 namespace HatQuest.Init
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     static class HatsDirectory
     {
         public static Random random = new Random(Program.seedRandom.Next());
@@ -28,6 +31,7 @@ namespace HatQuest.Init
         public static Hat HPHAT = new Hat("Health Hat", "A hat that boosts your health", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 5);
         public static Hat DEFHAT = new Hat("Defense Hat", "A hat that boosts your defense", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 5);
         public static Hat MANAHAT = new Hat("Mana Hat", "A hat that boosts your mana", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 0, 0, 5);
+        public static Hat TESTHAT = new Hat("Super useful testing hat", "A hat that gives you the \'Attack\' ability", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, AbilitiesDirectory.ATTACK, 69);
 
         //---- Uncommon Hats ----//
         private const float UNCOMMON_RARITY = 0.5f;

@@ -15,6 +15,9 @@ using HatQuest.Hats;
 
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Player : Entity
     {
         private int currentMP;
