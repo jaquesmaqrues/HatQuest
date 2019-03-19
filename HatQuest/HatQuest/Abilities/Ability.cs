@@ -7,12 +7,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-/* Iain Davis
- * The Abstract Ability class which every ability will inherit from
- * There are no known issues */
-
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah, Iain
+    /// </summary>
     abstract class Ability
     {
         protected int manaCost;

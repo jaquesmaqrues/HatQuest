@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class EnemyType
     {
         //Fields

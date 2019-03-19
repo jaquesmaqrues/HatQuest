@@ -8,12 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Hats;
 
-/* Iain Davis
- * This is the Base Entity class that the player and enemies are children of
- * There are no known issues */
-
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah, Iain
+    /// </summary>
     class Entity
     {
         //Fields

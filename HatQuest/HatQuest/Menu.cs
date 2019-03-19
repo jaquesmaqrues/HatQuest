@@ -10,6 +10,9 @@ using HatQuest.Init;
 
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Menu
     {
         private Texture2D image;

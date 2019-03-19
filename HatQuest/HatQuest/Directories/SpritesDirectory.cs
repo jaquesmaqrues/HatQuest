@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HatQuest.Init
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     static class SpritesDirectory
     {
         public static Dictionary<string, Texture2D> spriteDirectory;

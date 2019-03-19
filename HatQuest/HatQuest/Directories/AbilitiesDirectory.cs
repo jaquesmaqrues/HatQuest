@@ -7,6 +7,9 @@ using HatQuest.Abilities;
 
 namespace HatQuest.Init
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     static class AbilitiesDirectory
     {
         //This is where we could store a list of all abilities so  they only have to be made once and all entities

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace HatQuest
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class RoomLayout
     {
         //Fields

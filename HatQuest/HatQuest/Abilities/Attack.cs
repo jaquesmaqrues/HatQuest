@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace HatQuest.Abilities
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Attack: Ability
     {
         /// <summary>
