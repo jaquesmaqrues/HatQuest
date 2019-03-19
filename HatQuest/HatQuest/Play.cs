@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
 using HatQuest.Hats;
+using HatQuest.Directories;
 
 namespace HatQuest
 {
@@ -39,6 +40,11 @@ namespace HatQuest
         private Button[] abilityButton;
         private Button lastClicked;
         private Button currentClicked;
+
+        //Animation
+        private double fps;
+        private double timePerFrame;
+        private Animations animation;
 
         public Play()
         {
@@ -101,6 +107,12 @@ namespace HatQuest
             abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
             abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
             abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
+
+            //Animation
+            fps = 10.0;
+            timePerFrame = 1.0 / fps;
+
+            animation = new Animations(fps, timePerFrame);
         }   
 
         /// <summary>
@@ -144,10 +156,14 @@ namespace HatQuest
                         abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
                         abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
                         abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+
+                        
+                        animation.SetSprite(AnimationsDirectory.getAnimation("Mario"), player.Position, 3, 116, 72, 44);
                     }
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
+                    animation.UpdateAnimation(time);
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
@@ -312,50 +328,55 @@ namespace HatQuest
                                         (int)(SpritesDirectory.height * 14 / 64)),//0.19793
                             Color.White);
 
+            //Cry Button
+            cryButton.Draw(batch);
+            //Defend Button
+            defendButton.Draw(batch);
+            //Ability 1 Button
+            abilityButton[0].Draw(batch);
+            //Ability 2 Button
+            abilityButton[1].Draw(batch);
+            //Ability 3 Button
+            abilityButton[2].Draw(batch);
+            //Ability 4 Button
+            abilityButton[3].Draw(batch);
 
 
             //Draw based on the PlayState
             switch (state)
             {
                 case PlayState.PlayerInput:
-                case PlayState.PlayerAttack:
-                case PlayState.EnemyTurn:
-                    //Cry Button
-                    cryButton.Draw(batch);
-                    //Defend Button
-                    defendButton.Draw(batch);
-                    //Ability 1 Button
-                    abilityButton[0].Draw(batch);
-                    //Ability 2 Button
-                    abilityButton[1].Draw(batch);
-                    //Ability 3 Button
-                    abilityButton[2].Draw(batch);
-                    //Ability 4 Button
-                    abilityButton[3].Draw(batch);
-
-
-
                     //Draw stats of enemy being hovered over
                     for (int k = 4; k > -1; k--)
                     {
                         if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
                         {
                             //Background
-                            batch.Draw(SpritesDirectory.GetSprite("Button"), 
-                                       new Rectangle(670, 10, 120, 70), 
+                            batch.Draw(SpritesDirectory.GetSprite("Button"),
+                                       new Rectangle(670, 10, 120, 70),
                                        Color.White);
                             //Name
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                                             string.Format("{0} {1}", floor.Peek()[k].Name, k + 1), 
-                                             new Vector2(685, 15), 
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"),
+                                             string.Format("{0} {1}", floor.Peek()[k].Name, k + 1),
+                                             new Vector2(685, 15),
                                              new Color(1f, 1 / floorLevel, 1 / floorLevel));
                             //Name
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                                             string.Format("HP: {0}", floor.Peek()[k].Health), 
+                            batch.DrawString(SpritesDirectory.GetFont("Arial"),
+                                             string.Format("HP: {0}", floor.Peek()[k].Health),
                                              new Vector2(685, 35), Color.White);
                             break;
                         }
                     }
+                    break;
+                case PlayState.PlayerAttack:
+                    animation.DrawAttack(batch);
+                    break;
+                case PlayState.EnemyTurn:
+
+
+
+
+                    
 
                     break;
                 case PlayState.CombatEnd:

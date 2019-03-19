@@ -51,7 +51,7 @@
 /processorParam:TextureFormat=Color
 /build:Main_Character_Color.png
 
-#begin Sprites/Button Background.png
+#begin Mario.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -61,7 +61,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Button Background.png
+/build:Mario.png
 
 #begin Sprites/Button Background.png
 /importer:TextureImporter

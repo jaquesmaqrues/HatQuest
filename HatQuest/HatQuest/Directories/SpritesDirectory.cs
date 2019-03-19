@@ -28,6 +28,9 @@ namespace HatQuest.Init
             spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
             spriteDirectory.Add("Hat", game.Content.Load<Texture2D>("Sprites/SuperFancyHat"));
 
+            //Animation Sprite Sheets
+            spriteDirectory.Add("MarioTest", game.Content.Load<Texture2D>("Mario"));
+
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();
             fontDirectory.Add("Arial", game.Content.Load<SpriteFont>("File"));
