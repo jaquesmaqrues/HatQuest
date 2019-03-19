@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace HatQuest.Init
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     static class EnemiesDirectory
     {
         //Static random object for enemies to use

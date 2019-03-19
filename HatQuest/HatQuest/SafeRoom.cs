@@ -10,8 +10,9 @@ using HatQuest.Init;
 
 namespace HatQuest
 {
-    //Created by Elijah I guess???
-    //Doesn't do much yet tho
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class SafeRoom
     {
         //FIelds

@@ -8,6 +8,9 @@ using System.IO;
 
 namespace HatQuest.Init
 {
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class RoomsDirectory
     {
         private static Random random = new Random(Program.seedRandom.Next());

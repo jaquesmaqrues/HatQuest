@@ -12,6 +12,9 @@ namespace HatQuest.Hats
 {
     enum HatRarity { Common, Uncommon, Rare, Epic, Developer };
 
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Hat
     {
         //Fields

@@ -13,6 +13,9 @@ namespace HatQuest
 {
     enum PlayState { PlayerInput, PlayerAttack, EnemyTurn, SafeRoom, CombatEnd }
 
+    /// <summary>
+    /// Elijah
+    /// </summary>
     class Play
     {
         //Fields
@@ -40,6 +43,14 @@ namespace HatQuest
         private Button newAbilityButton;
         private Button lastClicked;
         private Button currentClicked;
+
+        //Events
+        public delegate void CombatEvent(Player player, Entity target);
+        public event CombatEvent PlayerTurnStart;
+        public event CombatEvent PlayerAttackPre;
+        public event CombatEvent PlayerAttackPost;
+        public event CombatEvent PlayerTurnEnd;
+
 
         public Play()
         {

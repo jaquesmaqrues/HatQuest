@@ -50,7 +50,6 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyType.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="Events.cs" />
     <Compile Include="HatGame.cs" />
     <Compile Include="Hats\BucketHat.cs" />
     <Compile Include="Hats\Hat.cs" />
