@@ -55,6 +55,11 @@ namespace HatQuest
             set { clicked = value; }
         }
 
+        public Rectangle Rect
+        {
+            get { return rect; }
+        }
+
 
         /// <summary>
         /// Constructor

@@ -43,6 +43,32 @@ namespace HatQuest.Hats
         }
 
         /// <summary>
+        /// Checks if this has gives the wearer a new ability
+        /// </summary>
+        public bool HasAbility
+        {
+            get
+            {
+                if(ability != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public Ability Ability
+        {
+            get
+            {
+                return ability;
+            }
+        }
+        
+        /// <summary>
         /// Hats modify the stats of the Entity it's equipped to, but you must call the Equip method to actually apply
         /// the modifications
         /// </summary>
@@ -75,11 +101,32 @@ namespace HatQuest.Hats
                 ((Player)entity).MaxMP += maxMana;
                 ((Player)entity).CurrentMP += maxMana;
             }
+            else
+            {
+                if(ability != null)
+                {
+                    entity.Abilities.Add(ability);
+                }
+            }
             entity.MaxHealth += maxHealth;
             entity.Health += maxHealth;
             entity.Def += def;
             entity.Atk += atk;
             entity.Hats.Add(this);
+        }
+
+        /// <summary>
+        /// Used to equip hats to the player that give abilities
+        /// </summary>
+        /// <param name="player">Player</param>
+        /// <param name="index">Index in the player's list of abilities too put the new ability in</param>
+        public virtual void Equip(Player player, int index)
+        {
+            if(ability != null)
+            {
+                player.Abilities[index] = ability;
+            }
+            Equip(player);
         }
 
         /// <summary>
