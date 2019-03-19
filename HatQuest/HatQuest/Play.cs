@@ -166,12 +166,15 @@ namespace HatQuest
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
+                    PlayerTurnEnd(player, null);
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
+                        PlayerTurnStart(player, null);
+
                         //Reveal buttons
                         cryButton.IsVisible = cryButton.IsActive = true;
                         defendButton.IsVisible = defendButton.IsActive = true;
@@ -590,8 +593,10 @@ namespace HatQuest
                 {
                     if(floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        if(player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
+                        PlayerAttackPre(player, floor.Peek()[selectedTarget]);
+                        if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
+                            PlayerAttackPost(player, floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
                             //Resets selected button for next round of combat
