@@ -70,6 +70,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="RoomLayout.cs" />
     <Compile Include="SafeRoom.cs" />
+    <Compile Include="TextBox.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
