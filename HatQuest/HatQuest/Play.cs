@@ -42,11 +42,11 @@ namespace HatQuest
         private TextBox description;
 
         //Events
-        public delegate void CombatEvent(Entity attacker, Entity defender);
-        public event CombatEvent PlayerTurnStart;
-        public event CombatEvent PlayerAttackPre;
-        public event CombatEvent PlayerAttackPost;
-        public event CombatEvent PlayerTurnEnd;
+        public delegate void CombatDelegate(Entity attacker, Entity defender);
+        public event CombatDelegate PlayerTurnStart;
+        public event CombatDelegate PlayerAttackPre;
+        public event CombatDelegate PlayerAttackPost;
+        public event CombatDelegate PlayerTurnEnd;
 
         //Animation
         private double fps;
