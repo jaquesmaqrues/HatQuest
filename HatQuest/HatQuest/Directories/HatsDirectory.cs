@@ -23,7 +23,7 @@ namespace HatQuest.Init
         //1 - Uncommon
         //2 - Rare
         //3 - Epic
-        private static int[] hatQuantities = new int[4];
+        private static int[] hatQuantities = new int[3];
 
         //---- Common Hats ----//
         private const float COMMON_RARITY = 0.8f;
@@ -36,11 +36,14 @@ namespace HatQuest.Init
         //---- Uncommon Hats ----//
         private const float UNCOMMON_RARITY = 0.5f;
 
-        //---- Rare Hats ----//
-        private const float RARE_RARITY = 0.25f;
-
+        public static Hat VAMPIREHAT = new Hat("Vampire Hat", "A hat that allows you to take on the power of a vampire and drain the life of your enemies", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.LIFESIPHON, 0, 0, 0, 5);
+        public static Hat TOASTERHAT = new Hat("Toaster Hat", "A hat that allows you to tap into unrelenting fury of a toaster", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.BERSERK, 5, 0, 0, 0);
+        public static Hat CUTLERYHAT = new Hat("Cutlery Hat", "A hat that allows you to utilise the dexterity of the fork-gnomes", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.QUICKATTACK, 0, 0, 0, 5);
+        public static Hat ALIENHAT = new Hat("Alien Hat", "A hat that allows you to call upon the power of THE CLAAAAAAWWWWW", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.ABDUCT, 0, 0, 5, 0);
+        
         //---- Epic Hats ----//
         private const float EPIC_RARITY = 1.0f;
+
         public static Hat BUCKETHAT = new BucketHat(SpritesDirectory.GetSprite("Hat"));
 
         //---- Developer Hats ----//
@@ -76,11 +79,8 @@ namespace HatQuest.Init
                     case HatRarity.Uncommon:
                         hatQuantities[1]++;
                         break;
-                    case HatRarity.Rare:
-                        hatQuantities[2]++;
-                        break;
                     case HatRarity.Epic:
-                        hatQuantities[3]++;
+                        hatQuantities[2]++;
                         break;
                 }
             }
@@ -101,15 +101,14 @@ namespace HatQuest.Init
             floorLevel = Math.Pow(1.5, floorLevel-1);
 
             //Checks for hat drops of each rarity
-            for(int r = 0; r < 4; r++)
+            for(int r = 0; r < 3; r++)
             {
                 //Sets the rarity for this iteration
                 switch(r)
                 {
                     case 0: rarityValue = Math.Pow(COMMON_RARITY, floorLevel); break;
                     case 1: rarityValue = Math.Pow(UNCOMMON_RARITY, floorLevel); break;
-                    case 2: rarityValue = Math.Pow(RARE_RARITY, floorLevel); break;
-                    case 3: rarityValue = Math.Pow(EPIC_RARITY, floorLevel); break;
+                    case 2: rarityValue = Math.Pow(EPIC_RARITY, floorLevel); break;
                 }
 
                 //Checks if the player rolled a higher rarity
