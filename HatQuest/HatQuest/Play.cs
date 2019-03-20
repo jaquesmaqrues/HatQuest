@@ -46,7 +46,7 @@ namespace HatQuest
         private Button currentClicked;
 
         //Events
-        public delegate void CombatEvent(Player player, Entity target);
+        public delegate void CombatEvent(Entity attacker, Entity defender);
         public event CombatEvent PlayerTurnStart;
         public event CombatEvent PlayerAttackPre;
         public event CombatEvent PlayerAttackPost;
@@ -182,14 +182,14 @@ namespace HatQuest
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
-                    PlayerTurnEnd(player, null);
+                    //PlayerTurnEnd(player, null);
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        PlayerTurnStart(player, null);
+                       // PlayerTurnStart(player, null);
 
                         //Reveal buttons
                         cryButton.IsVisible = cryButton.IsActive = true;
@@ -614,10 +614,10 @@ namespace HatQuest
                 {
                     if(floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        PlayerAttackPre(player, floor.Peek()[selectedTarget]);
+                        //PlayerAttackPre(player, floor.Peek()[selectedTarget]);
                         if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
-                            PlayerAttackPost(player, floor.Peek()[selectedTarget]);
+                            //PlayerAttackPost(player, floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
                             //Resets selected button for next round of combat
