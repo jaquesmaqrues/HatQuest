@@ -117,14 +117,14 @@ namespace HatQuest
             abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton[4] = new Button(player.Abilities[4].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton[5] = new Button(player.Abilities[5].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"));
+            abilityButton[4] = new Button(player.Abilities[4].Name, defendRect, SpritesDirectory.GetFont("Arial40"));
+            abilityButton[5] = new Button(player.Abilities[5].Name, cryRect, SpritesDirectory.GetFont("Arial40"));
             newAbilityButton = new Button("null", newAbilityRect, SpritesDirectory.GetFont("Arial40"));
 
-            abilityButton[0].IsActive = abilityButton[0].IsVisible = true;
-            abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
-            abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
-            abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
+            foreach (Button ab in abilityButton)
+            {
+                ab.IsActive = ab.IsVisible = true;
+            }
 
             //Animation
             fps = 10.0;
@@ -171,12 +171,10 @@ namespace HatQuest
                     if(state == PlayState.PlayerAttack)
                     {
                         //Hide buttons
-                        cryButton.IsVisible = cryButton.IsActive = false;
-                        defendButton.IsVisible = defendButton.IsActive = false;
-                        abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
-                        abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
-                        abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
-                        abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+                        foreach (Button ab in abilityButton)
+                        {
+                            ab.IsActive = ab.IsVisible = false;
+                        }
 
                         
                         animation.SetSprite(AnimationsDirectory.getAnimation("Mario"), player.Position, 3, 116, 72, 44);
@@ -185,7 +183,7 @@ namespace HatQuest
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
-                    PlayerTurnEnd(player, null);
+                    //PlayerTurnEnd(player, null);
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
@@ -401,23 +399,11 @@ namespace HatQuest
                                         (int)(SpritesDirectory.height * 14 / 64)),//0.19793
                             Color.White);
 
-            //Cry Button
-            cryButton.Draw(batch);
-            //Defend Button
-            defendButton.Draw(batch);
-            //Ability 1 Button
-            abilityButton[0].Draw(batch);
-            //Ability 2 Button
-            abilityButton[1].Draw(batch);
-            //Ability 3 Button
-            abilityButton[2].Draw(batch);
-            //Ability 4 Button
-            abilityButton[3].Draw(batch);
+            foreach (Button ab in abilityButton)
+            {
+                ab.Draw(batch);
+            }
 
-                    foreach(Button ab in abilityButton)
-                    {
-                        ab.Draw(batch);
-                    }
 
             //Draw based on the PlayState
             switch (state)
@@ -449,12 +435,6 @@ namespace HatQuest
                     animation.DrawAttack(batch);
                     break;
                 case PlayState.EnemyTurn:
-
-
-
-
-                    
-
                     break;
                 case PlayState.CombatEnd:
                     //If the player won the combat
