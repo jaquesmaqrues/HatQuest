@@ -44,7 +44,7 @@ namespace HatQuest
         private Button currentClicked;
 
         //Events
-        public delegate void CombatEvent(Player player, Entity target);
+        public delegate void CombatEvent(Entity attacker, Entity defender);
         public event CombatEvent PlayerTurnStart;
         public event CombatEvent PlayerAttackPre;
         public event CombatEvent PlayerAttackPost;
@@ -190,7 +190,7 @@ namespace HatQuest
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        //PlayerTurnStart(player, null);
+                       // PlayerTurnStart(player, null);
 
                         //Reveal buttons
                         foreach (Button ab in abilityButton)
