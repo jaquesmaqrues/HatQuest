@@ -124,8 +124,8 @@ namespace HatQuest
             }
 
             //Textbox
-            Rectangle textBox = new Rectangle(200, 10, 600, 70);
-            description = new TextBox(null, textBox, SpritesDirectory.GetFont("Arial40"));
+            Rectangle textBox = new Rectangle(200, 10, 400, 100);
+            description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial40"));
 
             //Animation
             fps = 10.0;
@@ -164,12 +164,14 @@ namespace HatQuest
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
 
+            /*
             //Checking if button or hat is hovered over
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 6; i++)
             {
                 if (abilityButton[i].IsHovered())
                 {
-                    //description.Text = player.Abilities[i].Description;
+                    Console.WriteLine(abilityButton[i].Text);
+                    description.Text = player.Abilities[i].Description;
                     description.IsVisible = true;
                 }
                 else
@@ -177,7 +179,7 @@ namespace HatQuest
                     description.IsVisible = false;
                 }
             }
-
+            */
             
 
             //Update the gameplay based on the current state and inputs
@@ -421,8 +423,10 @@ namespace HatQuest
             }
 
             //Draw textbox
-            
-
+            if (description.IsVisible)
+            {
+                description.Draw(batch);
+            }
 
             //Draw based on the PlayState
             switch (state)
