@@ -66,6 +66,7 @@ namespace HatQuest
             selectedAbility = -1;
             selectedTarget = -1;
 
+
             //Buttons
             Rectangle cryRect = new Rectangle((int)(SpritesDirectory.width * .75), 
                                               (int)(SpritesDirectory.height * .833), 
@@ -104,22 +105,26 @@ namespace HatQuest
                                                      (int)(SpritesDirectory.width * .1875),
                                                      (int)(SpritesDirectory.height * .1042));
 
-            cryButton = new Button("Cry", cryRect, SpritesDirectory.GetFont("Arial40"));
-            defendButton = new Button("Defend", defendRect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton = new Button[4];
+
+            abilityButton = new Button[6];
             abilityButton[0] = new Button(player.Abilities[0].Name, ability1Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"));
             abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"));
+            abilityButton[4] = new Button(player.Abilities[4].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"));
+            abilityButton[5] = new Button(player.Abilities[5].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"));
             newAbilityButton = new Button("null", newAbilityRect, SpritesDirectory.GetFont("Arial40"));
 
-            cryButton.IsActive = cryButton.IsVisible = true;
-            defendButton.IsActive = defendButton.IsVisible = true;
             abilityButton[0].IsActive = abilityButton[0].IsVisible = true;
             abilityButton[1].IsActive = abilityButton[1].IsVisible = true;
             abilityButton[2].IsActive = abilityButton[2].IsVisible = true;
             abilityButton[3].IsActive = abilityButton[3].IsVisible = true;
-        }   
+        }
+
+        private void Play_PlayerAttackPre(Player player, Entity target)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// Sets up the play class for a new game
@@ -162,14 +167,14 @@ namespace HatQuest
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
-                    PlayerTurnEnd(player, null);
+                    //PlayerTurnEnd(player, null);
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        PlayerTurnStart(player, null);
+                        //PlayerTurnStart(player, null);
 
                         //Reveal buttons
                         foreach (Button ab in abilityButton)
@@ -188,10 +193,10 @@ namespace HatQuest
                         }
 
                         //Hide buttons
-                        cryButton.IsVisible = cryButton.IsActive = false;
-                        defendButton.IsVisible = defendButton.IsActive = false;
+                        abilityButton[4].IsVisible = abilityButton[4].IsActive = false;
+                        abilityButton[5].IsVisible = abilityButton[5].IsActive = false;
 
-                        if(droppedHat.HasAbility)
+                        if (droppedHat.HasAbility)
                         {
                             //Make and enable the ability to select the new ability
                             Rectangle newAbilityRect = new Rectangle((int)(SpritesDirectory.width * .75),
@@ -520,10 +525,10 @@ namespace HatQuest
                 {
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        PlayerAttackPre(player, floor.Peek()[selectedTarget]);
+                        //PlayerAttackPre(player, floor.Peek()[selectedTarget]);
                         if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
-                            PlayerAttackPost(player, floor.Peek()[selectedTarget]);
+                            //PlayerAttackPost(player, floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
                             //Resets selected button for next round of combat
