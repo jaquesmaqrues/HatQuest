@@ -11,7 +11,7 @@ using HatQuest.Init;
 namespace HatQuest
 {
     /// <summary>
-    /// Elijah
+    /// Elijah, Kat
     /// </summary>
     class Button
     {
@@ -148,6 +148,20 @@ namespace HatQuest
                     return true;
                 }
             }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns if the button is currently being hovered over
+        /// </summary>
+        /// <returns>True if the cursor is over the button</returns>
+        public bool IsHovered()
+        {
+            if (rect.Contains(mouse.Position))
+            {
+                return true;
+            }
+
             return false;
         }
     }

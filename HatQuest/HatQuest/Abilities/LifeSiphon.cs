@@ -8,7 +8,7 @@ namespace HatQuest.Abilities
 {
     class LifeSiphon : Ability
     {
-        public LifeSiphon() : base(3, true, "Life Siphon")
+        public LifeSiphon() : base(3, true, "Life Siphon", "An attack that drains the life of your enemies")
         {
 
         }

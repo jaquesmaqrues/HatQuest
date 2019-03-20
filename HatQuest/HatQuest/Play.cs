@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HatQuest.Directories;
+using HatQuest.Hats;
+using HatQuest.Init;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using HatQuest.Init;
-using HatQuest.Hats;
-using HatQuest.Directories;
+using System;
+using System.Collections.Generic;
 
 namespace HatQuest
 {
@@ -37,11 +34,12 @@ namespace HatQuest
         private KeyboardState keyboardCurrent;
         private KeyboardState keyboardLast;
 
-        //Buttons for the player UI
+        //Buttons and textboxes for the player UI
         private Button[] abilityButton;
         private Button newAbilityButton;
         private Button lastClicked;
         private Button currentClicked;
+        private TextBox description;
 
         //Events
         public delegate void CombatEvent(Entity attacker, Entity defender);
@@ -49,7 +47,6 @@ namespace HatQuest
         public event CombatEvent PlayerAttackPre;
         public event CombatEvent PlayerAttackPost;
         public event CombatEvent PlayerTurnEnd;
-
 
         //Animation
         private double fps;
@@ -102,6 +99,10 @@ namespace HatQuest
             newAbilityButton = new Button("null", newAbilityRect, SpritesDirectory.GetFont("Arial40"));
 
 
+            //Textbox
+            Rectangle textBox = new Rectangle(200, 10, 400, 100);
+            description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial40"));
+
             //Animation
             fps = 10.0;
             timePerFrame = 1.0 / fps;
@@ -139,6 +140,24 @@ namespace HatQuest
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
 
+            /*
+            //Checking if button or hat is hovered over
+            for (int i = 0; i < 6; i++)
+            {
+                if (abilityButton[i].IsHovered())
+                {
+                    Console.WriteLine(abilityButton[i].Text);
+                    description.Text = player.Abilities[i].Description;
+                    description.IsVisible = true;
+                }
+                else
+                {
+                    description.IsVisible = false;
+                }
+            }
+            */
+            
+
             //Update the gameplay based on the current state and inputs
             switch(state)
             {
@@ -152,7 +171,6 @@ namespace HatQuest
                             ab.IsActive = ab.IsVisible = false;
                         }
 
-                        
                         animation.SetSprite(AnimationsDirectory.getAnimation("Mario"), player.Position, 3, 116, 72, 44);
                     }
                     break;
@@ -380,6 +398,11 @@ namespace HatQuest
                 ab.Draw(batch);
             }
 
+            //Draw textbox
+            if (description.IsVisible)
+            {
+                description.Draw(batch);
+            }
 
             //Draw based on the PlayState
             switch (state)
