@@ -20,5 +20,6 @@ namespace HatQuest.Init
         public static Ability BERSERK = new Berserk();
         public static Ability CRY = new Cry();
         public static Ability DEFEND = new Defend();
+        public static Ability ABDUCT = new Abduct();
     }
 }
