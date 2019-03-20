@@ -45,6 +45,7 @@ namespace HatQuest.Init
         private const float EPIC_RARITY = 1.0f;
 
         public static Hat BUCKETHAT = new BucketHat(SpritesDirectory.GetSprite("Hat"));
+        public static Hat KNIGHTHAT = new KnightHelmet(SpritesDirectory.GetSprite("Hat"));
 
         //---- Developer Hats ----//
         public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), HatRarity.Developer, null, 5000, 5000, 5000, 5000);

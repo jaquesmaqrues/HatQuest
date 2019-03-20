@@ -10,7 +10,7 @@ using HatQuest.Init;
 
 namespace HatQuest.Hats
 {
-    enum HatRarity { Common, Uncommon, Rare, Epic, Developer };
+    enum HatRarity { Common, Uncommon, Epic, Developer };
 
     /// <summary>
     /// Elijah

@@ -9,7 +9,7 @@ namespace HatQuest.Abilities
     class Abduct : Ability
     {
         Random r;
-        public Abduct() : base(10, true, "Abduct")
+        public Abduct() : base(10, true, "Abduct", "You have a small chance to abduct an enemy, leaving them with 1 health")
         {
             r = new Random(30);
         }
