@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
+using HatQuest.Directories;
 
 namespace HatQuest
 {
@@ -59,6 +60,7 @@ namespace HatQuest
 
             // TODO: use this.Content to load your game content here
             SpritesDirectory.Init(this);
+            AnimationsDirectory.animations(this);
             PostInitialize();
         }
 

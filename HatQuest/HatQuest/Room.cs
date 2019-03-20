@@ -12,7 +12,7 @@ using HatQuest.Hats;
 namespace HatQuest
 {
     /// <summary>
-    /// Elijah
+    /// Elijah, Kat
     /// </summary>
     class Room
     {

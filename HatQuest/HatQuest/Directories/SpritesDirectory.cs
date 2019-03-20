@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 namespace HatQuest.Init
 {
     /// <summary>
-    /// Elijah
+    /// Elijah, Kat
     /// </summary>
     static class SpritesDirectory
     {
@@ -30,6 +30,9 @@ namespace HatQuest.Init
             spriteDirectory.Add("CombatBackground", game.Content.Load<Texture2D>("Sprites/Combat_Background"));
             spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
             spriteDirectory.Add("Hat", game.Content.Load<Texture2D>("Sprites/SuperFancyHat"));
+
+            //Animation Sprite Sheets
+            spriteDirectory.Add("MarioTest", game.Content.Load<Texture2D>("Mario"));
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();

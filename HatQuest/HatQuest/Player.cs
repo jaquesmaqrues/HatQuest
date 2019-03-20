@@ -9,14 +9,10 @@ using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
 using HatQuest.Hats;
 
-/* Iain Davis, Elijah
- * The Player Class
- * There are no known issues */
-
 namespace HatQuest
 {
     /// <summary>
-    /// Elijah
+    /// Elijah, Iain Davis
     /// </summary>
     class Player : Entity
     {

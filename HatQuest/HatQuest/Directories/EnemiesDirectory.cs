@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HatQuest.Init
 {
     /// <summary>
-    /// Elijah
+    /// Elijah, Kat
     /// </summary>
     static class EnemiesDirectory
     {
