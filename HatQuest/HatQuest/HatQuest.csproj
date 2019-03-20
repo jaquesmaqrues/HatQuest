@@ -44,6 +44,8 @@
     <Compile Include="Abilities\Abduct.cs" />
     <Compile Include="Abilities\Attack.cs" />
     <Compile Include="Abilities\Berserk.cs" />
+    <Compile Include="Abilities\Cry.cs" />
+    <Compile Include="Abilities\Defend.cs" />
     <Compile Include="Abilities\LifeSiphon.cs" />
     <Compile Include="Abilities\QuickAttack.cs" />
     <Compile Include="Animations.cs" />

@@ -79,6 +79,8 @@ namespace HatQuest
             abilities.Add(AbilitiesDirectory.QUICKATTACK);
             abilities.Add(AbilitiesDirectory.LIFESIPHON);
             abilities.Add(AbilitiesDirectory.BERSERK);
+            abilities.Add(AbilitiesDirectory.DEFEND);
+            abilities.Add(AbilitiesDirectory.CRY);
             HatsDirectory.ATKHAT.Equip(this);
             HatsDirectory.BUCKETHAT.Equip(this);
             HatsDirectory.DEFHAT.Equip(this);
@@ -108,38 +110,12 @@ namespace HatQuest
         /// <summary>
         /// Defending adds a certain amount of MP back to your pool
         /// </summary>
-        public void Defend()
-        {
-            if(currentMP + 5 < maxMP)
-            {
-                currentMP += 5;
-            }
-            else
-            {
-                currentMP = maxMP;
-            }
-        }
+
 
         /// <summary>
         /// Does nothing unless you have the Bucket Hat equipped
         /// </summary>
-        public void Cry()
-        {
-            foreach(Hat h in hats)
-            {
-                if(h.Name == "Bucket Hat")
-                {
-                    if(currentHealth + 5 < maxHealth)
-                    {
-                        currentHealth += 5;
-                    }
-                    else
-                    {
-                        currentHealth = maxHealth;
-                    }
-                }
-            }
-        }
+
 
         /// <summary>
         /// Reset all the player data
@@ -156,6 +132,8 @@ namespace HatQuest
             abilities.Add(AbilitiesDirectory.QUICKATTACK);
             abilities.Add(AbilitiesDirectory.LIFESIPHON);
             abilities.Add(AbilitiesDirectory.BERSERK);
+            abilities.Add(AbilitiesDirectory.DEFEND);
+            abilities.Add(AbilitiesDirectory.CRY);
             hats.Clear();
             HatsDirectory.ATKHAT.Equip(this);
             HatsDirectory.BUCKETHAT.Equip(this);
