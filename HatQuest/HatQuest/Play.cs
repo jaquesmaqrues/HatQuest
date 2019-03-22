@@ -125,7 +125,7 @@ namespace HatQuest
 
             //Textbox
             Rectangle textBox = new Rectangle(200, 10, 400, 100);
-            description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial40"));
+            description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial"));
 
             //Animation
             fps = 10.0;
@@ -164,7 +164,7 @@ namespace HatQuest
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
 
-            /*
+            
             //Checking if button or hat is hovered over
             for (int i = 0; i < 6; i++)
             {
@@ -179,7 +179,7 @@ namespace HatQuest
                     description.IsVisible = false;
                 }
             }
-            */
+            
             
 
             //Update the gameplay based on the current state and inputs

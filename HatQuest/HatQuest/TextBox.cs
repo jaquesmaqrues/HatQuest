@@ -85,6 +85,26 @@ namespace HatQuest
 
             textboxBack = SpritesDirectory.GetSprite("Button");
 
+            //Word Wrap
+            string[] words = text.Split(' ');
+            float stringLength = 0;
+            string wrapped = "";
+            
+            foreach (string s in words)
+            {
+                Vector2 wordSize = font.MeasureString(s);
+                
+                if ((stringLength + wordSize.X) < (rect.X + (2 * padding)))
+                {
+                    wrapped = wrapped + s + " ";
+                }
+                else
+                {
+                    wrapped = wrapped + "\n" + s + " ";
+                }
+
+            }
+
             //Calclates the scale
             Vector2 stringSize = font.MeasureString(text);
             float stringX = stringSize.X;
@@ -94,6 +114,7 @@ namespace HatQuest
             //Centers the text position
             position = new Vector2(rect.X + ((rect.Width - (stringX * scale)) * 0.5f),
                                    rect.Y + ((rect.Height - (stringY * scale)) * 0.5f));
+
 
             mouse = Mouse.GetState();
         }
