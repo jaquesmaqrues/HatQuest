@@ -43,6 +43,7 @@ namespace HatQuest
 
         //Events
         public delegate void CombatDelegate(Entity attacker, Entity defender);
+        private CombatDelegate EventHandler;
         public event CombatDelegate PlayerTurnStart;
         public event CombatDelegate PlayerAttackPre;
         public event CombatDelegate PlayerAttackPost;
@@ -171,7 +172,8 @@ namespace HatQuest
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
-                    if (PlayerTurnEnd != null)
+                    EventHandler = PlayerTurnEnd;
+                    if (EventHandler != null)
                     {
                         PlayerTurnEnd(player, null);
                     }
@@ -181,7 +183,8 @@ namespace HatQuest
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        if(PlayerTurnStart != null)
+                        EventHandler = PlayerTurnStart;
+                        if(EventHandler != null)
                         {
                             PlayerTurnStart(player, null);
                         }
@@ -539,14 +542,16 @@ namespace HatQuest
                 {
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        if(PlayerAttackPre != null)
+                        EventHandler = PlayerAttackPre;
+                        if(EventHandler != null)
                         {
                             PlayerAttackPre(player, floor.Peek()[selectedTarget]);
                         }
                         
                         if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
-                            if(PlayerAttackPost != null)
+                            EventHandler = PlayerAttackPost;
+                            if (EventHandler != null)
                             {
                                 PlayerAttackPost(player, floor.Peek()[selectedTarget]);
                             }

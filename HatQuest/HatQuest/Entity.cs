@@ -185,7 +185,8 @@ namespace HatQuest
         public void TakeDamage(int damage)
         {
             //Modify the damage through events
-            if (DamageEvent != null)
+            EntityDamageDelegate handler = DamageEvent;
+            if (handler != null)
             {
                 damage += DamageEvent(this, damage);
             }         
