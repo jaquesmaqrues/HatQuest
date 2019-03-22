@@ -85,8 +85,8 @@ namespace HatQuest
                             (int)(SpritesDirectory.width * .1875),                  //width
                             (int)(SpritesDirectory.height * .1042)),                //height
                         SpritesDirectory.GetFont("Arial40"));
-                    count++;
                     abilityButton[count].IsActive = abilityButton[count].IsVisible = true;
+                    count++;
                 }
             }
 
