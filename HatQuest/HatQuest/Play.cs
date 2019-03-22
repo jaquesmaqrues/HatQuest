@@ -101,7 +101,7 @@ namespace HatQuest
 
             //Textbox
             Rectangle textBox = new Rectangle(200, 10, 400, 100);
-            description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial40"));
+            description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial16"));
 
             //Animation
             fps = 10.0;
@@ -140,7 +140,7 @@ namespace HatQuest
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
 
-
+            
             //Checking if button or hat is hovered over
 
             bool valid = true;

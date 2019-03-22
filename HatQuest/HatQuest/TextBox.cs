@@ -25,6 +25,8 @@ namespace HatQuest
         private MouseState mousePrev;
         private float scale;
         private int padding;
+        private string wrapped;
+        private string line;
 
         //Value not changed from the default
         private Vector2 origin;
@@ -46,7 +48,7 @@ namespace HatQuest
         public string Text
         {
             get { return text; }
-            set { text = value; }
+            set { text = WordWrap(value); }
         }
 
         /// <summary>
@@ -57,7 +59,9 @@ namespace HatQuest
             get { return rect; }
         }
 
-
+        /// <summary>
+        /// Gets and sets the font of the text
+        /// </summary>
         public SpriteFont Font
         {
             get { return font; }
@@ -85,20 +89,53 @@ namespace HatQuest
 
             textboxBack = SpritesDirectory.GetSprite("Button");
 
-            //Calclates the scale
-            Vector2 stringSize = font.MeasureString(text);
-            float stringX = stringSize.X;
-            float stringY = stringSize.Y;
-            scale = Math.Min((rect.Height - (2 * padding)) / stringY, (rect.Width - (2 * padding)) / stringX);
+            //Word Wrap
+            string[] words = text.Split(' ');
+            Vector2 stringLength = new Vector2(0);
+            wrapped = "";
 
             //Centers the text position
-            position = new Vector2(rect.X + ((rect.Width - (stringX * scale)) * 0.5f),
-                                   rect.Y + ((rect.Height - (stringY * scale)) * 0.5f));
+            position = new Vector2(rect.X + 15, rect.Y + 15);
 
             mouse = Mouse.GetState();
         }
 
         //---------METHODS---------
+
+        /// <summary>
+        /// Calculates word wrap on entered string for textbox
+        /// </summary>
+        /// <param name="text">String to word wrap</param>
+        /// <returns>Word wrapped string</returns>
+        public string WordWrap(string text)
+        {
+            string[] words = text.Split(' ');
+            Vector2 stringLength = new Vector2(0);
+            Vector2 lineLength = new Vector2(0);
+            wrapped = "";
+            line = "";
+
+            foreach (string s in words)
+            {
+                Vector2 wordSize = font.MeasureString(" " + s);
+
+                if ((lineLength.X + wordSize.X) < ((rect.Width - 15) - (padding)))
+                {
+                    line = line + s + " ";
+                    lineLength.X = font.MeasureString(line).X;
+                }
+                else
+                {
+                    wrapped = wrapped + line + "\n";
+                    line = s + " ";
+                    lineLength.X = 0;
+                }
+            }
+
+            wrapped = wrapped + line;
+
+            return wrapped;
+        }
 
         /// <summary>
         /// Draws the button
@@ -108,8 +145,9 @@ namespace HatQuest
         {
             if (visible)
             {
+                Console.WriteLine(text);
                 batch.Draw(textboxBack, rect, Color.White);
-                batch.DrawString(font, text, position, Color.Black, 0, origin, scale, 0, 1);
+                batch.DrawString(font, text, position, Color.Black);
             }
         }
     }
