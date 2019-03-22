@@ -79,7 +79,7 @@ namespace HatQuest.Init
             {
                 Console.WriteLine(ex.Message);
                 layouts.Clear();
-                layouts.Add(new EnemyType[] { EnemiesDirectory.GOBLIN, EnemiesDirectory.GOBLIN, EnemiesDirectory.GOBLIN, EnemiesDirectory.GOBLIN, EnemiesDirectory.FORKGNOME, });
+                layouts.Add(new EnemyType[] { EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM() });
             }
             finally
             {
