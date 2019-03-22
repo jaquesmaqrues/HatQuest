@@ -80,6 +80,7 @@ namespace HatQuest
         {
             RoomsDirectory.ReadRooms("temp");
             HatsDirectory.SetUp();
+            EnemiesDirectory.SetUp();
             menu = new Menu();
             play = new Play();
             
