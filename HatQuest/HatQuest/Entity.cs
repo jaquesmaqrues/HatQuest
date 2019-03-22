@@ -185,7 +185,10 @@ namespace HatQuest
         public void TakeDamage(int damage)
         {
             //Modify the damage through events
-            damage += DamageEvent(this, damage);
+            if (DamageEvent != null)
+            {
+                damage += DamageEvent(this, damage);
+            }         
 
             if (damage - def > 0)
             {

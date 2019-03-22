@@ -110,11 +110,6 @@ namespace HatQuest
             animation = new Animations(fps, timePerFrame);
         }   
 
-        private void Play_PlayerAttackPre(Player player, Entity target)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Sets up the play class for a new game
         /// </summary>
@@ -184,7 +179,10 @@ namespace HatQuest
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        //PlayerTurnStart(player, null);
+                        if(PlayerTurnStart != null)
+                        {
+                            PlayerTurnStart(player, null);
+                        }
 
                         //Reveal buttons
                         foreach (Button ab in abilityButton)
@@ -539,7 +537,11 @@ namespace HatQuest
                 {
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        //PlayerAttackPre(player, floor.Peek()[selectedTarget]);
+                        if(PlayerAttackPre != null)
+                        {
+                            PlayerAttackPre(player, floor.Peek()[selectedTarget]);
+                        }
+                        
                         if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
                             //PlayerAttackPost(player, floor.Peek()[selectedTarget]);
