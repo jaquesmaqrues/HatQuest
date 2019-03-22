@@ -55,10 +55,10 @@ namespace HatQuest
 
         public Play()
         {
-            player = new Player(SpritesDirectory.GetSprite("Elion"), 
-                                new Point((int)(SpritesDirectory.width * .125), 
-                                          (int)(SpritesDirectory.height * .3125)), 
-                                          (int)(SpritesDirectory.width * .125), 
+            player = new Player(SpritesDirectory.GetSprite("Elion"),
+                                new Point((int)(SpritesDirectory.width * .125),
+                                          (int)(SpritesDirectory.height * .3125)),
+                                          (int)(SpritesDirectory.width * .125),
                                           (int)(SpritesDirectory.height * .4167));
 
             floor = new Queue<Room>();
@@ -80,7 +80,7 @@ namespace HatQuest
                     abilityButton[count] = new Button(
                         player.Abilities[count].Name,
                         new Rectangle(
-                            (int)(SpritesDirectory.width * (.08 + .23 * Math.Pow(x , 1.5))),      //x
+                            (int)(SpritesDirectory.width * (.08 + .23 * Math.Pow(x, 1.5))),      //x
                             (int)(SpritesDirectory.height * (.75 + (y * .13))),     //y
                             (int)(SpritesDirectory.width * .1875),                  //width
                             (int)(SpritesDirectory.height * .1042)),                //height
@@ -108,7 +108,7 @@ namespace HatQuest
             timePerFrame = 1.0 / fps;
 
             animation = new Animations(fps, timePerFrame);
-        }   
+        }
 
         private void Play_PlayerAttackPre(Player player, Entity target)
         {
@@ -140,23 +140,22 @@ namespace HatQuest
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
 
-            /*
+
             //Checking if button or hat is hovered over
-            for (int i = 0; i < 6; i++)
+
+            bool valid = true;
+
+            for (int i = 0; i< 6; i++)           
             {
+                valid = false;
                 if (abilityButton[i].IsHovered())
                 {
-                    Console.WriteLine(abilityButton[i].Text);
                     description.Text = player.Abilities[i].Description;
-                    description.IsVisible = true;
-                }
-                else
-                {
-                    description.IsVisible = false;
+                    valid = true;
+                    break;
                 }
             }
-            */
-            
+            description.IsVisible = valid;
 
             //Update the gameplay based on the current state and inputs
             switch(state)
