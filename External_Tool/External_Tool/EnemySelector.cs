@@ -49,6 +49,7 @@ namespace External_Tool
                 pb.AllowDrop = true;
                 pb.DragEnter += pictureBoxResult_DragEnter;
                 pb.DragEnter += pictureBoxResult_DragDrop;
+                pb.MouseDown += pictureBoxResult_MouseDown;
                 pb.SizeMode = PictureBoxSizeMode.StretchImage;
             }
             //Creates the first entry in the combats list and add an option in comboBox
@@ -61,22 +62,36 @@ namespace External_Tool
         //Mousdown for source Pictureboxes 
         private void pictureBoxSource_MouseDown(object sender, EventArgs e)
         {
-            //Saves the index of the chosen pictureBox
-            currentSourceEnemy = groupBoxEnemSource.Controls.IndexOf(((PictureBox)sender));
+            MouseEventArgs me = (MouseEventArgs)e;
 
-            //Code for drag and drop
-            PictureBox temp = (PictureBox)sender;
-            Image img = temp.Image;
-            if (temp == null)
-                return;
-            if(DoDragDrop(img, DragDropEffects.Move) == DragDropEffects.Move)
-                temp.Image = temp.Image;
+
+                //Saves the index of the chosen pictureBox
+                currentSourceEnemy = groupBoxEnemSource.Controls.IndexOf(((PictureBox)sender));
+
+                //Code for drag and drop
+                PictureBox temp = (PictureBox)sender;
+                Image img = temp.Image;
+                if (temp == null)
+                    return;
+                if (DoDragDrop(img, DragDropEffects.Move) == DragDropEffects.Move)
+                    temp.Image = temp.Image;
+
+        }
+
+        private void pictureBoxResult_MouseDown(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+
+            if (me.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                ((PictureBox)sender).Image = null;
+                combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(((PictureBox)sender))] = null;
+            }
         }
 
         //Code for Drag Entering a result pictureBox
         private void pictureBoxResult_DragEnter(object sender, DragEventArgs e)
         {
-
             if (e.Data.GetDataPresent(DataFormats.Bitmap))
                 e.Effect = DragDropEffects.Move;
         }
