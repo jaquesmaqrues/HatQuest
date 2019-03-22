@@ -42,11 +42,11 @@ namespace HatQuest
         private TextBox description;
 
         //Events
-        public delegate void CombatEvent(Entity attacker, Entity defender);
-        public event CombatEvent PlayerTurnStart;
-        public event CombatEvent PlayerAttackPre;
-        public event CombatEvent PlayerAttackPost;
-        public event CombatEvent PlayerTurnEnd;
+        public delegate void CombatDelegate(Entity attacker, Entity defender);
+        public event CombatDelegate PlayerTurnStart;
+        public event CombatDelegate PlayerAttackPre;
+        public event CombatDelegate PlayerAttackPost;
+        public event CombatDelegate PlayerTurnEnd;
 
         //Animation
         private double fps;
@@ -55,10 +55,10 @@ namespace HatQuest
 
         public Play()
         {
-            player = new Player(SpritesDirectory.GetSprite("Elion"), 
-                                new Point((int)(SpritesDirectory.width * .125), 
-                                          (int)(SpritesDirectory.height * .3125)), 
-                                          (int)(SpritesDirectory.width * .125), 
+            player = new Player(SpritesDirectory.GetSprite("Elion"),
+                                new Point((int)(SpritesDirectory.width * .125),
+                                          (int)(SpritesDirectory.height * .3125)),
+                                          (int)(SpritesDirectory.width * .125),
                                           (int)(SpritesDirectory.height * .4167));
 
             floor = new Queue<Room>();
@@ -69,70 +69,46 @@ namespace HatQuest
             selectedAbility = -1;
             selectedTarget = -1;
 
-
-            //Buttons
-            Rectangle cryRect = new Rectangle((int)(SpritesDirectory.width * .75), 
-                                              (int)(SpritesDirectory.height * .833), 
-                                              (int)(SpritesDirectory.width * .1875), 
-                                              (int)(SpritesDirectory.height * .1042));
-
-            Rectangle defendRect = new Rectangle((int)(SpritesDirectory.width * .75), 
-                                                 (int)(SpritesDirectory.height * .6771), 
-                                                 (int)(SpritesDirectory.width * .1875), 
-                                                 (int)(SpritesDirectory.height * .1042));
-
-            Rectangle ability1Rect = new Rectangle((int)(SpritesDirectory.width * .0625), 
-                                                   (int)(SpritesDirectory.height * .6771), 
-                                                   (int)(SpritesDirectory.width * .1875), 
-                                                   (int)(SpritesDirectory.height * .1042));
-
-            Rectangle ability2Rect = new Rectangle((int)(SpritesDirectory.width * .375), 
-                                                   (int)(SpritesDirectory.height * .6771), 
-                                                   (int)(SpritesDirectory.width * .1875), 
-                                                   (int)(SpritesDirectory.height * .1042));
-
-            Rectangle ability3Rect = new Rectangle((int)(SpritesDirectory.width * .0625), 
-                                                   (int)(SpritesDirectory.height * .833), 
-                                                   (int)(SpritesDirectory.width * .1875), 
-                                                   (int)(SpritesDirectory.height * .1042));
-
-            Rectangle ability4Rect = new Rectangle((int)(SpritesDirectory.width * .375), 
-                                                   (int)(SpritesDirectory.height * .833), 
-                                                   (int)(SpritesDirectory.width * .1875), 
-                                                   (int)(SpritesDirectory.height * .1042));
-
-
             abilityButton = new Button[6];
+
+
+            int count = 0;
+            for (int x = 0; x < 3; x++)
+            {
+                for (int y = 0; y < 2; y++)
+                {
+                    abilityButton[count] = new Button(
+                        player.Abilities[count].Name,
+                        new Rectangle(
+                            (int)(SpritesDirectory.width * (.08 + .23 * Math.Pow(x, 1.5))),      //x
+                            (int)(SpritesDirectory.height * (.75 + (y * .13))),     //y
+                            (int)(SpritesDirectory.width * .1875),                  //width
+                            (int)(SpritesDirectory.height * .1042)),                //height
+                        SpritesDirectory.GetFont("Arial40"));
+                    abilityButton[count].IsActive = abilityButton[count].IsVisible = true;
+                    count++;
+                }
+            }
+
             Rectangle newAbilityRect = new Rectangle((int)(SpritesDirectory.width * .75),
                                                      (int)(SpritesDirectory.height * .755),
                                                      (int)(SpritesDirectory.width * .1875),
                                                      (int)(SpritesDirectory.height * .1042));
 
 
-            abilityButton = new Button[6];
-            abilityButton[0] = new Button(player.Abilities[0].Name, ability1Rect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton[1] = new Button(player.Abilities[1].Name, ability2Rect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton[2] = new Button(player.Abilities[2].Name, ability3Rect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton[3] = new Button(player.Abilities[3].Name, ability4Rect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton[4] = new Button(player.Abilities[4].Name, defendRect, SpritesDirectory.GetFont("Arial40"));
-            abilityButton[5] = new Button(player.Abilities[5].Name, cryRect, SpritesDirectory.GetFont("Arial40"));
             newAbilityButton = new Button("null", newAbilityRect, SpritesDirectory.GetFont("Arial40"));
 
-            foreach (Button ab in abilityButton)
-            {
-                ab.IsActive = ab.IsVisible = true;
-            }
 
             //Textbox
             Rectangle textBox = new Rectangle(200, 10, 400, 100);
-            description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial"));
+            description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial16"));
 
             //Animation
             fps = 10.0;
             timePerFrame = 1.0 / fps;
 
             animation = new Animations(fps, timePerFrame);
-        }   
+        }
 
         private void Play_PlayerAttackPre(Player player, Entity target)
         {
@@ -166,21 +142,20 @@ namespace HatQuest
 
             
             //Checking if button or hat is hovered over
-            for (int i = 0; i < 6; i++)
+
+            bool valid = true;
+
+            for (int i = 0; i< 6; i++)           
             {
+                valid = false;
                 if (abilityButton[i].IsHovered())
                 {
-                    Console.WriteLine(abilityButton[i].Text);
                     description.Text = player.Abilities[i].Description;
-                    description.IsVisible = true;
-                }
-                else
-                {
-                    description.IsVisible = false;
+                    valid = true;
+                    break;
                 }
             }
-            
-            
+            description.IsVisible = valid;
 
             //Update the gameplay based on the current state and inputs
             switch(state)

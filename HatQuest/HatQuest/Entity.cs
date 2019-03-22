@@ -27,6 +27,11 @@ namespace HatQuest
         protected int atk;
         protected List<Hat> hats;
 
+        //Events
+        //DamageEvents should return any changes to the damage
+        public delegate int EntityDamageDelegate(Entity defender, int damage);
+        public event EntityDamageDelegate DamageEvent;
+
         //Properties
         public bool IsActive
         {
@@ -179,6 +184,9 @@ namespace HatQuest
         /// <param name="damage">The damage provided by the ability</param>
         public void TakeDamage(int damage)
         {
+            //Modify the damage through events
+            //damage += DamageEvent(this, damage);
+
             if (damage - def > 0)
             {
                 currentHealth -= (damage - def);

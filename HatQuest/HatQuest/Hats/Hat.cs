@@ -139,7 +139,7 @@ namespace HatQuest.Hats
         public void Draw(SpriteBatch sb, Entity wearer, int hatNumber)
         {
             sb.Draw(texture, 
-                    new Rectangle(new Point(wearer.Position.Location.X, (wearer.Position.Location.Y - 50) - (50 * hatNumber)), 
+                    new Rectangle(new Point(wearer.Position.Location.X, (wearer.Position.Location.Y - 50 * wearer.Hats.Count) + (50 * hatNumber)), 
                                   new Point(100, 75)), 
                     Color.White);
         }
