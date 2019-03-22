@@ -50,19 +50,22 @@ namespace HatQuest.Init
                         switch (readerValue)
                         {
                             case 0:
-                                layouts[x][y] = EnemiesDirectory.GOBLIN;
+                                layouts[x][y] = EnemiesDirectory.RANDOM();
                                 break;
                             case 1:
-                                layouts[x][y] = EnemiesDirectory.VAMPIREBAT;
+                                layouts[x][y] = EnemiesDirectory.GOBLIN;
                                 break;
                             case 2:
-                                layouts[x][y] = EnemiesDirectory.FORKGNOME;
+                                layouts[x][y] = EnemiesDirectory.VAMPIREBAT;
                                 break;
                             case 3:
-                                layouts[x][y] = null;
+                                layouts[x][y] = EnemiesDirectory.FORKGNOME;
                                 break;
                             case 4:
-                                layouts[x][y] = null;
+                                layouts[x][y] = EnemiesDirectory.ANGRYTOASTER;
+                                break;
+                            case 5:
+                                layouts[x][y] = EnemiesDirectory.ALIEN;
                                 break;
                             default:
                                 layouts[x][y] = null;
@@ -76,7 +79,7 @@ namespace HatQuest.Init
             {
                 Console.WriteLine(ex.Message);
                 layouts.Clear();
-                layouts.Add(new EnemyType[] { EnemiesDirectory.GOBLIN, EnemiesDirectory.GOBLIN, EnemiesDirectory.GOBLIN, EnemiesDirectory.GOBLIN, EnemiesDirectory.FORKGNOME, });
+                layouts.Add(new EnemyType[] { EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM() });
             }
             finally
             {
