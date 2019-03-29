@@ -31,7 +31,8 @@ namespace HatQuest.Init
         public static Hat HPHAT = new Hat("Health Hat", "A hat that boosts your health", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 5);
         public static Hat DEFHAT = new Hat("Defense Hat", "A hat that boosts your defense", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 5);
         public static Hat MANAHAT = new Hat("Mana Hat", "A hat that boosts your mana", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 0, 0, 5);
-        public static Hat TESTHAT = new Hat("Super useful testing hat", "A hat that gives you the \'Attack\' ability", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, AbilitiesDirectory.ATTACK, 69);
+        //public static Hat EVENT_TEST = new EventTestingHat("One Hat", "A hat that makes you take one damage", SpritesDirectory.GetSprite("Hat"), HatRarity.Common);
+        //public static Hat TESTHAT = new Hat("Super useful testing hat", "A hat that gives you the \'Attack\' ability", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, AbilitiesDirectory.ATTACK, 69);
 
         //---- Uncommon Hats ----//
         private const float UNCOMMON_RARITY = 0.5f;
@@ -102,7 +103,7 @@ namespace HatQuest.Init
             floorLevel = Math.Pow(1.5, floorLevel-1);
 
             //Checks for hat drops of each rarity
-            for(int r = 0; r < 3; r++)
+            for(int r = 0; r < 2; r++)
             {
                 //Sets the rarity for this iteration
                 switch(r)

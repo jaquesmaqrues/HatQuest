@@ -22,7 +22,7 @@ namespace HatQuest.Init
         public static EnemyType FORKGNOME = new EnemyType("Fork-Gnome", SpritesDirectory.GetSprite("Goblin"), 5, 4, 2, new Ability[] { AbilitiesDirectory.QUICKATTACK, AbilitiesDirectory.ATTACK });
         public static EnemyType VAMPIREBAT = new EnemyType("Vampire Bat", SpritesDirectory.GetSprite("Goblin"), 5, 4, 1, new Ability[] { AbilitiesDirectory.ATTACK, AbilitiesDirectory.LIFESIPHON });
         public static EnemyType ANGRYTOASTER = new EnemyType("Angry Sentient Toaster", SpritesDirectory.GetSprite("Goblin"), 15, 6, 2, new Ability[] { AbilitiesDirectory.ATTACK, AbilitiesDirectory.BERSERK });
-        public static EnemyType ALIEN = new EnemyType("An Alien", SpritesDirectory.GetSprite("Goblin"), 5, 3, 0, new Ability[] { AbilitiesDirectory.ATTACK, AbilitiesDirectory.ABDUCT });
+        public static EnemyType ALIEN = new EnemyType("Alien", SpritesDirectory.GetSprite("Goblin"), 5, 3, 0, new Ability[] { AbilitiesDirectory.ATTACK, AbilitiesDirectory.ABDUCT });
 
         /// <summary>
         /// Adds all EnemyType fields in this class to a list of Hats to use in random hat selection

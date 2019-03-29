@@ -43,6 +43,7 @@ namespace HatQuest
 
         //Events
         public delegate void CombatDelegate(Entity attacker, Entity defender);
+        private CombatDelegate EventHandler;
         public event CombatDelegate PlayerTurnStart;
         public event CombatDelegate PlayerAttackPre;
         public event CombatDelegate PlayerAttackPost;
@@ -110,11 +111,6 @@ namespace HatQuest
             animation = new Animations(fps, timePerFrame);
         }
 
-        private void Play_PlayerAttackPre(Player player, Entity target)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Sets up the play class for a new game
         /// </summary>
@@ -176,14 +172,22 @@ namespace HatQuest
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
-                    //PlayerTurnEnd(player, null);
+                    EventHandler = PlayerTurnEnd;
+                    if (EventHandler != null)
+                    {
+                        PlayerTurnEnd(player, null);
+                    }
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        //PlayerTurnStart(player, null);
+                        EventHandler = PlayerTurnStart;
+                        if(EventHandler != null)
+                        {
+                            PlayerTurnStart(player, null);
+                        }
 
                         //Reveal buttons
                         foreach (Button ab in abilityButton)
@@ -537,10 +541,20 @@ namespace HatQuest
                 {
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        //PlayerAttackPre(player, floor.Peek()[selectedTarget]);
+                        EventHandler = PlayerAttackPre;
+                        if(EventHandler != null)
+                        {
+                            PlayerAttackPre(player, floor.Peek()[selectedTarget]);
+                        }
+                        
                         if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
-                            //PlayerAttackPost(player, floor.Peek()[selectedTarget]);
+                            EventHandler = PlayerAttackPost;
+                            if (EventHandler != null)
+                            {
+                                PlayerAttackPost(player, floor.Peek()[selectedTarget]);
+                            }
+                            
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
                             //Resets selected button for next round of combat
