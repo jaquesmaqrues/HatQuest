@@ -509,11 +509,10 @@ namespace HatQuest
             }
             #endregion
 
-
             //Gets the player's target if the ability is targeted and activates the ability
+            #region target selection
             if (selectedAbility != -1 && player.Abilities[selectedAbility].IsTargeted)
             {
-                #region target selection
                 if (mouseCurrent.LeftButton == ButtonState.Pressed)
                 {
                     //Checks for enemies in reverse order since the later enemies are drawn on top of the previous ones
@@ -530,9 +529,9 @@ namespace HatQuest
             #endregion
 
             //Attempt to activate the ability
+            #region ability activation
             if (selectedAbility != -1 && player.Abilities[selectedAbility] != null)
             {
-                #region ability activation
                 //For targeted abilities
                 if (player.Abilities[selectedAbility].IsTargeted)
                 {
@@ -564,8 +563,8 @@ namespace HatQuest
                     lastClicked = null;
                     return PlayState.PlayerAttack;
                 }
-                #endregion
             }
+            #endregion
 
             //This return will only be reached if an ability could not be activated
             return PlayState.PlayerInput;

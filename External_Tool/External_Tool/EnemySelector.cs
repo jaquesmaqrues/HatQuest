@@ -17,7 +17,7 @@ namespace External_Tool
     {
 
         List<Combat> combats;//List of combats
-        int numSourceEnemies = 5;//Number of pictureBoxes in the top row, easy to add more by increasing int value
+        int numSourceEnemies = 7;//Number of pictureBoxes in the top row, easy to add more by increasing int value
         PictureBox currentEnemy;//Picturebox that the user clicked on in the groupboxResultEnemy
         int currentSourceEnemy;//Int value for the source pictureBox each picturebox has an int value used for enemyNum in each enemy
         int numResultEnemies;//Number of pictureboxes in the groupboxResultEnemy
@@ -33,9 +33,10 @@ namespace External_Tool
             for(int x = 0; x<numSourceEnemies; x++)
             {
                 groupBoxEnemSource.Controls.Add(new PictureBox());
+                groupBoxEnemSource.Controls[x].BackColor = Color.Black;
                 groupBoxEnemSource.Controls[x].Size = new Size(100, 100);
                 //Spaces the pictureboxes equally 
-                groupBoxEnemSource.Controls[x].Location = new Point((groupBoxEnemSource.Size.Width/numSourceEnemies * x) + 6, 19);
+                groupBoxEnemSource.Controls[x].Location = new Point(groupBoxEnemSource.Size.Width/5 *x + 6, 19);
                 groupBoxEnemSource.Controls[x].MouseDown += pictureBoxSource_MouseDown;
                 //Gets the image from the resources folder
                 ((PictureBox)groupBoxEnemSource.Controls[x]).Image = (Image)Properties.Resources.ResourceManager.GetObject("monster" + x);
@@ -57,6 +58,9 @@ namespace External_Tool
             comboBoxCombats.Items.Add("Combat 0");
             comboBoxCombats.Text = "Combat 0";
             comboBoxCombats.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            hScrollBar.Maximum = numSourceEnemies * 20;
+            hScrollBar.LargeChange = 10;
         }
 
         //Mousdown for source Pictureboxes 
@@ -292,6 +296,29 @@ namespace External_Tool
                     }
                 }
 
+            }
+        }
+
+        private void hScrollBar_Scroll(object sender, ScrollEventArgs e)
+        {
+
+            if (e.OldValue != e.NewValue)
+            {
+                if (e.OldValue > e.NewValue)
+                {
+                    foreach (PictureBox pb in groupBoxEnemSource.Controls)
+                    {
+                        pb.Location = new Point(pb.Location.X + e.OldValue - e.NewValue, pb.Location.Y);
+                    }
+                }
+
+                else
+                {
+                    foreach (PictureBox pb in groupBoxEnemSource.Controls)
+                    {
+                        pb.Location = new Point(pb.Location.X + e.OldValue - e.NewValue, pb.Location.Y);
+                    }
+                }
             }
         }
     }
