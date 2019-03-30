@@ -32,6 +32,14 @@ namespace HatQuest
         public delegate int EntityDamageDelegate(Entity defender, int damage);
         public event EntityDamageDelegate DamageEvent;
 
+        public delegate void CombatEvent(Entity attacker, Entity defender);
+        public event CombatEvent TurnStart;
+        public event CombatEvent AttackPre;
+        public event CombatEvent AttackPost;
+        public event CombatEvent TurnEnd;
+
+
+
         //Properties
         public bool IsActive
         {

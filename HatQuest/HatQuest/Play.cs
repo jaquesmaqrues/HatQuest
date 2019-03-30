@@ -44,10 +44,6 @@ namespace HatQuest
         //Events
         public delegate void CombatDelegate(Entity attacker, Entity defender);
         private CombatDelegate EventHandler;
-        public event CombatDelegate PlayerTurnStart;
-        public event CombatDelegate PlayerAttackPre;
-        public event CombatDelegate PlayerAttackPost;
-        public event CombatDelegate PlayerTurnEnd;
 
         //Animation
         private double fps;
