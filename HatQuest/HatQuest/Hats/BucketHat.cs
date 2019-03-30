@@ -12,7 +12,7 @@ namespace HatQuest.Hats
 {
     class BucketHat : Hat
     {
-        public BucketHat(Texture2D texture) : base("Bucket Hat", "A bucket to hold your tears", texture, HatRarity.Epic, null, -5, 5)
+        public BucketHat(Texture2D texture) : base("Bucket Hat", "A bucket to hold your tears", texture, Color.White, HatRarity.Epic, null, -5, 5)
         {
 
         }

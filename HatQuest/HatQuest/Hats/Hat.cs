@@ -27,6 +27,7 @@ namespace HatQuest.Hats
         protected HatRarity rarity;
         protected Texture2D texture;
         protected Ability ability;
+        protected Color color;
 
         //Properties
         public String Name
@@ -80,7 +81,7 @@ namespace HatQuest.Hats
         /// <param name="def">Any modification to the equipped Entity's defense</param>
         /// <param name="atk">Any modification to the equipped Entity's attack</param>
         /// <param name="maxMana">If the Entity's a player, this modifies their maximum mana</param>
-        public Hat(string name, string description, Texture2D texture, HatRarity rarity, Ability ability = null, int maxHealth = 0, int def = 0, int atk = 0, int maxMana = 0)
+        public Hat(string name, string description, Texture2D texture, Color color, HatRarity rarity, Ability ability = null, int maxHealth = 0, int def = 0, int atk = 0, int maxMana = 0)
         {
             this.texture = texture;
             this.maxHealth = maxHealth;
@@ -91,6 +92,7 @@ namespace HatQuest.Hats
             this.description = description;
             this.rarity = rarity;
             this.ability = ability;
+            this.color = color;
         }
 
         /// <summary>
@@ -141,7 +143,7 @@ namespace HatQuest.Hats
             sb.Draw(texture, 
                     new Rectangle(new Point(wearer.Position.Location.X, (wearer.Position.Location.Y - 50 * wearer.Hats.Count) + (50 * hatNumber)), 
                                   new Point(100, 75)), 
-                    Color.White);
+                    color);
         }
     }
 }

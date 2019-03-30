@@ -5,6 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HatQuest.Hats;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using HatQuest.Init;
 
 namespace HatQuest.Init
 {
@@ -27,20 +31,20 @@ namespace HatQuest.Init
 
         //---- Common Hats ----//
         private const float COMMON_RARITY = 0.8f;
-        public static Hat ATKHAT = new Hat("Attack Hat", "A hat that boosts your attack", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 0, 5);
-        public static Hat HPHAT = new Hat("Health Hat", "A hat that boosts your health", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 5);
-        public static Hat DEFHAT = new Hat("Defense Hat", "A hat that boosts your defense", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 5);
-        public static Hat MANAHAT = new Hat("Mana Hat", "A hat that boosts your mana", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, null, 0, 0, 0, 5);
+        public static Hat ATKHAT = new Hat("Attack Hat", "A hat that boosts your attack", SpritesDirectory.GetSprite("Hat"), Color.Red, HatRarity.Common, null, 0, 0, 5);
+        public static Hat HPHAT = new Hat("Health Hat", "A hat that boosts your health", SpritesDirectory.GetSprite("Hat"), Color.Green, HatRarity.Common, null, 5);
+        public static Hat DEFHAT = new Hat("Defense Hat", "A hat that boosts your defense", SpritesDirectory.GetSprite("Hat"), Color.Yellow, HatRarity.Common, null, 0, 5);
+        public static Hat MANAHAT = new Hat("Mana Hat", "A hat that boosts your mana", SpritesDirectory.GetSprite("Hat"), Color.Blue, HatRarity.Common, null, 0, 0, 0, 5);
         //public static Hat EVENT_TEST = new EventTestingHat("One Hat", "A hat that makes you take one damage", SpritesDirectory.GetSprite("Hat"), HatRarity.Common);
         //public static Hat TESTHAT = new Hat("Super useful testing hat", "A hat that gives you the \'Attack\' ability", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, AbilitiesDirectory.ATTACK, 69);
 
         //---- Uncommon Hats ----//
         private const float UNCOMMON_RARITY = 0.5f;
 
-        public static Hat VAMPIREHAT = new Hat("Vampire Hat", "A hat that allows you to take on the power of a vampire and drain the life of your enemies", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.LIFESIPHON, 0, 0, 0, 5);
-        public static Hat TOASTERHAT = new Hat("Toaster Hat", "A hat that allows you to tap into unrelenting fury of a toaster", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.BERSERK, 5, 0, 0, 0);
-        public static Hat CUTLERYHAT = new Hat("Cutlery Hat", "A hat that allows you to utilise the dexterity of the fork-gnomes", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.QUICKATTACK, 0, 0, 0, 5);
-        public static Hat ALIENHAT = new Hat("Alien Hat", "A hat that allows you to call upon the power of THE CLAAAAAAWWWWW", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.ABDUCT, 0, 0, 5, 0);
+        public static Hat VAMPIREHAT = new Hat("Vampire Hat", "A hat that allows you to take on the power of a vampire and drain the life of your enemies", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Uncommon, AbilitiesDirectory.LIFESIPHON, 0, 0, 0, 5);
+        public static Hat TOASTERHAT = new Hat("Toaster Hat", "A hat that allows you to tap into unrelenting fury of a toaster", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Uncommon, AbilitiesDirectory.BERSERK, 5, 0, 0, 0);
+        public static Hat CUTLERYHAT = new Hat("Cutlery Hat", "A hat that allows you to utilise the dexterity of the fork-gnomes", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Uncommon, AbilitiesDirectory.QUICKATTACK, 0, 0, 0, 5);
+        public static Hat ALIENHAT = new Hat("Alien Hat", "A hat that allows you to call upon the power of THE CLAAAAAAWWWWW", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Uncommon, AbilitiesDirectory.ABDUCT, 0, 0, 5, 0);
         
         //---- Epic Hats ----//
         private const float EPIC_RARITY = 1.0f;
@@ -49,7 +53,7 @@ namespace HatQuest.Init
         public static Hat KNIGHTHAT = new KnightHelmet(SpritesDirectory.GetSprite("Hat"));
 
         //---- Developer Hats ----//
-        public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), HatRarity.Developer, null, 5000, 5000, 5000, 5000);
+        public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Developer, null, 5000, 5000, 5000, 5000);
         #endregion
 
         /// <summary>

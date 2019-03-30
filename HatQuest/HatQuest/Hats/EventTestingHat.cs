@@ -12,7 +12,7 @@ namespace HatQuest.Hats
     class EventTestingHat : Hat
     {
         public EventTestingHat(string name, string description, Texture2D texture, HatRarity rarity, Ability ability = null, int maxHealth = 0, int def = 0, int atk = 0, int maxMana = 0) : 
-                          base(name, description, texture, rarity, ability, maxHealth, def, atk, maxMana)
+                          base(name, description, texture, Color.White, rarity, ability, maxHealth, def, atk, maxMana)
         {
 
         }
