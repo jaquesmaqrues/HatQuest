@@ -168,23 +168,12 @@ namespace HatQuest
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
-                    EventHandler = PlayerTurnEnd;
-                    if (EventHandler != null)
-                    {
-                        PlayerTurnEnd(player, null);
-                    }
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        EventHandler = PlayerTurnStart;
-                        if(EventHandler != null)
-                        {
-                            PlayerTurnStart(player, null);
-                        }
-
                         //Reveal buttons
                         foreach (Button ab in abilityButton)
                         {
@@ -538,19 +527,9 @@ namespace HatQuest
                 {
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        EventHandler = PlayerAttackPre;
-                        if(EventHandler != null)
-                        {
-                            PlayerAttackPre(player, floor.Peek()[selectedTarget]);
-                        }
                         
                         if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
-                            EventHandler = PlayerAttackPost;
-                            if (EventHandler != null)
-                            {
-                                PlayerAttackPost(player, floor.Peek()[selectedTarget]);
-                            }
                             
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
