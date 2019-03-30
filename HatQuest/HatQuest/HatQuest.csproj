@@ -67,6 +67,7 @@
     <Compile Include="Directories\RoomsDirectory.cs" />
     <Compile Include="Directories\SpritesDirectory.cs" />
     <Compile Include="Hats\KnightHelmet.cs" />
+    <Compile Include="Hats\PoisonHat.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Play.cs" />
     <Compile Include="Player.cs" />
