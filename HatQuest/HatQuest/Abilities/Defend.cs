@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HatQuest.Init;
+using HatQuest.Effects;
 
 namespace HatQuest.Abilities
 {
@@ -26,7 +27,7 @@ namespace HatQuest.Abilities
                     ((Player)attacker).CurrentMP = ((Player)attacker).MaxMP;
                 }
             }
-            attacker.Def += attacker.Def / 3;
+            new DefendEffect(attacker, attacker.Def / 3);
         }
 
 

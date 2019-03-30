@@ -22,7 +22,7 @@ namespace HatQuest.Init
         public static EnemyType GOBLIN = new EnemyType("Goblin", SpritesDirectory.GetSprite("Goblin"), 10, 2, 5, new Ability[] { new Attack(null) }, false);
         public static EnemyType FORKGNOME = new EnemyType("Fork-Gnome", SpritesDirectory.GetSprite("Goblin"), 5, 4, 2, new Ability[] { new QuickAttack(null), new Attack(null) }, false);
         public static EnemyType VAMPIREBAT = new EnemyType("Vampire Bat", SpritesDirectory.GetSprite("Goblin"), 5, 4, 1, new Ability[] { new Attack(null), new LifeSiphon(null) }, false);
-        public static EnemyType ANGRYTOASTER = new EnemyType("Angry Sentient Toaster", SpritesDirectory.GetSprite("Goblin"), 15, 6, 2, new Ability[] { new Attack(null), new Berserk(null) }, false);
+        public static EnemyType ANGRYTOASTER = new EnemyType("Angry Toaster", SpritesDirectory.GetSprite("Goblin"), 15, 6, 2, new Ability[] { new Attack(null), new Berserk(null) }, false);
         public static EnemyType ALIEN = new EnemyType("Alien", SpritesDirectory.GetSprite("Goblin"), 5, 3, 0, new Ability[] { new Attack(null), new Abduct(null) }, false);
 
         //Boss Boi

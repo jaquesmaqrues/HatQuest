@@ -180,6 +180,7 @@ namespace HatQuest
             abilities = new List<Ability>();
             isVisible = isActive = true;
             hats = new List<Hat>();
+            effects = new List<StatusEffect>();
         }
 
         /// <summary>
