@@ -23,6 +23,7 @@ namespace HatQuest
         public int Attack { get; }
         public int Defense { get; }
         public List<Ability> Abilities { get; }
+        public bool IsBoss { get; }
 
         /// <summary>
         /// Constructor
@@ -32,7 +33,7 @@ namespace HatQuest
         /// <param name="attack">Base attack</param>
         /// <param name="defense">Base defense</param>
         /// <param name="abilities">Base abilities</param>
-        public EnemyType(string name, Texture2D sprite, int health, int attack, int defense, Ability[] abilities)
+        public EnemyType(string name, Texture2D sprite, int health, int attack, int defense, Ability[] abilities, bool isBoss)
         {
             Name = name;
             Sprite = sprite;
@@ -40,6 +41,7 @@ namespace HatQuest
             Attack = attack;
             Defense = defense;
             Abilities = abilities.ToList<Ability>();
+            IsBoss = isBoss;
         }
     }
 }
