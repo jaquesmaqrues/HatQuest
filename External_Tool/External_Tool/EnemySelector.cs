@@ -17,7 +17,7 @@ namespace External_Tool
     {
 
         List<Combat> combats;//List of combats
-        int numSourceEnemies = 7;//Number of pictureBoxes in the top row, easy to add more by increasing int value
+        int numSourceEnemies = 6;//Number of pictureBoxes in the top row, easy to add more by increasing int value
         PictureBox currentEnemy;//Picturebox that the user clicked on in the groupboxResultEnemy
         int currentSourceEnemy;//Int value for the source pictureBox each picturebox has an int value used for enemyNum in each enemy
         int numResultEnemies;//Number of pictureboxes in the groupboxResultEnemy
@@ -59,15 +59,13 @@ namespace External_Tool
             comboBoxCombats.Text = "Combat 0";
             comboBoxCombats.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            hScrollBar.Maximum = numSourceEnemies * 20;
-            hScrollBar.LargeChange = 10;
+            hScrollBar.Maximum = (numSourceEnemies - 1) * 90;
         }
 
         //Mousdown for source Pictureboxes 
         private void pictureBoxSource_MouseDown(object sender, EventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs)e;
-
 
                 //Saves the index of the chosen pictureBox
                 currentSourceEnemy = groupBoxEnemSource.Controls.IndexOf(((PictureBox)sender));
@@ -79,7 +77,6 @@ namespace External_Tool
                     return;
                 if (DoDragDrop(img, DragDropEffects.Move) == DragDropEffects.Move)
                     temp.Image = temp.Image;
-
         }
 
         private void pictureBoxResult_MouseDown(object sender, EventArgs e)
@@ -110,12 +107,9 @@ namespace External_Tool
             combats[comboBoxCombats.SelectedIndex][groupBoxEnemResult.Controls.IndexOf(((PictureBox)sender))] = new Enemy(currentSourceEnemy);//UGLY
         }
 
-        
-
         //Adds a new combat
         private void buttonAddCombat_Click(object sender, EventArgs e)
         {
-            
             combats.Add(new Combat(new Enemy[numResultEnemies]));
             comboBoxCombats.Items.Add("Combat " + comboBoxCombats.Items.Count);
             comboBoxCombats.SelectedItem = comboBoxCombats.Items[comboBoxCombats.Items.Count - 1];
@@ -239,7 +233,6 @@ namespace External_Tool
                     }
                 }
             }
-        
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -252,7 +245,6 @@ namespace External_Tool
             if (saveFileDialog.ShowDialog() == DialogResult.OK)//Checks if user clicked ok
             {
                 string fileName = saveFileDialog.FileName;
-
 
                 FileStream outStream = null;
                 BinaryWriter writer = null;
@@ -276,13 +268,10 @@ namespace External_Tool
                             {
                                 writer.Write(-1);
                             }
-                           
                         }
                     }
-
                     Text = "Combat Creator - " + Path.GetFileName(saveFileDialog.FileName);
                     MessageBox.Show("File saved successfully", "File saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 }
                 catch (Exception ex)
                 {
@@ -295,7 +284,6 @@ namespace External_Tool
                         writer.Close();
                     }
                 }
-
             }
         }
 
@@ -311,7 +299,6 @@ namespace External_Tool
                         pb.Location = new Point(pb.Location.X + e.OldValue - e.NewValue, pb.Location.Y);
                     }
                 }
-
                 else
                 {
                     foreach (PictureBox pb in groupBoxEnemSource.Controls)

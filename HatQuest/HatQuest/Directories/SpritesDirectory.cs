@@ -29,7 +29,7 @@ namespace HatQuest.Init
             spriteDirectory.Add("ButtonClicked", game.Content.Load<Texture2D>("Sprites/buttonBackground"));
             spriteDirectory.Add("CombatBackground", game.Content.Load<Texture2D>("Sprites/Combat_Background"));
             spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
-            spriteDirectory.Add("Hat", game.Content.Load<Texture2D>("Sprites/SuperFancyHat"));
+            spriteDirectory.Add("Hat", game.Content.Load<Texture2D>("Sprites/baseHat"));
             spriteDirectory.Add("BucketHat", game.Content.Load<Texture2D>("Sprites/bucketOfTears"));
             spriteDirectory.Add("AlienHat", game.Content.Load<Texture2D>("Sprites/alienHat"));
             spriteDirectory.Add("ToasterHat", game.Content.Load<Texture2D>("Sprites/toasterHat"));

@@ -31,10 +31,10 @@ namespace HatQuest.Init
 
         //---- Common Hats ----//
         private const float COMMON_RARITY = 0.8f;
-        public static Hat ATKHAT = new Hat("Attack Hat", "A hat that boosts your attack", SpritesDirectory.GetSprite("Hat"), Color.Red, HatRarity.Common, null, 0, 0, 5);
-        public static Hat HPHAT = new Hat("Health Hat", "A hat that boosts your health", SpritesDirectory.GetSprite("Hat"), Color.Green, HatRarity.Common, null, 5);
-        public static Hat DEFHAT = new Hat("Defense Hat", "A hat that boosts your defense", SpritesDirectory.GetSprite("Hat"), Color.Yellow, HatRarity.Common, null, 0, 5);
-        public static Hat MANAHAT = new Hat("Mana Hat", "A hat that boosts your mana", SpritesDirectory.GetSprite("Hat"), Color.Blue, HatRarity.Common, null, 0, 0, 0, 5);
+        public static Hat ATKHAT = new Hat("Attack Hat", "A hat that boosts your attack", SpritesDirectory.GetSprite("Hat"), Color.PaleVioletRed, HatRarity.Common, null, 0, 0, 5);
+        public static Hat HPHAT = new Hat("Health Hat", "A hat that boosts your health", SpritesDirectory.GetSprite("Hat"), Color.LightGreen, HatRarity.Common, null, 5);
+        public static Hat DEFHAT = new Hat("Defense Hat", "A hat that boosts your defense", SpritesDirectory.GetSprite("Hat"), Color.LightYellow, HatRarity.Common, null, 0, 5);
+        public static Hat MANAHAT = new Hat("Mana Hat", "A hat that boosts your mana", SpritesDirectory.GetSprite("Hat"), Color.LightSkyBlue, HatRarity.Common, null, 0, 0, 0, 5);
         //public static Hat EVENT_TEST = new EventTestingHat("One Hat", "A hat that makes you take one damage", SpritesDirectory.GetSprite("Hat"), HatRarity.Common);
         //public static Hat TESTHAT = new Hat("Super useful testing hat", "A hat that gives you the \'Attack\' ability", SpritesDirectory.GetSprite("Hat"), HatRarity.Common, AbilitiesDirectory.ATTACK, 69);
 
