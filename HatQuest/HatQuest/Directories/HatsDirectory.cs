@@ -52,6 +52,7 @@ namespace HatQuest.Init
 
         public static Hat BUCKETHAT = new BucketHat(SpritesDirectory.GetSprite("BucketHat"));
         public static Hat KNIGHTHAT = new KnightHelmet(SpritesDirectory.GetSprite("Hat"));
+        public static Hat POISONHAT = new PoisonHat(SpritesDirectory.GetSprite("Hat"));
 
         //---- Developer Hats ----//
         public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Developer, null, 5000, 5000, 5000, 5000);
