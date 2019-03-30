@@ -27,7 +27,14 @@ namespace HatQuest.Abilities
                     ((Player)attacker).CurrentMP = ((Player)attacker).MaxMP;
                 }
             }
-            new DefendEffect(attacker, attacker.Def / 3);
+            if (attacker.Hats.Contains(HatsDirectory.KNIGHTHAT))
+            {
+                new DefendEffect(attacker, attacker.Def / 2);
+            }
+            else
+            {
+                new DefendEffect(attacker, attacker.Def / 3);
+            }
         }
 
 
