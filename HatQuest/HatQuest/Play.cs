@@ -44,10 +44,6 @@ namespace HatQuest
         //Events
         public delegate void CombatDelegate(Entity attacker, Entity defender);
         private CombatDelegate EventHandler;
-        public event CombatDelegate PlayerTurnStart;
-        public event CombatDelegate PlayerAttackPre;
-        public event CombatDelegate PlayerAttackPost;
-        public event CombatDelegate PlayerTurnEnd;
 
         //Animation
         private double fps;
@@ -442,10 +438,10 @@ namespace HatQuest
                     //If the player won the combat
                     if(player.IsActive)
                     {
-                        batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You defeated the enemy and got a {0}!", droppedHat.Name), new Vector2(150), Color.Black);
+                        description.Text = string.Format("You defeated the enemy and got... {0}!", droppedHat.Name);
                         if(droppedHat.HasAbility)
                         {
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("Please select an ability to replace."), new Vector2(175), Color.Black);
+                            description.Text = string.Format("Please select an ability to replace.");
                             //Ability 1 Button
                             abilityButton[0].Draw(batch);
                             //Ability 2 Button
@@ -461,9 +457,10 @@ namespace HatQuest
                     //If the player lost the combat
                     else
                     {
-                        batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You were defeated :("), new Vector2(150), Color.Black);
+                        description.Text = string.Format("You were defeated :(");
                     }
-                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("Press \'ENTER\' to continue", droppedHat.Name), new Vector2(150, 200), Color.Black);
+                    description.Text = description.Text + string.Format("Press \'ENTER\' to continue");
+                    description.Draw(batch);
                     break;
                 case PlayState.SafeRoom:
                     safeRoom.Draw(batch);

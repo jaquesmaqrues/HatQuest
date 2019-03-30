@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HatQuest.Init;
 
 namespace HatQuest.Abilities
 {
@@ -14,14 +15,20 @@ namespace HatQuest.Abilities
 
         public override void Activate(Entity attacker, Entity defender)
         {
-            if (((Player)attacker).CurrentMP + 5 < ((Player)attacker).MaxMP)
+            if (attacker.Hats.Contains(HatsDirectory.BUCKETHAT))
             {
-                ((Player)attacker).CurrentMP += 5;
+                if (((Player)attacker).CurrentMP + 5 < ((Player)attacker).MaxMP)
+                {
+                    ((Player)attacker).CurrentMP += 5;
+                }
+                else
+                {
+                    ((Player)attacker).CurrentMP = ((Player)attacker).MaxMP;
+                }
             }
-            else
-            {
-                ((Player)attacker).CurrentMP = ((Player)attacker).MaxMP;
-            }
+            attacker.Def += attacker.Def / 3;
         }
+
+
     }
 }
