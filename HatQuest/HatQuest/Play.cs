@@ -168,12 +168,16 @@ namespace HatQuest
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
+
+                    //call the event when the PlayState changes
+                    player.TurnEnd();
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
+                        player.TurnStart();
                         //Reveal buttons
                         foreach (Button ab in abilityButton)
                         {
@@ -527,10 +531,10 @@ namespace HatQuest
                 {
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        
+                        player.AttackPre(floor.Peek()[selectedTarget]);
                         if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
-                            
+                            player.AttackPost(floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
                             //Resets selected button for next round of combat

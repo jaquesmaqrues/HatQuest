@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Hats;
+using HatQuest.Effects;
 
 namespace HatQuest
 {
@@ -26,6 +27,7 @@ namespace HatQuest
         protected int def;
         protected int atk;
         protected List<Hat> hats;
+        protected List<StatusEffect> effects;
 
         //Events
         //DamageEvents should return any changes to the damage
@@ -120,6 +122,15 @@ namespace HatQuest
         public List<Ability> Abilities
         {
             get { return abilities; }
+        }
+
+        /// <summary>
+        /// The entity's current status effects
+        /// </summary>
+        public List<StatusEffect> Effects
+        {
+            get { return effects; }
+            set { effects = value; }
         }
 
         /// <summary>
