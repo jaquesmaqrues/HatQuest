@@ -82,7 +82,11 @@ namespace HatQuest
                 case 0:
                     if (enemies[0] != null && enemies[0].IsActive)
                     {
+                        enemies[0].TurnStart();
+                        enemies[0].AttackPre(player);
                         enemies[0].AttackPlayer();
+                        enemies[0].AttackPost(player);
+                        enemies[0].TurnEnd();
                         currentAttacker++;
                     }
                     else
@@ -93,7 +97,11 @@ namespace HatQuest
                 case 1:
                     if (enemies[1] != null && enemies[1].IsActive)
                     {
+                        enemies[1].TurnStart();
+                        enemies[1].AttackPre(player);
                         enemies[1].AttackPlayer();
+                        enemies[1].AttackPost(player);
+                        enemies[1].TurnEnd();
                         currentAttacker++;
                     }
                     else
@@ -104,7 +112,11 @@ namespace HatQuest
                 case 2:
                     if (enemies[2] != null && enemies[2].IsActive)
                     {
+                        enemies[2].TurnStart();
+                        enemies[2].AttackPre(player);
                         enemies[2].AttackPlayer();
+                        enemies[2].AttackPost(player);
+                        enemies[2].TurnEnd();
                         currentAttacker++;
                     }
                     else
@@ -115,7 +127,11 @@ namespace HatQuest
                 case 3:
                     if (enemies[3] != null && enemies[3].IsActive)
                     {
+                        enemies[3].TurnStart();
+                        enemies[3].AttackPre(player);
                         enemies[3].AttackPlayer();
+                        enemies[3].AttackPost(player);
+                        enemies[3].TurnEnd();
                         currentAttacker++;
                     }
                     else
@@ -126,7 +142,11 @@ namespace HatQuest
                 case 4:
                     if (enemies[4] != null && enemies[4].IsActive)
                     {
+                        enemies[4].TurnStart();
+                        enemies[4].AttackPre(player);
                         enemies[4].AttackPlayer();
+                        enemies[4].AttackPost(player);
+                        enemies[4].TurnEnd();
                         currentAttacker++;
                     }
                     else
