@@ -135,7 +135,6 @@ namespace HatQuest
             mouseCurrent = Mouse.GetState();
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
-
             
             //Checking if button or hat is hovered over
 
@@ -151,6 +150,7 @@ namespace HatQuest
                     break;
                 }
             }
+
             description.IsVisible = valid;
 
             //Update the gameplay based on the current state and inputs
