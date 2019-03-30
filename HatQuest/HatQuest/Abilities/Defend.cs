@@ -8,7 +8,7 @@ namespace HatQuest.Abilities
 {
     class Defend:Ability
     {
-        public Defend() : base(0, false, "Defend", "You defend, like a self-preserving nerd")
+        public Defend(Entity user) : base(0, false, "Defend", "You defend, like a self-preserving nerd", user)
         {
         }
 

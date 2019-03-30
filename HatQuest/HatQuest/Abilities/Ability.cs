@@ -18,6 +18,7 @@ namespace HatQuest
         protected bool isTargeted;
         protected string name;
         protected string description;
+        protected Entity user;
 
         /// <summary>
         /// The MP cost of the ability
@@ -54,12 +55,23 @@ namespace HatQuest
             get { return isTargeted; }
         }
 
-        public Ability(int manaCost, bool isTargeted, string name, string description)
+        public Ability(int manaCost, bool isTargeted, string name, string description, Entity user)
         {
             this.manaCost = manaCost;
             this.isTargeted = isTargeted;
             this.name = name;
             this.description = description;
+            this.user = user;
+        }
+
+        /// <summary>
+        /// Return a copy of the ability tied to a new user
+        /// </summary>
+        /// <param name="user">User of the new ability</param>
+        /// <returns>Clone of this ability</returns>
+        public Ability Clone(Entity user)
+        {
+            return (Ability)System.Activator.CreateInstance(GetType(), user);
         }
 
         /// <summary>

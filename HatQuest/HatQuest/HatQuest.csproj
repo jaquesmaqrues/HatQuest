@@ -59,7 +59,6 @@
     <Compile Include="Hats\BucketHat.cs" />
     <Compile Include="Hats\EventTestingHat.cs" />
     <Compile Include="Hats\Hat.cs" />
-    <Compile Include="Directories\AbilitiesDirectory.cs" />
     <Compile Include="Directories\EnemiesDirectory.cs" />
     <Compile Include="Directories\HatsDirectory.cs" />
     <Compile Include="Directories\RoomsDirectory.cs" />

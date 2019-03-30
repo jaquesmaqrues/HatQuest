@@ -9,7 +9,7 @@ namespace HatQuest.Abilities
 {
     class Cry:Ability
     {
-        public Cry() : base(0, false, "Cry", "You cry, like a loser")
+        public Cry(Entity user) : base(0, false, "Cry", "You cry, like a loser", user)
         {
         }
 
