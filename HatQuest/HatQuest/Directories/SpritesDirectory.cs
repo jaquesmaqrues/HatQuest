@@ -21,19 +21,27 @@ namespace HatQuest.Init
 
         public static void Init(Game game)
         {
-            //Load in sprites
+            //-----Load in sprites-----
             spriteDirectory = new Dictionary<string, Texture2D>();
+            //Player
             spriteDirectory.Add("Lucario", game.Content.Load<Texture2D>("lucario"));
             spriteDirectory.Add("Elion", game.Content.Load<Texture2D>("Main_Character_Color"));
+            //UI
             spriteDirectory.Add("Button", game.Content.Load<Texture2D>("Sprites/Button Background"));
             spriteDirectory.Add("ButtonClicked", game.Content.Load<Texture2D>("Sprites/buttonBackground"));
             spriteDirectory.Add("CombatBackground", game.Content.Load<Texture2D>("Sprites/Combat_Background"));
-            spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
+            //Hats
             spriteDirectory.Add("Hat", game.Content.Load<Texture2D>("Sprites/baseHat"));
             spriteDirectory.Add("BucketHat", game.Content.Load<Texture2D>("Sprites/bucketOfTears"));
             spriteDirectory.Add("AlienHat", game.Content.Load<Texture2D>("Sprites/alienHat"));
             spriteDirectory.Add("ToasterHat", game.Content.Load<Texture2D>("Sprites/toasterHat"));
             spriteDirectory.Add("VampireHat", game.Content.Load<Texture2D>("Sprites/vampireHat"));
+            //Enemies
+            spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
+            spriteDirectory.Add("Alien", game.Content.Load<Texture2D>("Sprites/Alien"));
+            spriteDirectory.Add("AngryToaster", game.Content.Load<Texture2D>("Sprites/AngryToaster"));
+            spriteDirectory.Add("Gnome", game.Content.Load<Texture2D>("Sprites/Gnome"));
+            spriteDirectory.Add("VampireBat", game.Content.Load<Texture2D>("Sprites/VampireBat"));
 
             //Animation Sprite Sheets
             spriteDirectory.Add("MarioTest", game.Content.Load<Texture2D>("Mario"));
