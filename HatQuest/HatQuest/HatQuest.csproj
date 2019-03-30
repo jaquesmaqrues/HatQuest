@@ -54,6 +54,7 @@
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Directories\AnimationsDirectory.cs" />
     <Compile Include="Effects\DefendEffect.cs" />
+    <Compile Include="Effects\PoisonEffect.cs" />
     <Compile Include="Effects\StatusEffect.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyType.cs" />
