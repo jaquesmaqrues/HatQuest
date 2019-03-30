@@ -37,10 +37,10 @@ namespace HatQuest.Init
         //---- Uncommon Hats ----//
         private const float UNCOMMON_RARITY = 0.5f;
 
-        public static Hat VAMPIREHAT = new Hat("Vampire Hat", "A hat that allows you to take on the power of a vampire and drain the life of your enemies", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.LIFESIPHON, 0, 0, 0, 5);
-        public static Hat TOASTERHAT = new Hat("Toaster Hat", "A hat that allows you to tap into unrelenting fury of a toaster", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.BERSERK, 5, 0, 0, 0);
+        public static Hat VAMPIREHAT = new Hat("Vampire Hat", "A hat that allows you to take on the power of a vampire and drain the life of your enemies", SpritesDirectory.GetSprite("VampireHat"), HatRarity.Uncommon, AbilitiesDirectory.LIFESIPHON, 0, 0, 0, 5);
+        public static Hat TOASTERHAT = new Hat("Toaster Hat", "A hat that allows you to tap into unrelenting fury of a toaster", SpritesDirectory.GetSprite("ToasterHat"), HatRarity.Uncommon, AbilitiesDirectory.BERSERK, 5, 0, 0, 0);
         public static Hat CUTLERYHAT = new Hat("Cutlery Hat", "A hat that allows you to utilise the dexterity of the fork-gnomes", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.QUICKATTACK, 0, 0, 0, 5);
-        public static Hat ALIENHAT = new Hat("Alien Hat", "A hat that allows you to call upon the power of THE CLAAAAAAWWWWW", SpritesDirectory.GetSprite("Hat"), HatRarity.Uncommon, AbilitiesDirectory.ABDUCT, 0, 0, 5, 0);
+        public static Hat ALIENHAT = new Hat("Alien Hat", "A hat that allows you to call upon the power of THE CLAAAAAAWWWWW", SpritesDirectory.GetSprite("AlienHat"), HatRarity.Uncommon, AbilitiesDirectory.ABDUCT, 0, 0, 5, 0);
         
         //---- Epic Hats ----//
         private const float EPIC_RARITY = 1.0f;
