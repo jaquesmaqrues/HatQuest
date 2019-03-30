@@ -31,13 +31,14 @@ namespace HatQuest
         //DamageEvents should return any changes to the damage
         public delegate int EntityDamageDelegate(Entity defender, int damage);
         public event EntityDamageDelegate DamageEvent;
+        public EntityDamageDelegate damageHandler;
 
-        public delegate void CombatEvent(Entity attacker, Entity defender);
-        public event CombatEvent TurnStart;
-        public event CombatEvent AttackPre;
-        public event CombatEvent AttackPost;
-        public event CombatEvent TurnEnd;
-
+        public delegate void CombatDelegate(Entity attacker, Entity defender);
+        public event CombatDelegate TurnStartEvent;
+        public event CombatDelegate AttackPreEvent;
+        public event CombatDelegate AttackPostEvent;
+        public event CombatDelegate TurnEndEvent;
+        public CombatDelegate combatHandler;
 
 
         //Properties
@@ -193,8 +194,8 @@ namespace HatQuest
         public void TakeDamage(int damage)
         {
             //Modify the damage through events
-            EntityDamageDelegate handler = DamageEvent;
-            if (handler != null)
+            damageHandler = DamageEvent;
+            if (damageHandler != null)
             {
                 damage += DamageEvent(this, damage);
             }         
@@ -209,6 +210,56 @@ namespace HatQuest
             {
                 isActive = false;
                 isVisible = false;
+            }
+        }
+
+        /// <summary>
+        /// Triggers the TurnStartEvent
+        /// </summary>
+        public void TurnStart()
+        {
+            combatHandler = TurnStartEvent;
+            if(combatHandler != null)
+            {
+                TurnStartEvent(this, null);
+            }
+        }
+
+        /// <summary>
+        /// Triggers the AttackPreEvent
+        /// </summary>
+        /// <param name="target">Target of this entity's attack</param>
+        public void AttackPre(Entity target)
+        {
+            combatHandler = AttackPreEvent;
+            if (combatHandler != null)
+            {
+                AttackPreEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Triggers the AttackPostEvent
+        /// </summary>
+        /// <param name="target">Target of this entity's attack</param>
+        public void AttackPost(Entity target)
+        {
+            combatHandler = AttackPostEvent;
+            if (combatHandler != null)
+            {
+                AttackPostEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Triggers the TurnEndEvent
+        /// </summary>
+        public void TurnEnd()
+        {
+            combatHandler = TurnEndEvent;
+            if (combatHandler != null)
+            {
+                TurnEndEvent(this, null);
             }
         }
 
