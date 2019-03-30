@@ -82,6 +82,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/alienHat.PNG
 
+#begin Sprites/baseHat.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/baseHat.PNG
+
 #begin Sprites/bucketOfTears.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
