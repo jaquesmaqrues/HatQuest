@@ -102,7 +102,7 @@ namespace HatQuest
 
             //Animation
             fps = 10.0;
-            timePerFrame = 1.0 / fps;
+            timePerFrame = 2.0 / fps;
 
             animation = new Animations(fps, timePerFrame);
         }
@@ -145,13 +145,12 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = false;
                         }
-                        animation.SetSprite(AnimationsDirectory.getAnimation("Mario"), player.Position, 3, 116, 72, 44);
+                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), player.Position, 10, 116, 1523, 826);
                     }
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
-
                     //call the event when the PlayState changes
                     player.TurnEnd();
                     state = PlayState.EnemyTurn;
