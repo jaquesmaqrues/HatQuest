@@ -143,12 +143,8 @@ namespace HatQuest
         /// <param name="batch">SpriteBatch that us drawing all the assets for the game</param>
         public void Draw(SpriteBatch batch)
         {
-            if (visible)
-            {
-                Console.WriteLine(text);
-                batch.Draw(textboxBack, rect, Color.White);
-                batch.DrawString(font, text, position, Color.Black);
-            }
+            batch.Draw(textboxBack, rect, Color.White);
+            batch.DrawString(font, text, position, Color.Black);
         }
     }
 }

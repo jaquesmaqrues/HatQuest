@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
 using HatQuest.Hats;
+using HatQuest.Abilities;
 
 namespace HatQuest
 {
@@ -75,12 +76,12 @@ namespace HatQuest
             maxMP = currentMP = 10;
             atk = 10;
             def = 1;
-            abilities.Add(AbilitiesDirectory.ATTACK);
-            abilities.Add(AbilitiesDirectory.QUICKATTACK);
-            abilities.Add(AbilitiesDirectory.LIFESIPHON);
-            abilities.Add(AbilitiesDirectory.BERSERK);
-            abilities.Add(AbilitiesDirectory.DEFEND);
-            abilities.Add(AbilitiesDirectory.CRY);
+            abilities.Add(new Attack(this));
+            abilities.Add(new QuickAttack(this));
+            abilities.Add(new LifeSiphon(this));
+            abilities.Add(new Berserk(this));
+            abilities.Add(new Defend(this));
+            abilities.Add(new Cry(this));
             HatsDirectory.ATKHAT.Equip(this);
             HatsDirectory.BUCKETHAT.Equip(this);
             HatsDirectory.DEFHAT.Equip(this);
@@ -128,12 +129,12 @@ namespace HatQuest
             def = 1;
             isActive = isVisible = true;
             abilities.Clear();
-            abilities.Add(AbilitiesDirectory.ATTACK);
-            abilities.Add(AbilitiesDirectory.QUICKATTACK);
-            abilities.Add(AbilitiesDirectory.LIFESIPHON);
-            abilities.Add(AbilitiesDirectory.BERSERK);
-            abilities.Add(AbilitiesDirectory.DEFEND);
-            abilities.Add(AbilitiesDirectory.CRY);
+            abilities.Add(new Attack(this));
+            abilities.Add(new QuickAttack(this));
+            abilities.Add(new LifeSiphon(this));
+            abilities.Add(new Berserk(this));
+            abilities.Add(new Defend(this));
+            abilities.Add(new Cry(this));
             hats.Clear();
             HatsDirectory.ATKHAT.Equip(this);
             HatsDirectory.BUCKETHAT.Equip(this);

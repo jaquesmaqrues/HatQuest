@@ -49,9 +49,12 @@
     <Compile Include="Abilities\LifeSiphon.cs" />
     <Compile Include="Abilities\QuickAttack.cs" />
     <Compile Include="Animations.cs" />
+    <Compile Include="Boss.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Directories\AnimationsDirectory.cs" />
+    <Compile Include="Effects\DefendEffect.cs" />
+    <Compile Include="Effects\StatusEffect.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyType.cs" />
     <Compile Include="Entity.cs" />
@@ -59,12 +62,12 @@
     <Compile Include="Hats\BucketHat.cs" />
     <Compile Include="Hats\EventTestingHat.cs" />
     <Compile Include="Hats\Hat.cs" />
-    <Compile Include="Directories\AbilitiesDirectory.cs" />
     <Compile Include="Directories\EnemiesDirectory.cs" />
     <Compile Include="Directories\HatsDirectory.cs" />
     <Compile Include="Directories\RoomsDirectory.cs" />
     <Compile Include="Directories\SpritesDirectory.cs" />
     <Compile Include="Hats\KnightHelmet.cs" />
+    <Compile Include="Hats\PoisonHat.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Play.cs" />
     <Compile Include="Player.cs" />

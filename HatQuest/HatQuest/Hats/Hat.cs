@@ -110,7 +110,7 @@ namespace HatQuest.Hats
             {
                 if(ability != null)
                 {
-                    entity.Abilities.Add(ability);
+                    entity.Abilities.Add(ability.Clone(entity));
                 }
             }
             entity.MaxHealth += maxHealth;
@@ -129,7 +129,7 @@ namespace HatQuest.Hats
         {
             if(ability != null)
             {
-                player.Abilities[index] = ability;
+                player.Abilities[index] = ability.Clone(player);
             }
             Equip(player);
         }

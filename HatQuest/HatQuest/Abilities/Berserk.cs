@@ -8,7 +8,7 @@ namespace HatQuest.Abilities
 {
     class Berserk : Ability
     {
-        public Berserk() : base(5, true, "Berserk", "A powerful attack that damages you in the process")
+        public Berserk(Entity user) : base(5, true, "Berserk", "A powerful attack that damages you in the process", user)
         {
         }
 

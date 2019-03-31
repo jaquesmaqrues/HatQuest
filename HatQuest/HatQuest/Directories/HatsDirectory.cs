@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
+using HatQuest.Abilities;
 
 namespace HatQuest.Init
 {
@@ -41,16 +42,17 @@ namespace HatQuest.Init
         //---- Uncommon Hats ----//
         private const float UNCOMMON_RARITY = 0.5f;
 
-        public static Hat VAMPIREHAT = new Hat("Vampire Hat", "A hat that allows you to take on the power of a vampire and drain the life of your enemies", SpritesDirectory.GetSprite("VampireHat"), Color.White, HatRarity.Uncommon, AbilitiesDirectory.LIFESIPHON, 0, 0, 0, 5);
-        public static Hat TOASTERHAT = new Hat("Toaster Hat", "A hat that allows you to tap into unrelenting fury of a toaster", SpritesDirectory.GetSprite("ToasterHat"), Color.White, HatRarity.Uncommon, AbilitiesDirectory.BERSERK, 5, 0, 0, 0);
-        public static Hat CUTLERYHAT = new Hat("Cutlery Hat", "A hat that allows you to utilise the dexterity of the fork-gnomes", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Uncommon, AbilitiesDirectory.QUICKATTACK, 0, 0, 0, 5);
-        public static Hat ALIENHAT = new Hat("Alien Hat", "A hat that allows you to call upon the power of THE CLAAAAAAWWWWW", SpritesDirectory.GetSprite("AlienHat"), Color.White, HatRarity.Uncommon, AbilitiesDirectory.ABDUCT, 0, 0, 5, 0);
+        public static Hat VAMPIREHAT = new Hat("Vampire Hat", "A hat that allows you to take on the power of a vampire and drain the life of your enemies", SpritesDirectory.GetSprite("VampireHat"), Color.White, HatRarity.Uncommon, new LifeSiphon(null), 0, 0, 0, 5);
+        public static Hat TOASTERHAT = new Hat("Toaster Hat", "A hat that allows you to tap into unrelenting fury of a toaster", SpritesDirectory.GetSprite("ToasterHat"), Color.White, HatRarity.Uncommon, new Berserk(null), 5, 0, 0, 0);
+        public static Hat CUTLERYHAT = new Hat("Cutlery Hat", "A hat that allows you to utilise the dexterity of the fork-gnomes", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Uncommon, new QuickAttack(null), 0, 0, 0, 5);
+        public static Hat ALIENHAT = new Hat("Alien Hat", "A hat that allows you to call upon the power of THE CLAAAAAAWWWWW", SpritesDirectory.GetSprite("AlienHat"), Color.White, HatRarity.Uncommon, new Abduct(null), 0, 0, 5, 0);
         
         //---- Epic Hats ----//
         private const float EPIC_RARITY = 1.0f;
 
         public static Hat BUCKETHAT = new BucketHat(SpritesDirectory.GetSprite("BucketHat"));
         public static Hat KNIGHTHAT = new KnightHelmet(SpritesDirectory.GetSprite("Hat"));
+        public static Hat POISONHAT = new PoisonHat(SpritesDirectory.GetSprite("Hat"));
 
         //---- Developer Hats ----//
         public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Developer, null, 5000, 5000, 5000, 5000);

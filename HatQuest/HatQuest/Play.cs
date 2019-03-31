@@ -44,10 +44,6 @@ namespace HatQuest
         //Events
         public delegate void CombatDelegate(Entity attacker, Entity defender);
         private CombatDelegate EventHandler;
-        public event CombatDelegate PlayerTurnStart;
-        public event CombatDelegate PlayerAttackPre;
-        public event CombatDelegate PlayerAttackPost;
-        public event CombatDelegate PlayerTurnEnd;
 
         //Animation
         private double fps;
@@ -136,22 +132,6 @@ namespace HatQuest
             keyboardLast = keyboardCurrent;
             keyboardCurrent = Keyboard.GetState();
             
-            //Checking if button or hat is hovered over
-
-            bool valid = true;
-
-            for (int i = 0; i< 6; i++)           
-            {
-                valid = false;
-                if (abilityButton[i].IsHovered())
-                {
-                    description.Text = player.Abilities[i].Description;
-                    valid = true;
-                    break;
-                }
-            }
-
-            description.IsVisible = valid;
 
             //Update the gameplay based on the current state and inputs
             switch(state)
@@ -165,30 +145,22 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = false;
                         }
-
                         animation.SetSprite(AnimationsDirectory.getAnimation("Mario"), player.Position, 3, 116, 72, 44);
                     }
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
-                    EventHandler = PlayerTurnEnd;
-                    if (EventHandler != null)
-                    {
-                        PlayerTurnEnd(player, null);
-                    }
+
+                    //call the event when the PlayState changes
+                    player.TurnEnd();
                     state = PlayState.EnemyTurn;
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
                     if(state == PlayState.PlayerInput)
                     {
-                        EventHandler = PlayerTurnStart;
-                        if(EventHandler != null)
-                        {
-                            PlayerTurnStart(player, null);
-                        }
-
+                        player.TurnStart();
                         //Reveal buttons
                         foreach (Button ab in abilityButton)
                         {
@@ -198,6 +170,7 @@ namespace HatQuest
                     }
                     else if(state == PlayState.CombatEnd)
                     {
+                        description.IsVisible = true;
                         //Get the dropped hat and remove the room
                         droppedHat = HatsDirectory.GetRandomHat(floorLevel, floor.Dequeue().GetDroppedHats());
                         if (player.IsActive)
@@ -396,21 +369,17 @@ namespace HatQuest
                                         (int)(SpritesDirectory.height * 14 / 64)),//0.19793
                             Color.White);
 
-            foreach (Button ab in abilityButton)
-            {
-                ab.Draw(batch);
-            }
-
-            //Draw textbox
-            if (description.IsVisible)
-            {
-                description.Draw(batch);
-            }
 
             //Draw based on the PlayState
             switch (state)
             {
                 case PlayState.PlayerInput:
+
+                    foreach (Button ab in abilityButton)
+                    {
+                        ab.Draw(batch);
+                    }
+
                     //Draw stats of enemy being hovered over
                     for (int k = 4; k > -1; k--)
                     {
@@ -442,10 +411,10 @@ namespace HatQuest
                     //If the player won the combat
                     if(player.IsActive)
                     {
-                        batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You defeated the enemy and got a {0}!", droppedHat.Name), new Vector2(150), Color.Black);
+                        description.Text = string.Format("You defeated the enemy and got... {0}!", droppedHat.Name);
                         if(droppedHat.HasAbility)
                         {
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("Please select an ability to replace."), new Vector2(175), Color.Black);
+                            description.Text = string.Format("Please select an ability to replace.");
                             //Ability 1 Button
                             abilityButton[0].Draw(batch);
                             //Ability 2 Button
@@ -461,13 +430,20 @@ namespace HatQuest
                     //If the player lost the combat
                     else
                     {
-                        batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("You were defeated :("), new Vector2(150), Color.Black);
+                        description.Text = string.Format("You were defeated :(");
                     }
-                    batch.DrawString(SpritesDirectory.GetFont("Arial"), string.Format("Press \'ENTER\' to continue", droppedHat.Name), new Vector2(150, 200), Color.Black);
+                    description.Text = description.Text + string.Format("Press \'ENTER\' to continue");
                     break;
                 case PlayState.SafeRoom:
                     safeRoom.Draw(batch);
                     break;
+            }
+
+
+            //Draw textbox
+            if (description.IsVisible)
+            {
+                description.Draw(batch);
             }
             #endregion
         }
@@ -498,11 +474,16 @@ namespace HatQuest
                 currentClicked.Clicked = true;
             }
 
+            bool valid = true;
+            valid = false;
+
             for (int x = 0; x < abilityButton.Length; x++)
             {
-                if (abilityButton[x].IsPressed(mouseLast, mouseCurrent))
+                if (abilityButton[x].IsHovered())
                 {
-                    if (player.Abilities[x] != null && player.CurrentMP >= player.Abilities[x].ManaCost)
+                    description.Text = player.Abilities[x].Description;
+                    valid = true;
+                    if (abilityButton[x].IsPressed(mouseLast, mouseCurrent) && player.Abilities[x] != null && player.CurrentMP >= player.Abilities[x].ManaCost)
                     {
                         selectedAbility = x;
                         lastClicked = currentClicked;
@@ -511,6 +492,7 @@ namespace HatQuest
                     }
                 }
             }
+            description.IsVisible = valid;
             #endregion
 
             //Gets the player's target if the ability is targeted and activates the ability
@@ -541,20 +523,10 @@ namespace HatQuest
                 {
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
-                        EventHandler = PlayerAttackPre;
-                        if(EventHandler != null)
-                        {
-                            PlayerAttackPre(player, floor.Peek()[selectedTarget]);
-                        }
-                        
+                        player.AttackPre(floor.Peek()[selectedTarget]);
                         if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
                         {
-                            EventHandler = PlayerAttackPost;
-                            if (EventHandler != null)
-                            {
-                                PlayerAttackPost(player, floor.Peek()[selectedTarget]);
-                            }
-                            
+                            player.AttackPost(floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
                             //Resets selected button for next round of combat

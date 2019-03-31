@@ -10,7 +10,7 @@ namespace HatQuest.Abilities
     {
         Random r;
 
-        public QuickAttack() : base(5, true, "Quick Attack", "A series of light attacks whose damage is determined by chance")
+        public QuickAttack(Entity user) : base(5, true, "Quick Attack", "A series of light attacks whose damage is determined by chance", user)
         {
             this.r = new Random(50);
         }

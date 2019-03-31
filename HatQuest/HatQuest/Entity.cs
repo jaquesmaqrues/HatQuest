@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Hats;
+using HatQuest.Effects;
 
 namespace HatQuest
 {
@@ -26,11 +27,21 @@ namespace HatQuest
         protected int def;
         protected int atk;
         protected List<Hat> hats;
+        protected List<StatusEffect> effects;
 
         //Events
         //DamageEvents should return any changes to the damage
         public delegate int EntityDamageDelegate(Entity defender, int damage);
         public event EntityDamageDelegate DamageEvent;
+        public EntityDamageDelegate damageHandler;
+
+        public delegate void CombatDelegate(Entity attacker, Entity defender);
+        public event CombatDelegate TurnStartEvent;
+        public event CombatDelegate AttackPreEvent;
+        public event CombatDelegate AttackPostEvent;
+        public event CombatDelegate TurnEndEvent;
+        public CombatDelegate combatHandler;
+
 
         //Properties
         public bool IsActive
@@ -114,6 +125,15 @@ namespace HatQuest
         }
 
         /// <summary>
+        /// The entity's current status effects
+        /// </summary>
+        public List<StatusEffect> Effects
+        {
+            get { return effects; }
+            set { effects = value; }
+        }
+
+        /// <summary>
         /// The Entity's current location
         /// </summary>
         public Rectangle Position
@@ -160,6 +180,7 @@ namespace HatQuest
             abilities = new List<Ability>();
             isVisible = isActive = true;
             hats = new List<Hat>();
+            effects = new List<StatusEffect>();
         }
 
         /// <summary>
@@ -185,8 +206,8 @@ namespace HatQuest
         public void TakeDamage(int damage)
         {
             //Modify the damage through events
-            EntityDamageDelegate handler = DamageEvent;
-            if (handler != null)
+            damageHandler = DamageEvent;
+            if (damageHandler != null)
             {
                 damage += DamageEvent(this, damage);
             }         
@@ -201,6 +222,56 @@ namespace HatQuest
             {
                 isActive = false;
                 isVisible = false;
+            }
+        }
+
+        /// <summary>
+        /// Triggers the TurnStartEvent
+        /// </summary>
+        public void TurnStart()
+        {
+            combatHandler = TurnStartEvent;
+            if(combatHandler != null)
+            {
+                TurnStartEvent(this, null);
+            }
+        }
+
+        /// <summary>
+        /// Triggers the AttackPreEvent
+        /// </summary>
+        /// <param name="target">Target of this entity's attack</param>
+        public void AttackPre(Entity target)
+        {
+            combatHandler = AttackPreEvent;
+            if (combatHandler != null)
+            {
+                AttackPreEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Triggers the AttackPostEvent
+        /// </summary>
+        /// <param name="target">Target of this entity's attack</param>
+        public void AttackPost(Entity target)
+        {
+            combatHandler = AttackPostEvent;
+            if (combatHandler != null)
+            {
+                AttackPostEvent(this, target);
+            }
+        }
+
+        /// <summary>
+        /// Triggers the TurnEndEvent
+        /// </summary>
+        public void TurnEnd()
+        {
+            combatHandler = TurnEndEvent;
+            if (combatHandler != null)
+            {
+                TurnEndEvent(this, null);
             }
         }
 

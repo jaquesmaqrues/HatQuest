@@ -46,7 +46,10 @@ namespace HatQuest
             atk = (int)(enemyType.Attack * level);
             def = (int)(enemyType.Defense * level);
             maxHealth = currentHealth = (int)(enemyType.Health * level);
-            abilities = enemyType.Abilities;
+            foreach(Ability a in enemyType.Abilities)
+            {
+                abilities.Add(a.Clone(this));
+            }
             random = EnemiesDirectory.random;
         }
 
