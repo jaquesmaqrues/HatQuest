@@ -277,7 +277,6 @@ namespace HatQuest
                             }
                         }
                     }
-
                     if(state == PlayState.PlayerInput)
                     {
                         //Reveal buttons
@@ -288,6 +287,7 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.SafeRoom:
+                    description.IsVisible = false;
                     state = safeRoom.Update(time);
 
                     if(state == PlayState.PlayerInput)
@@ -410,7 +410,7 @@ namespace HatQuest
                     //If the player won the combat
                     if(player.IsActive)
                     {
-                        description.Text = string.Format("You defeated the enemy and got... {0}!", droppedHat.Name);
+                        description.Text = string.Format("You defeated the enemy and got: {0}!", droppedHat.Name);
                         if(droppedHat.HasAbility)
                         {
                             description.Text = string.Format("Please select an ability to replace.");
@@ -431,7 +431,7 @@ namespace HatQuest
                     {
                         description.Text = string.Format("You were defeated :(");
                     }
-                    description.Text = description.Text + string.Format("Press \'ENTER\' to continue");
+                    description.Text = description.Text + "Press ENTER to continue";
                     break;
                 case PlayState.SafeRoom:
                     safeRoom.Draw(batch);

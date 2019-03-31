@@ -18,7 +18,6 @@ namespace HatQuest.Effects
         public StatusEffect(Entity target)
         {
             this.target = target;
-            Apply();
         }
 
         /// <summary>
