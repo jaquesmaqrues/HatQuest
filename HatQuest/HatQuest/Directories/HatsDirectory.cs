@@ -56,6 +56,8 @@ namespace HatQuest.Init
 
         //---- Developer Hats ----//
         public static Hat GODMODE = new Hat("BORGER", "BORGER", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Developer, null, 5000, 5000, 5000, 5000);
+        public static Hat BOSSHAT = new Hat("Boss Hat", "The Boss's version of his hat, you did something wrong if you have this equipped", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Developer, null, 15, 15, 15);
+        public static Hat PLAYERBOSSHAT = new PlayerBossHat(SpritesDirectory.GetSprite("Hat"));
         #endregion
 
         /// <summary>
