@@ -53,6 +53,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Directories\AnimationsDirectory.cs" />
+    <Compile Include="Effects\BossHatEffect.cs" />
     <Compile Include="Effects\DefendEffect.cs" />
     <Compile Include="Effects\StatusEffect.cs" />
     <Compile Include="Enemy.cs" />
