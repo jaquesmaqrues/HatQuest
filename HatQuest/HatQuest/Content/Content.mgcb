@@ -70,6 +70,18 @@
 /processorParam:TextureFormat=Color
 /build:Mario.png
 
+#begin Sprites/Alien.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Alien.png
+
 #begin Sprites/alienHat.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -81,6 +93,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/alienHat.PNG
+
+#begin Sprites/AngryToaster.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/AngryToaster.png
 
 #begin Sprites/baseHat.PNG
 /importer:TextureImporter
@@ -142,6 +166,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Combat_Background.png
 
+#begin Sprites/Gnome.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Gnome.png
+
 #begin Sprites/Goblin.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -177,6 +213,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/toasterHat.PNG
+
+#begin Sprites/VampireBat.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/VampireBat.png
 
 #begin Sprites/vampireHat.PNG
 /importer:TextureImporter
