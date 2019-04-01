@@ -60,7 +60,7 @@ namespace HatQuest
         public void AttackPlayer()
         {
 
-            abilities[random.Next(abilities.Count)].Activate(this, player);
+            abilities[random.Next(abilities.Count)].Activate(player);
         }
     }
 }

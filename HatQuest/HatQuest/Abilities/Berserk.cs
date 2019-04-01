@@ -12,10 +12,10 @@ namespace HatQuest.Abilities
         {
         }
 
-        public override void Activate(Entity attacker, Entity defender)
+        public override void Activate(Entity target)
         {
-            attacker.TakeDamage((int)((attacker.Atk/3) + attacker.Def));
-            defender.TakeDamage(attacker.Atk * 2);
+            user.TakeDamage((user.Atk/3) + user.Def);
+            target.TakeDamage(user.Atk * 2);
         }
     }
 }

@@ -43,12 +43,12 @@ namespace HatQuest.Effects
             base.Apply();
         }
 
-        protected override void Trigger()
+        protected override void Trigger(Entity attacker, Entity defender)
         {
             target.Health -= stacks;
             stacks--;
 
-            if(stacks < 1)
+            if (stacks < 1)
             {
                 Remove();
             }
@@ -60,9 +60,6 @@ namespace HatQuest.Effects
             base.Remove();
         }
 
-        private void Trigger(Entity attacker, Entity defender)
-        {
-            Trigger();
-        }
+        
     }
 }

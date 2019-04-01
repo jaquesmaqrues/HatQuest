@@ -524,7 +524,7 @@ namespace HatQuest
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
                         player.AttackPre(floor.Peek()[selectedTarget]);
-                        if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
+                        if (player.UseAbility(floor.Peek()[selectedTarget], selectedAbility))
                         {
                             player.AttackPost(floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
@@ -541,7 +541,7 @@ namespace HatQuest
                 else
                 {
                     //There are currently no untargeted abilities and the AttackEnemy method isnt set up to handle them
-                    player.Abilities[selectedAbility].Activate(player, null);
+                    player.Abilities[selectedAbility].Activate(null);
                     selectedAbility = selectedTarget = -1;
                     //Resets selected button for next round of combat
                     currentClicked.Clicked = false;

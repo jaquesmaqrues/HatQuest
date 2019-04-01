@@ -19,11 +19,7 @@ namespace HatQuest.Effects
             target.AttackPreEvent += Trigger;
         }
 
-        protected override void Trigger()
-        {
-        }
-
-        private void Trigger(Entity attacker, Entity defender)
+        protected override void Trigger(Entity attacker, Entity defender)
         {
             if (r.Next(1, 51) == 50)
             {
