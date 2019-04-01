@@ -323,11 +323,7 @@ namespace HatQuest
             player.Draw(batch);
             if (floor != null && floor.Count > 0)
             {
-                for (int k = 0; k < 5; k++)
-                {
-                    if (floor.Peek()[k] != null)
-                        floor.Peek()[k].Draw(batch);
-                }
+                floor.Peek().Draw(batch);
             }
 
             //---------Draw player Stats---------
@@ -408,6 +404,8 @@ namespace HatQuest
                 case PlayState.EnemyTurn:
                     break;
                 case PlayState.CombatEnd:
+
+
                     //If the player won the combat
                     if(player.IsActive)
                     {
