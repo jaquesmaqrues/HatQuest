@@ -13,16 +13,16 @@ namespace HatQuest.Abilities
 
         }
 
-        public override void Activate(Entity attacker, Entity defender)
+        public override void Activate(Entity target)
         {
-            defender.TakeDamage((int)(attacker.Atk / 2));
-            if(attacker.Health + attacker.Atk < attacker.MaxHealth)
+            target.TakeDamage(user.Atk / 2);
+            if(user.Health + user.Atk < user.MaxHealth)
             {
-                attacker.Health += attacker.Atk;
+                user.Health += user.Atk;
             }
             else
             {
-                attacker.Health = attacker.MaxHealth;
+                user.Health = user.MaxHealth;
             }
         }
     }

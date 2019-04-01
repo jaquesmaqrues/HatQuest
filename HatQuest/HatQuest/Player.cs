@@ -93,13 +93,13 @@ namespace HatQuest
         /// The logic behind attacking an Enemy
         /// </summary>
         /// <param name="enemy">The Enemy to be attacked</param>
-        /// <param name="ability">The ability being used</param>
-        public bool AttackEnemy(Entity enemy, Ability ability)
+        /// <param name="ability">The index of the ability to use</param>
+        public bool UseAbility(Entity enemy, int abilityIndex)
         {
-            if(currentMP - ability.ManaCost >= 0)
+            if(currentMP - abilities[abilityIndex].ManaCost >= 0)
             {
-                currentMP -= ability.ManaCost;
-                ability.Activate(this, enemy);
+                currentMP -= abilities[abilityIndex].ManaCost;
+                abilities[abilityIndex].Activate(enemy);
                 return true;
             }
             else
@@ -107,16 +107,6 @@ namespace HatQuest
                 return false;
             }
         }
-
-        /// <summary>
-        /// Defending adds a certain amount of MP back to your pool
-        /// </summary>
-
-
-        /// <summary>
-        /// Does nothing unless you have the Bucket Hat equipped
-        /// </summary>
-
 
         /// <summary>
         /// Reset all the player data

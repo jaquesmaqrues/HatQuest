@@ -44,7 +44,8 @@ namespace HatQuest.Init
             spriteDirectory.Add("VampireBat", game.Content.Load<Texture2D>("Sprites/VampireBat"));
 
             //Animation Sprite Sheets
-            spriteDirectory.Add("MarioTest", game.Content.Load<Texture2D>("Mario"));
+            //spriteDirectory.Add("MarioTest", game.Content.Load<Texture2D>("Mario"));
+            spriteDirectory.Add("StatusEffect", game.Content.Load<Texture2D>("Sprites/StatusEffect"));
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();

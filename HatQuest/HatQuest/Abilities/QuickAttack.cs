@@ -15,10 +15,10 @@ namespace HatQuest.Abilities
             this.r = new Random(50);
         }
 
-        public override void Activate(Entity attacker, Entity defender)
+        public override void Activate(Entity target)
         {
-            defender.TakeDamage(attacker.Atk + r.Next(-6, 5));
-            defender.TakeDamage(attacker.Atk + r.Next(-6, 5));
+            target.TakeDamage(user.Atk + r.Next(-6, 5));
+            target.TakeDamage(user.Atk + r.Next(-6, 5));
         }
     }
 }

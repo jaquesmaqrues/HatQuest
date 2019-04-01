@@ -48,11 +48,13 @@
     <Compile Include="Abilities\Defend.cs" />
     <Compile Include="Abilities\LifeSiphon.cs" />
     <Compile Include="Abilities\QuickAttack.cs" />
+    <Compile Include="Abilities\VenomBite.cs" />
     <Compile Include="Animations.cs" />
     <Compile Include="Boss.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Directories\AnimationsDirectory.cs" />
+    <Compile Include="Effects\BossHatEffect.cs" />
     <Compile Include="Effects\DefendEffect.cs" />
     <Compile Include="Effects\PoisonEffect.cs" />
     <Compile Include="Effects\StatusEffect.cs" />

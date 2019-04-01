@@ -48,12 +48,10 @@ namespace HatQuest
         /// <param name="spriteLocation">Where to draw sprite</param>
         /// <param name="attackFrameCount">Number of frames in animation</param>
         /// <param name="spriteRectOffsetY">How far down on the image the frame is</param>
-        /// <param name="spriteRectHeight"></param>
-        /// <param name="spriteRectWidth"></param>
+        /// <param name="spriteRectHeight">Height of the sprite</param>
+        /// <param name="spriteRectWidth">Width of the sprite</param>
         public void SetSprite(Texture2D texture, Rectangle spriteLocation, int attackFrameCount, int spriteRectOffsetY, int spriteRectHeight, int spriteRectWidth)
         {
-            Console.WriteLine("SET SPRITE");
-
             spriteSheet = texture;
             this.spriteLocation = spriteLocation;
             this.attackFrameCount = attackFrameCount;
@@ -114,10 +112,10 @@ namespace HatQuest
                                      spriteRectOffsetY,
                                      spriteRectWidth,
                                      spriteRectHeight),
-                       Color.White,
+                       Color.Red,
                        0,
                        Vector2.Zero,
-                       1.0f,
+                       .5f,
                        SpriteEffects.None,
                        0);
 
