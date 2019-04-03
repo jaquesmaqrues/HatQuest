@@ -19,6 +19,7 @@ namespace HatQuest.Effects
         public DefendEffect(Entity target, int defenseGiven): base(target)
         {
             this.defenseGiven = defenseGiven;
+            name = "Defending";
             Apply();
         }
 

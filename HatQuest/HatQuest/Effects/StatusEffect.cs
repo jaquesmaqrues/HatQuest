@@ -10,6 +10,7 @@ namespace HatQuest.Effects
     {
         //Fields
         protected Entity target;
+        protected string name;
 
         /// <summary>
         /// Abstract constructor. All child constructors need to call the Apply() method
@@ -18,6 +19,7 @@ namespace HatQuest.Effects
         public StatusEffect(Entity target)
         {
             this.target = target;
+            name = "Name";
         }
 
         /// <summary>
@@ -39,6 +41,14 @@ namespace HatQuest.Effects
         //Events should override at least one of these events to cause the 
         protected virtual void Trigger(Entity attacker, Entity Defender) { }
         protected virtual void Trigger(Entity defender, int damage) { }
-        
+
+        /// <summary>
+        /// Returns the text to display in the entity status box
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

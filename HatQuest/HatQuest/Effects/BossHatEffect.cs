@@ -12,6 +12,7 @@ namespace HatQuest.Effects
         public BossHatEffect(Entity target) : base(target)
         {
             r = new Random(5);
+            name = "BossHatEffectName";
         }
         protected override void Apply()
         {

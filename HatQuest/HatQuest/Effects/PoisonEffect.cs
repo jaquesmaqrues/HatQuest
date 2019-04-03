@@ -24,6 +24,7 @@ namespace HatQuest.Effects
         public PoisonEffect(Entity target, int stacks):base(target)
         {
             this.stacks = stacks;
+            name = "Poison";
             Apply();
         }
 
@@ -60,6 +61,9 @@ namespace HatQuest.Effects
             base.Remove();
         }
 
-        
+        public override string ToString()
+        {
+            return base.ToString() + " " + stacks;
+        }
     }
 }
