@@ -25,6 +25,7 @@ namespace HatQuest
         private float levelIncrease;
         private float timer;
         private Hat droppedHat;
+        private int temp;
 
         //Fields for player input
         private int selectedAbility;
@@ -105,6 +106,7 @@ namespace HatQuest
             timePerFrame = 2.0 / fps;
 
             animation = new Animations(fps, timePerFrame);
+
         }
 
         /// <summary>
@@ -207,8 +209,38 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.CombatEnd:
-                    //Make sure the player can equip the hat
-                    if (player.Loot != null)
+                    if(keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter) && ((lastClicked!=null && lastClicked.Clicked) || (player.Loot!=null && !player.Loot.HasAbility)))
+                    {
+                        if (player.Loot != null)
+                        {
+                            if (player.Loot.HasAbility)
+                            {
+                                player.Loot.Equip(player, temp);
+                                player.Loot = null;
+                                abilityButton[temp] = new Button(player.Abilities[temp].Name,
+                                                              abilityButton[temp].Rect,
+                                                              SpritesDirectory.GetFont("Arial40"));
+                            }
+                            else
+                            {
+                                player.Loot.Equip(player);
+                                player.Loot = null;
+                            }
+                        }
+
+                        //Move to the next combat if the floor still has rooms left
+                        if (floor.Count > 0)
+                        {
+                            state = PlayState.PlayerInput;
+                        }
+                        //Move to the safe room if the current floor has been completed
+                        else
+                        {
+                            state = PlayState.SafeRoom;
+                            safeRoom.SetUp();
+                        }
+                    }
+                    else if(player.Loot != null)
                     {
                         if (player.Loot.HasAbility)
                         {
@@ -218,66 +250,29 @@ namespace HatQuest
                             {
                                 if (abilityButton[k].IsPressed(mouseLast, mouseCurrent))
                                 {
-                                    player.Loot.Equip(player, k);
-                                    player.Loot = null;
-                                    abilityButton[k] = new Button(player.Abilities[k].Name,
-                                                                  abilityButton[k].Rect,
-                                                                  SpritesDirectory.GetFont("Arial40"));
-                                    break;
+                                    if (lastClicked != null)
+                                    {
+                                        lastClicked.Clicked = false;
+                                    }
+                                    lastClicked = abilityButton[k];
+                                    abilityButton[k].Clicked = true;
+                                    temp = k;
                                 }
                             }
                             if (newAbilityButton.IsPressed(mouseLast, mouseCurrent))
                             {
-                                player.Loot.Equip(player);
-                                player.Loot = null;
-                                break;
-                            }
-
-                            //When the player has selected an ability to discard
-                            if(player.Loot == null)
-                            {
-                                //Disable ability buttons
-                                newAbilityButton.IsVisible = newAbilityButton.IsActive = false;
-                                abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
-                                abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
-                                abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
-                                abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+                                if (lastClicked != null)
+                                {
+                                    lastClicked.Clicked = false;
+                                }
+                                lastClicked = newAbilityButton;
+                                newAbilityButton.Clicked = true;
                             }
                             #endregion
                         }
-                        else
-                        {
-                            player.Loot.Equip(player);
-                            player.Loot = null;
-                        }
                     }
-                    else if (keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter))
-                    {
-                        //Automatically returns the player to the menu if they're dead
-                        if (!player.IsActive)
-                        {
-                            return MainState.Menu;
-                        }
 
-                        
-                        //The player has already recieved their loot
-                        else
-                        {
-
-                            //Move to the next combat if the floor still has rooms left
-                            if (floor.Count > 0)
-                            {
-                                state = PlayState.PlayerInput;
-                            }
-                            //Move to the safe room if the current floor has been completed
-                            else
-                            {
-                                state = PlayState.SafeRoom;
-                                safeRoom.SetUp();
-                            }
-                        }
-                    }
-                    if(state == PlayState.PlayerInput)
+                    if (state == PlayState.PlayerInput)
                     {
                         //Reveal buttons
                         foreach(Button ab in abilityButton)
