@@ -321,13 +321,25 @@ namespace HatQuest
             }
 
             //---------Draw player Stats---------
+            string[] stats = player.GetStats();
             //Background
             batch.Draw(SpritesDirectory.GetSprite("Button"), 
                        new Rectangle((int)(SpritesDirectory.width * .0125), 
-                                     (int)(SpritesDirectory.height * .02083), 
+                                     (int)(SpritesDirectory.height * (1/64.0)), 
                                      (int)(SpritesDirectory.width * .15), 
-                                     (int)(SpritesDirectory.height * 0.26041)),//.14583 
+                                     (int)(SpritesDirectory.height * ((4 + (5 * stats.Length)) / 128.0))),//.14583 
                        Color.White);
+
+            for(int k = 0; k < stats.Length; k++)
+            {
+                batch.DrawString(SpritesDirectory.GetFont("Arial"),
+                            stats[k],
+                            new Vector2((int)(SpritesDirectory.width * .03125),
+                                        (int)(SpritesDirectory.height * ((4 + (5 * k)) / 128.0) + (3 / 128.0))),//.03125
+                            Color.White);
+            }
+
+            /*
             //Name
             batch.DrawString(SpritesDirectory.GetFont("Arial"), 
                             "Elion", 
@@ -358,6 +370,7 @@ namespace HatQuest
                             new Vector2((int)(SpritesDirectory.width * .03125),
                                         (int)(SpritesDirectory.height * 14 / 64)),//0.19793
                             Color.White);
+            */
 
 
             //Draw based on the PlayState
@@ -375,6 +388,7 @@ namespace HatQuest
                     {
                         if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
                         {
+                            /*
                             //Background
                             batch.Draw(SpritesDirectory.GetSprite("Button"),
                                        new Rectangle(670, 10, 120, 70),
@@ -389,6 +403,23 @@ namespace HatQuest
                                              string.Format("HP: {0}", floor.Peek()[k].Health),
                                              new Vector2(685, 35), Color.White);
                             break;
+                            */
+                            stats = floor.Peek()[k].GetStats();
+                            batch.Draw(SpritesDirectory.GetSprite("Button"),
+                                       new Rectangle((int)(SpritesDirectory.width * (67 / 80.0)),
+                                                     (int)(SpritesDirectory.height * (1 / 64.0)),
+                                                     (int)(SpritesDirectory.width * .15),
+                                                     (int)(SpritesDirectory.height * ((4 + (5 * stats.Length)) / 128.0))),
+                                       Color.White);
+
+                            for (int j = 0; j < stats.Length; j++)
+                            {
+                                batch.DrawString(SpritesDirectory.GetFont("Arial"),
+                                            stats[j],
+                                            new Vector2((int)(SpritesDirectory.width * (68 / 80.0)),
+                                                        (int)(SpritesDirectory.height * ((4 + (5 * j)) / 128.0) + (3 / 128.0))),
+                                            Color.White);
+                            }
                         }
                     }
                     break;
