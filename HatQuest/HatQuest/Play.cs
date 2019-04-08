@@ -213,7 +213,7 @@ namespace HatQuest
                     {
                         if (player.Loot != null)
                         {
-                            if (player.Loot.HasAbility)
+                            if (player.Loot.HasAbility && temp !=0)
                             {
                                 player.Loot.Equip(player, temp);
                                 player.Loot = null;
