@@ -27,6 +27,9 @@ namespace HatQuest
             get { return enemies[i]; }
         }
 
+        /// <summary>
+        /// Basic room constructor
+        /// </summary>
         public Room(EnemyType[] enemyTypes, double level, Player player)
         {
             //Fill the room with enemies
@@ -69,6 +72,31 @@ namespace HatQuest
             //A currentAttacker of 5 indicates that all enemies have attacked
             currentAttacker = 0;
             timer = 0;
+        }
+
+        /// <summary>
+        /// Boss room constructor
+        /// </summary>
+        /// <param name="finalBoss">Pass in true only if this is the final boss room</param>
+        public Room(double level, Player player, bool finalBoss = false)
+        {
+            //Put the boss in the room
+            //  indicies 1-4 should be empty
+            enemies = new Enemy[5];
+            if(finalBoss == false)
+            {
+                enemies[0] = new Enemy(EnemiesDirectory.RANDOM(), level * 3, new Point(650, 100), 150, 380, player);
+            }
+            else
+            {
+                enemies[0] = new Enemy(EnemiesDirectory.BOSS, level * 3, new Point(650, 100), 150, 380, player);
+            }
+            
+            //Give the boss hats
+            for(int k = 0; k < level; k++)
+            {
+                HatsDirectory.GetRandomHat(level * 2).Equip(enemies[0]);
+            }
         }
 
         /// <summary>

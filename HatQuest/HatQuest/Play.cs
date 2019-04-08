@@ -21,7 +21,7 @@ namespace HatQuest
         private Queue<Room> floor;
         private SafeRoom safeRoom;
         private PlayState state;
-        private float floorLevel;
+        private int floorLevel;
         private float levelIncrease;
         private float timer;
         private Hat droppedHat;
@@ -477,10 +477,22 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            for(int k = 0; k < (floorLevel/3)+1; k++)
+            if(floorLevel >= 3)
             {
-                floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
+                floor.Enqueue(new Room(floorLevel, player, true));
             }
+            else if(floorLevel % 2 == 0)
+            {
+                floor.Enqueue(new Room(floorLevel, player));
+            }
+            else
+            {
+                for (int k = 0; k < (floorLevel / 3) + 1; k++)
+                {
+                    floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
+                }
+            }
+            
         }
 
         private PlayState GetPlayerInput()
