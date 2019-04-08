@@ -332,7 +332,7 @@ namespace HatQuest
 
             for(int k = 0; k < stats.Length; k++)
             {
-                batch.DrawString(SpritesDirectory.GetFont("Arial"),
+                batch.DrawString(SpritesDirectory.GetFont("Arial12"),
                             stats[k],
                             new Vector2((int)(SpritesDirectory.width * .03125),
                                         (int)(SpritesDirectory.height * ((4 + (5 * k)) / 128.0) + (3 / 128.0))),//.03125
@@ -414,7 +414,7 @@ namespace HatQuest
 
                             for (int j = 0; j < stats.Length; j++)
                             {
-                                batch.DrawString(SpritesDirectory.GetFont("Arial"),
+                                batch.DrawString(SpritesDirectory.GetFont("Arial12"),
                                             stats[j],
                                             new Vector2((int)(SpritesDirectory.width * (68 / 80.0)),
                                                         (int)(SpritesDirectory.height * ((4 + (5 * j)) / 128.0) + (3 / 128.0))),
