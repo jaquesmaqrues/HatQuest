@@ -22,8 +22,6 @@ namespace HatQuest
         private SafeRoom safeRoom;
         private PlayState state;
         private int floorLevel;
-        private float levelIncrease;
-        private float timer;
         private Hat droppedHat;
         private int temp;
 
@@ -41,10 +39,6 @@ namespace HatQuest
         private Button lastClicked;
         private Button currentClicked;
         private TextBox description;
-
-        //Events
-        public delegate void CombatDelegate(Entity attacker, Entity defender);
-        private CombatDelegate EventHandler;
 
         //Animation
         private double fps;
@@ -477,7 +471,7 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            if(floorLevel >= 3)
+            if(floorLevel >= 30)
             {
                 floor.Enqueue(new Room(floorLevel, player, true));
             }

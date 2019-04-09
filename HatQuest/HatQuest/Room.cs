@@ -30,22 +30,22 @@ namespace HatQuest
         /// <summary>
         /// Basic room constructor
         /// </summary>
-        public Room(EnemyType[] enemyTypes, double level, Player player)
+        public Room(RoomLayout layout, double level, Player player)
         {
             //Fill the room with enemies
             enemies = new Enemy[5];
             for(int k = 0; k < 5; k++)
             {
-                if(enemyTypes[k] != null)
+                if(layout[k] != null)
                 {
                     if (k % 2 == 0)
                     {
-                        enemies[k] = new Enemy(enemyTypes[k], level, new Point(650, (k * 50) + 25), 75, 150, player);
+                        enemies[k] = new Enemy(layout[k], level, new Point(650, (k * 50) + 25), 75, 150, player);
                         enemies[k].Name += (" " + (k + 1));
                     }
                     else
                     {
-                        enemies[k] = new Enemy(enemyTypes[k], level, new Point(550, (k * 50) + 25), 75, 150, player);
+                        enemies[k] = new Enemy(layout[k], level, new Point(550, (k * 50) + 25), 75, 150, player);
                         enemies[k].Name += (" " + (k + 1));
                     }
                 }
@@ -92,6 +92,7 @@ namespace HatQuest
                 enemies[0] = new Enemy(EnemiesDirectory.BOSS, level * 3, new Point(650, 100), 150, 380, player);
             }
 
+            enemies[0].Name += " Boss";
             enemies[1] = null;
             enemies[2] = null;
             enemies[3] = null;
