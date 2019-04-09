@@ -379,10 +379,10 @@ namespace HatQuest
                     break;
                 case PlayState.CombatEnd:
 
-
                     //If the player won the combat
                     if(player.IsActive)
                     {
+                        droppedHat.Draw(batch, null, 0);
                         description.Text = string.Format("You defeated the enemy and got: {0}!", droppedHat.Name);
                         if(droppedHat.HasAbility)
                         {
