@@ -171,66 +171,55 @@ namespace External_Tool
         //Loads a .combat file and draws it to the screen
         private void buttonLoad_Click(object sender, EventArgs e)
         {
-            //Opens file menu to choose file
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Title = "Open a combat file";
-            openFileDialog.Filter = "Combat files (*.combat)|*.combat";
+            FileStream inStream = null;
+            BinaryReader reader = null;
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)//Checks if user chose a file
+            try//Loads level values from file
             {
+                inStream = File.OpenRead(Path.Combine(Environment.CurrentDirectory.Replace("\\External_Tool\\External_Tool\\bin\\Debug", "\\HatQuest\\HatQuest\\bin\\Windows\\x86\\Debug\\Layout_Files\\layouts.combat")));
+                reader = new BinaryReader(inStream);
+                combats.Clear();
+                comboBoxCombats.Items.Clear();
 
-                string fileName = openFileDialog.FileName;
-                FileStream inStream = null;
-                BinaryReader reader = null;
+                int combatAmount = reader.ReadInt32();
 
-                try//Loads level values from file
+                for (int x = 0; x < combatAmount; x++)
                 {
-                    inStream = File.OpenRead(fileName);
-                    reader = new BinaryReader(inStream);
-                    combats.Clear();
-                    comboBoxCombats.Items.Clear();
-                    
-                    int combatAmount = reader.ReadInt32();
-
-                    for (int x = 0; x< combatAmount; x++)
+                    combats.Add(new Combat(new Enemy[numResultEnemies]));
+                    for (int y = 0; y < numResultEnemies; y++)
                     {
-                        combats.Add(new Combat(new Enemy[numResultEnemies]));
-                        for (int y = 0; y < numResultEnemies; y++)
+                        int readerValue = reader.ReadInt32();
+                        if (readerValue != -1)
                         {
-                            int readerValue = reader.ReadInt32();
-                            if (readerValue != -1)
-                            {
-                                combats[x][y] = new Enemy(readerValue);
-                                ((PictureBox)groupBoxEnemResult.Controls[y]).Image = ((PictureBox)groupBoxEnemSource.Controls[combats[x][y].EnemyNum]).Image;
-                            }
-
-                            else
-                            {
-                                combats[x][y] = null;
-                            }
+                            combats[x][y] = new Enemy(readerValue);
+                            ((PictureBox)groupBoxEnemResult.Controls[y]).Image = ((PictureBox)groupBoxEnemSource.Controls[combats[x][y].EnemyNum]).Image;
                         }
-                        comboBoxCombats.Items.Add("Combot " + x);
-                        comboBoxCombats.Text = "Combot " + x;
-                    }
 
-                    Text = "Combat Creator - " + openFileDialog.SafeFileName;
-                    MessageBox.Show("File loaded successfully", "File loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                        {
+                            combats[x][y] = null;
+                        }
+                    }
+                    comboBoxCombats.Items.Add("Combot " + x);
+                    comboBoxCombats.Text = "Combot " + x;
+                }
 
-                    if (!Visible)
-                    {
-                        ShowDialog();
-                    }
-                }
-                catch (Exception ex)
+                MessageBox.Show("File loaded successfully", "File loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                if (!Visible)
                 {
-                    MessageBox.Show(ex.Message, "Error reading!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ShowDialog();
                 }
-                finally
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error reading!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (reader != null)
                 {
-                    if (reader != null)
-                    {
-                        reader.Close();
-                    }
+                    reader.Close();
                 }
             }
         }
