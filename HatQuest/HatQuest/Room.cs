@@ -91,9 +91,14 @@ namespace HatQuest
             {
                 enemies[0] = new Enemy(EnemiesDirectory.BOSS, level * 3, new Point(650, 100), 150, 380, player);
             }
-            
+
+            enemies[1] = null;
+            enemies[2] = null;
+            enemies[3] = null;
+            enemies[4] = null;
+
             //Give the boss hats
-            for(int k = 0; k < level; k++)
+            for (int k = 0; k < level; k++)
             {
                 HatsDirectory.GetRandomHat(level * 2).Equip(enemies[0]);
             }
