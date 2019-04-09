@@ -49,9 +49,9 @@ namespace HatQuest.Init
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();
-            fontDirectory.Add("Arial", game.Content.Load<SpriteFont>("File"));
             fontDirectory.Add("Arial40", game.Content.Load<SpriteFont>("Fonts/Arial40"));
             fontDirectory.Add("Arial16", game.Content.Load<SpriteFont>("Fonts/Arial16"));
+            fontDirectory.Add("Arial12", game.Content.Load<SpriteFont>("Fonts/Arial12"));
 
             height = game.GraphicsDevice.Viewport.Height;
             width = game.GraphicsDevice.Viewport.Width;
