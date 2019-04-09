@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HatQuest.Init;
 
 namespace HatQuest
 {
@@ -21,7 +22,14 @@ namespace HatQuest
             {
                 if(i >= 0 && i < 5)
                 {
-                    return enemies[i];
+                    if(!enemies[i].IsRandom)
+                    {
+                        return enemies[i];
+                    }
+                    else
+                    {
+                        return EnemiesDirectory.RANDOM();
+                    }
                 }
                 else
                 {

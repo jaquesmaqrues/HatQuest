@@ -22,8 +22,6 @@ namespace HatQuest
         private SafeRoom safeRoom;
         private PlayState state;
         private int floorLevel;
-        private float levelIncrease;
-        private float timer;
         private Hat droppedHat;
         private int temp;
 
@@ -41,10 +39,6 @@ namespace HatQuest
         private Button lastClicked;
         private Button currentClicked;
         private TextBox description;
-
-        //Events
-        public delegate void CombatDelegate(Entity attacker, Entity defender);
-        private CombatDelegate EventHandler;
 
         //Animation
         private double fps;
@@ -379,10 +373,10 @@ namespace HatQuest
                     break;
                 case PlayState.CombatEnd:
 
-
                     //If the player won the combat
                     if(player.IsActive)
                     {
+                        droppedHat.Draw(batch, null, 0);
                         description.Text = string.Format("You defeated the enemy and got: {0}!", droppedHat.Name);
                         if(droppedHat.HasAbility)
                         {
