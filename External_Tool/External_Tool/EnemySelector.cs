@@ -237,54 +237,44 @@ namespace External_Tool
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            //Creates save dialog object and opens file menu
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Title = "Save a combat file";
-            saveFileDialog.Filter = "Combat Files (*.combat)|.combat";
-
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)//Checks if user clicked ok
+            FileStream outStream = null;
+            BinaryWriter writer = null;
+            try//Saves width, height, and color in a set order
             {
-                string fileName = saveFileDialog.FileName;
+                outStream = File.OpenWrite(Path.Combine(Environment.CurrentDirectory.Replace("\\External_Tool\\External_Tool\\bin\\Debug", "\\HatQuest\\HatQuest\\bin\\Windows\\x86\\Debug\\Layout_Files\\layouts.combat")));
 
-                FileStream outStream = null;
-                BinaryWriter writer = null;
+                writer = new BinaryWriter(outStream);
 
-                try//Saves width, height, and color in a set order
+                writer.Write((int)combats.Count);
+
+                for (int x = 0; x < combats.Count; x++)
                 {
-                    outStream = File.OpenWrite(fileName);
-                    writer = new BinaryWriter(outStream);
-
-                    writer.Write((int)combats.Count);
-
-                    for(int x = 0; x < combats.Count; x++)
+                    for (int y = 0; y < numResultEnemies; y++)
                     {
-                        for(int y = 0; y < numResultEnemies; y++)
+                        if (combats[x][y] != null)
                         {
-                            if(combats[x][y] != null)
-                            {
-                                writer.Write((int)combats[x][y].EnemyNum);
-                            }
-                            else
-                            {
-                                writer.Write(-1);
-                            }
+                            writer.Write((int)combats[x][y].EnemyNum);
+                        }
+                        else
+                        {
+                            writer.Write(-1);
                         }
                     }
-                    Text = "Combat Creator - " + Path.GetFileName(saveFileDialog.FileName);
-                    MessageBox.Show("File saved successfully", "File saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex)
+                MessageBox.Show("File saved successfully", "File saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error writting!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (writer != null)
                 {
-                    MessageBox.Show(ex.Message, "Error writting!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    if (writer != null)
-                    {
-                        writer.Close();
-                    }
+                    writer.Close();
                 }
             }
+
         }
 
         private void hScrollBar_Scroll(object sender, ScrollEventArgs e)
