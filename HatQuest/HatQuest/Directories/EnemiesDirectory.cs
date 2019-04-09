@@ -52,7 +52,14 @@ namespace HatQuest.Init
 
         public static EnemyType RANDOM()
         {
-            return enemyTypes[random.Next(enemyTypes.Count)];
+            if(random.Next(0, 101) > 5)
+            {
+                return enemyTypes[random.Next(enemyTypes.Count)];
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
