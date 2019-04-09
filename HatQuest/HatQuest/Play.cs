@@ -426,11 +426,11 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            if(floorLevel >= 3)
+            if(floorLevel == 10)
             {
                 floor.Enqueue(new Room(floorLevel, player, true));
             }
-            else if(floorLevel % 2 == 0)
+            else if(floorLevel % 3 == 0)
             {
                 floor.Enqueue(new Room(floorLevel, player));
             }
