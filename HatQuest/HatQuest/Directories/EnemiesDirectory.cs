@@ -26,7 +26,7 @@ namespace HatQuest.Init
         public static EnemyType ALIEN = new EnemyType("Alien", SpritesDirectory.GetSprite("Alien"), 5, 3, 0, new Ability[] { new Attack(null), new Abduct(null) }, false);
 
         //Boss Boi
-        public static EnemyType BOSS = new EnemyType("Ogre", SpritesDirectory.GetSprite("Goblin"), 15, 15, 15, new Ability[] { new Abduct(null), new QuickAttack(null), new LifeSiphon(null), new Berserk(null) }, true);
+        public static EnemyType BOSS = new EnemyType("Ogre", SpritesDirectory.GetSprite("Goblin"), 15, 15, 15, new Ability[] { new Abduct(null), new QuickAttack(null), new LifeSiphon(null)}, true);
 
         /// <summary>
         /// Adds all EnemyType fields in this class to a list of Hats to use in random hat selection
