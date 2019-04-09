@@ -332,41 +332,6 @@ namespace HatQuest
                                         (int)(SpritesDirectory.height * ((4 + (5 * k)) / 128.0) + (3 / 128.0))),//.03125
                             Color.White);
             }
-
-            /*
-            //Name
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                            "Elion", 
-                            new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * 2/64)),//.03125
-                            Color.White);
-            //HP
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                            string.Format("HP: {0} / {1}", player.Health, player.MaxHealth), 
-                            new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * 5/64)), //.07292
-                            Color.White);
-            //MP
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                            string.Format("MP: {0} / {1}", player.CurrentMP, player.MaxMP), 
-                            new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * 8/64)), //.114583
-                            Color.White);
-            //Defense
-            batch.DrawString(SpritesDirectory.GetFont("Arial"),
-                            string.Format("DF: {0}", player.Def),
-                            new Vector2((int)(SpritesDirectory.width * .03125),
-                                        (int)(SpritesDirectory.height * 11 / 64)),//0.15626
-                            Color.White);
-            //Attack
-            batch.DrawString(SpritesDirectory.GetFont("Arial"),
-                            string.Format("AK: {0}", player.Atk),
-                            new Vector2((int)(SpritesDirectory.width * .03125),
-                                        (int)(SpritesDirectory.height * 14 / 64)),//0.19793
-                            Color.White);
-            */
-
-
             //Draw based on the PlayState
             switch (state)
             {
@@ -382,22 +347,6 @@ namespace HatQuest
                     {
                         if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
                         {
-                            /*
-                            //Background
-                            batch.Draw(SpritesDirectory.GetSprite("Button"),
-                                       new Rectangle(670, 10, 120, 70),
-                                       Color.White);
-                            //Name
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"),
-                                             string.Format("{0} {1}", floor.Peek()[k].Name, k + 1),
-                                             new Vector2(685, 15),
-                                             new Color(1f, 1 / floorLevel, 1 / floorLevel));
-                            //Name
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"),
-                                             string.Format("HP: {0}", floor.Peek()[k].Health),
-                                             new Vector2(685, 35), Color.White);
-                            break;
-                            */
                             stats = floor.Peek()[k].GetStats();
                             batch.Draw(SpritesDirectory.GetSprite("Button"),
                                        new Rectangle((int)(SpritesDirectory.width * (67 / 80.0)),
@@ -424,10 +373,10 @@ namespace HatQuest
                     break;
                 case PlayState.CombatEnd:
 
-
                     //If the player won the combat
                     if(player.IsActive)
                     {
+                        droppedHat.Draw(batch, null, 0);
                         description.Text = string.Format("You defeated the enemy and got: {0}!", droppedHat.Name);
                         if(droppedHat.HasAbility)
                         {
