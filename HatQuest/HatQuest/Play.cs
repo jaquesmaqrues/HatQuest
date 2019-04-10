@@ -141,15 +141,19 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = false;
                         }
-                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), player.Position, 10, 116, 1523, 826);
+                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), player.Position, 10, 116, 1523, 826); //Change player x and y location based on Animation Test need math
                     }
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
                     //call the event when the PlayState changes
-                    player.TurnEnd();
-                    state = PlayState.EnemyTurn;
+                    if(animation.IsDone)
+                    {
+                        animation.ResetAnimation();
+                        player.TurnEnd();
+                        state = PlayState.EnemyTurn;
+                    }
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
