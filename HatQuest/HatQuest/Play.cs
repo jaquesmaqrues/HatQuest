@@ -97,7 +97,7 @@ namespace HatQuest
 
             //Animation
             fps = 10.0;
-            timePerFrame = 2.0 / fps;
+            timePerFrame = 1.0 / fps;
 
             animation = new Animations(fps, timePerFrame);
 
@@ -141,7 +141,15 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = false;
                         }
-                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), player.Position, 10, 116, 1523, 826); //Change player x and y location based on Animation Test need math
+                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), 
+                                            new Rectangle((int)player.Position.X - 60, 
+                                                          (int)player.Position.Y - 80,
+                                                          (int)(SpritesDirectory.width * .125),
+                                                          (int)(SpritesDirectory.height * .4167)),
+                                            10, 
+                                            116, 
+                                            1523, 
+                                            826); //Change player x and y location based on Animation Test need math
                     }
                     break;
                 case PlayState.PlayerAttack:
