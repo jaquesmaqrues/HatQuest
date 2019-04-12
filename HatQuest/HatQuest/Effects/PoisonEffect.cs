@@ -46,7 +46,7 @@ namespace HatQuest.Effects
 
         protected override void Trigger(Entity attacker, Entity defender)
         {
-            target.Health -= stacks;
+            target.TakeDamage(stacks + target.Def);
             stacks--;
 
             if (stacks < 1)
