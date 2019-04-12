@@ -29,6 +29,16 @@ namespace HatQuest
         private int spriteRectHeight = 1406;   //The height of a single frame
         private int spriteRectWidth = 703;     //The width of a single frame
 
+        private bool isDone;
+
+        public bool IsDone
+        {
+            get
+            {
+                return isDone;
+            }
+        }
+
         //---------CONSTRUCTORS---------
 
         public Animations(double fps, double timePerFrame)
@@ -73,31 +83,21 @@ namespace HatQuest
 
                 if (frame > attackFrameCount)
                 {
-                    frame = 1;
+                    isDone = true;
                 }
 
-                timeCounter += timePerFrame;
+                timeCounter -= timePerFrame;
             }
         }
 
         /// <summary>
-        /// Draws the sprite stationary
+        /// Resets the animation
         /// </summary>
-        /// <param name="batch">Spritebatch</param>
-        public void DrawStanding(SpriteBatch batch)
+        public void ResetAnimation()
         {
-            batch.Draw(spriteSheet,
-                       new Vector2(spriteLocation.X, spriteLocation.Y),
-                       new Rectangle(0,
-                                     spriteRectOffsetY,
-                                     spriteRectWidth,
-                                     spriteRectHeight),
-                       Color.White,
-                       0,
-                       Vector2.Zero,
-                       1.0f,
-                       SpriteEffects.None,
-                       0);
+            isDone = false;
+            frame = 1;
+            timeCounter = 0;
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace HatQuest
                        Color.Red,
                        0,
                        Vector2.Zero,
-                       .5f,
+                       .3f,
                        SpriteEffects.None,
                        0);
 

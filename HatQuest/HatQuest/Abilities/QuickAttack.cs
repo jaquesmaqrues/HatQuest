@@ -17,8 +17,8 @@ namespace HatQuest.Abilities
 
         public override void Activate(Entity target)
         {
-            target.TakeDamage(user.Atk + r.Next(-6, 5));
-            target.TakeDamage(user.Atk + r.Next(-6, 5));
+            target.TakeDamage(user.Atk/3 + r.Next(-6, 5));
+            target.TakeDamage(user.Atk/3 + r.Next(-6, 5));
         }
     }
 }

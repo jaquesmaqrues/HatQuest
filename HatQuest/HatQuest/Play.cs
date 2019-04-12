@@ -97,7 +97,7 @@ namespace HatQuest
 
             //Animation
             fps = 10.0;
-            timePerFrame = 2.0 / fps;
+            timePerFrame = 1.0 / fps;
 
             animation = new Animations(fps, timePerFrame);
 
@@ -141,15 +141,27 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = false;
                         }
-                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), player.Position, 10, 116, 1523, 826);
+                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), 
+                                            new Rectangle((int)player.Position.X - 60, 
+                                                          (int)player.Position.Y - 80,
+                                                          (int)(SpritesDirectory.width * .125),
+                                                          (int)(SpritesDirectory.height * .4167)),
+                                            10, 
+                                            116, 
+                                            1523, 
+                                            826); //Change player x and y location based on Animation Test need math
                     }
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
                     //call the event when the PlayState changes
-                    player.TurnEnd();
-                    state = PlayState.EnemyTurn;
+                    if(animation.IsDone)
+                    {
+                        animation.ResetAnimation();
+                        player.TurnEnd();
+                        state = PlayState.EnemyTurn;
+                    }
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
@@ -420,11 +432,11 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            if(floorLevel >= 30)
+            if(floorLevel == 10)
             {
                 floor.Enqueue(new Room(floorLevel, player, true));
             }
-            else if(floorLevel % 2 == 0)
+            else if(floorLevel % 3 == 0)
             {
                 floor.Enqueue(new Room(floorLevel, player));
             }
