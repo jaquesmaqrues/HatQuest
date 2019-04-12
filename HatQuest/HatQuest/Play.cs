@@ -21,10 +21,9 @@ namespace HatQuest
         private Queue<Room> floor;
         private SafeRoom safeRoom;
         private PlayState state;
-        private float floorLevel;
-        private float levelIncrease;
-        private float timer;
+        private int floorLevel;
         private Hat droppedHat;
+        private int temp;
 
         //Fields for player input
         private int selectedAbility;
@@ -40,10 +39,6 @@ namespace HatQuest
         private Button lastClicked;
         private Button currentClicked;
         private TextBox description;
-
-        //Events
-        public delegate void CombatDelegate(Entity attacker, Entity defender);
-        private CombatDelegate EventHandler;
 
         //Animation
         private double fps;
@@ -105,6 +100,7 @@ namespace HatQuest
             timePerFrame = 1.0 / fps;
 
             animation = new Animations(fps, timePerFrame);
+
         }
 
         /// <summary>
@@ -145,16 +141,27 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = false;
                         }
-                        animation.SetSprite(AnimationsDirectory.getAnimation("Mario"), player.Position, 3, 116, 72, 44);
+                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), 
+                                            new Rectangle((int)player.Position.X - 60, 
+                                                          (int)player.Position.Y - 80,
+                                                          (int)(SpritesDirectory.width * .125),
+                                                          (int)(SpritesDirectory.height * .4167)),
+                                            10, 
+                                            116, 
+                                            1523, 
+                                            826); //Change player x and y location based on Animation Test need math
                     }
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
                     animation.UpdateAnimation(time);
-
                     //call the event when the PlayState changes
-                    player.TurnEnd();
-                    state = PlayState.EnemyTurn;
+                    if(animation.IsDone)
+                    {
+                        animation.ResetAnimation();
+                        player.TurnEnd();
+                        state = PlayState.EnemyTurn;
+                    }
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
@@ -208,8 +215,38 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.CombatEnd:
-                    //Make sure the player can equip the hat
-                    if (player.Loot != null)
+                    if(keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter) && ((lastClicked!=null && lastClicked.Clicked) || (player.Loot!=null && !player.Loot.HasAbility)))
+                    {
+                        if (player.Loot != null)
+                        {
+                            if (player.Loot.HasAbility && temp !=0)
+                            {
+                                player.Loot.Equip(player, temp);
+                                player.Loot = null;
+                                abilityButton[temp] = new Button(player.Abilities[temp].Name,
+                                                              abilityButton[temp].Rect,
+                                                              SpritesDirectory.GetFont("Arial40"));
+                            }
+                            else
+                            {
+                                player.Loot.Equip(player);
+                                player.Loot = null;
+                            }
+                        }
+
+                        //Move to the next combat if the floor still has rooms left
+                        if (floor.Count > 0)
+                        {
+                            state = PlayState.PlayerInput;
+                        }
+                        //Move to the safe room if the current floor has been completed
+                        else
+                        {
+                            state = PlayState.SafeRoom;
+                            safeRoom.SetUp();
+                        }
+                    }
+                    else if(player.Loot != null)
                     {
                         if (player.Loot.HasAbility)
                         {
@@ -219,66 +256,29 @@ namespace HatQuest
                             {
                                 if (abilityButton[k].IsPressed(mouseLast, mouseCurrent))
                                 {
-                                    player.Loot.Equip(player, k);
-                                    player.Loot = null;
-                                    abilityButton[k] = new Button(player.Abilities[k].Name,
-                                                                  abilityButton[k].Rect,
-                                                                  SpritesDirectory.GetFont("Arial40"));
-                                    break;
+                                    if (lastClicked != null)
+                                    {
+                                        lastClicked.Clicked = false;
+                                    }
+                                    lastClicked = abilityButton[k];
+                                    abilityButton[k].Clicked = true;
+                                    temp = k;
                                 }
                             }
                             if (newAbilityButton.IsPressed(mouseLast, mouseCurrent))
                             {
-                                player.Loot.Equip(player);
-                                player.Loot = null;
-                                break;
-                            }
-
-                            //When the player has selected an ability to discard
-                            if(player.Loot == null)
-                            {
-                                //Disable ability buttons
-                                newAbilityButton.IsVisible = newAbilityButton.IsActive = false;
-                                abilityButton[0].IsVisible = abilityButton[0].IsActive = false;
-                                abilityButton[1].IsVisible = abilityButton[1].IsActive = false;
-                                abilityButton[2].IsVisible = abilityButton[2].IsActive = false;
-                                abilityButton[3].IsVisible = abilityButton[3].IsActive = false;
+                                if (lastClicked != null)
+                                {
+                                    lastClicked.Clicked = false;
+                                }
+                                lastClicked = newAbilityButton;
+                                newAbilityButton.Clicked = true;
                             }
                             #endregion
                         }
-                        else
-                        {
-                            player.Loot.Equip(player);
-                            player.Loot = null;
-                        }
                     }
-                    else if (keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter))
-                    {
-                        //Automatically returns the player to the menu if they're dead
-                        if (!player.IsActive)
-                        {
-                            return MainState.Menu;
-                        }
 
-                        
-                        //The player has already recieved their loot
-                        else
-                        {
-
-                            //Move to the next combat if the floor still has rooms left
-                            if (floor.Count > 0)
-                            {
-                                state = PlayState.PlayerInput;
-                            }
-                            //Move to the safe room if the current floor has been completed
-                            else
-                            {
-                                state = PlayState.SafeRoom;
-                                safeRoom.SetUp();
-                            }
-                        }
-                    }
-                    if(state == PlayState.PlayerInput)
+                    if (state == PlayState.PlayerInput)
                     {
                         //Reveal buttons
                         foreach(Button ab in abilityButton)
@@ -323,53 +323,27 @@ namespace HatQuest
             player.Draw(batch);
             if (floor != null && floor.Count > 0)
             {
-                for (int k = 0; k < 5; k++)
-                {
-                    if (floor.Peek()[k] != null)
-                        floor.Peek()[k].Draw(batch);
-                }
+                floor.Peek().Draw(batch);
             }
 
             //---------Draw player Stats---------
+            string[] stats = player.GetStats();
             //Background
             batch.Draw(SpritesDirectory.GetSprite("Button"), 
                        new Rectangle((int)(SpritesDirectory.width * .0125), 
-                                     (int)(SpritesDirectory.height * .02083), 
+                                     (int)(SpritesDirectory.height * (1/64.0)), 
                                      (int)(SpritesDirectory.width * .15), 
-                                     (int)(SpritesDirectory.height * 0.26041)),//.14583 
+                                     (int)(SpritesDirectory.height * ((4 + (5 * stats.Length)) / 128.0))),//.14583 
                        Color.White);
-            //Name
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                            "Elion", 
-                            new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * 2/64)),//.03125
-                            Color.White);
-            //HP
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                            string.Format("HP: {0} / {1}", player.Health, player.MaxHealth), 
-                            new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * 5/64)), //.07292
-                            Color.White);
-            //MP
-            batch.DrawString(SpritesDirectory.GetFont("Arial"), 
-                            string.Format("MP: {0} / {1}", player.CurrentMP, player.MaxMP), 
-                            new Vector2((int)(SpritesDirectory.width * .03125), 
-                                        (int)(SpritesDirectory.height * 8/64)), //.114583
-                            Color.White);
-            //Defense
-            batch.DrawString(SpritesDirectory.GetFont("Arial"),
-                            string.Format("DF: {0}", player.Def),
-                            new Vector2((int)(SpritesDirectory.width * .03125),
-                                        (int)(SpritesDirectory.height * 11 / 64)),//0.15626
-                            Color.White);
-            //Attack
-            batch.DrawString(SpritesDirectory.GetFont("Arial"),
-                            string.Format("AK: {0}", player.Atk),
-                            new Vector2((int)(SpritesDirectory.width * .03125),
-                                        (int)(SpritesDirectory.height * 14 / 64)),//0.19793
-                            Color.White);
 
-
+            for(int k = 0; k < stats.Length; k++)
+            {
+                batch.DrawString(SpritesDirectory.GetFont("Arial12"),
+                            stats[k],
+                            new Vector2((int)(SpritesDirectory.width * .03125),
+                                        (int)(SpritesDirectory.height * ((4 + (5 * k)) / 128.0) + (3 / 128.0))),//.03125
+                            Color.White);
+            }
             //Draw based on the PlayState
             switch (state)
             {
@@ -385,20 +359,22 @@ namespace HatQuest
                     {
                         if (floor.Peek()[k] != null && floor.Peek()[k].Selected(mouseCurrent))
                         {
-                            //Background
+                            stats = floor.Peek()[k].GetStats();
                             batch.Draw(SpritesDirectory.GetSprite("Button"),
-                                       new Rectangle(670, 10, 120, 70),
+                                       new Rectangle((int)(SpritesDirectory.width * (67 / 80.0)),
+                                                     (int)(SpritesDirectory.height * (1 / 64.0)),
+                                                     (int)(SpritesDirectory.width * .15),
+                                                     (int)(SpritesDirectory.height * ((4 + (5 * stats.Length)) / 128.0))),
                                        Color.White);
-                            //Name
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"),
-                                             string.Format("{0} {1}", floor.Peek()[k].Name, k + 1),
-                                             new Vector2(685, 15),
-                                             new Color(1f, 1 / floorLevel, 1 / floorLevel));
-                            //Name
-                            batch.DrawString(SpritesDirectory.GetFont("Arial"),
-                                             string.Format("HP: {0}", floor.Peek()[k].Health),
-                                             new Vector2(685, 35), Color.White);
-                            break;
+
+                            for (int j = 0; j < stats.Length; j++)
+                            {
+                                batch.DrawString(SpritesDirectory.GetFont("Arial12"),
+                                            stats[j],
+                                            new Vector2((int)(SpritesDirectory.width * (68 / 80.0)),
+                                                        (int)(SpritesDirectory.height * ((4 + (5 * j)) / 128.0) + (3 / 128.0))),
+                                            Color.White);
+                            }
                         }
                     }
                     break;
@@ -408,9 +384,11 @@ namespace HatQuest
                 case PlayState.EnemyTurn:
                     break;
                 case PlayState.CombatEnd:
+
                     //If the player won the combat
                     if(player.IsActive)
                     {
+                        droppedHat.Draw(batch, null, 0);
                         description.Text = string.Format("You defeated the enemy and got: {0}!", droppedHat.Name);
                         if(droppedHat.HasAbility)
                         {
@@ -454,10 +432,22 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
-            for(int k = 0; k < (floorLevel/3)+1; k++)
+            if(floorLevel == 10)
             {
-                floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
+                floor.Enqueue(new Room(floorLevel, player, true));
             }
+            else if(floorLevel % 3 == 0)
+            {
+                floor.Enqueue(new Room(floorLevel, player));
+            }
+            else
+            {
+                for (int k = 0; k < (floorLevel / 3) + 1; k++)
+                {
+                    floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
+                }
+            }
+            
         }
 
         private PlayState GetPlayerInput()
@@ -524,7 +514,7 @@ namespace HatQuest
                     if(selectedTarget != -1 && floor.Peek()[selectedTarget] != null && floor.Peek()[selectedTarget].IsActive)
                     {
                         player.AttackPre(floor.Peek()[selectedTarget]);
-                        if (player.AttackEnemy(floor.Peek()[selectedTarget], player.Abilities[selectedAbility]))
+                        if (player.UseAbility(floor.Peek()[selectedTarget], selectedAbility))
                         {
                             player.AttackPost(floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
@@ -541,7 +531,7 @@ namespace HatQuest
                 else
                 {
                     //There are currently no untargeted abilities and the AttackEnemy method isnt set up to handle them
-                    player.Abilities[selectedAbility].Activate(player, null);
+                    player.Abilities[selectedAbility].Activate(null);
                     selectedAbility = selectedTarget = -1;
                     //Resets selected button for next round of combat
                     currentClicked.Clicked = false;

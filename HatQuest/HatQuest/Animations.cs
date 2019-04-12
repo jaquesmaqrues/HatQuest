@@ -29,6 +29,16 @@ namespace HatQuest
         private int spriteRectHeight = 1406;   //The height of a single frame
         private int spriteRectWidth = 703;     //The width of a single frame
 
+        private bool isDone;
+
+        public bool IsDone
+        {
+            get
+            {
+                return isDone;
+            }
+        }
+
         //---------CONSTRUCTORS---------
 
         public Animations(double fps, double timePerFrame)
@@ -48,12 +58,10 @@ namespace HatQuest
         /// <param name="spriteLocation">Where to draw sprite</param>
         /// <param name="attackFrameCount">Number of frames in animation</param>
         /// <param name="spriteRectOffsetY">How far down on the image the frame is</param>
-        /// <param name="spriteRectHeight"></param>
-        /// <param name="spriteRectWidth"></param>
+        /// <param name="spriteRectHeight">Height of the sprite</param>
+        /// <param name="spriteRectWidth">Width of the sprite</param>
         public void SetSprite(Texture2D texture, Rectangle spriteLocation, int attackFrameCount, int spriteRectOffsetY, int spriteRectHeight, int spriteRectWidth)
         {
-            Console.WriteLine("SET SPRITE");
-
             spriteSheet = texture;
             this.spriteLocation = spriteLocation;
             this.attackFrameCount = attackFrameCount;
@@ -75,31 +83,21 @@ namespace HatQuest
 
                 if (frame > attackFrameCount)
                 {
-                    frame = 1;
+                    isDone = true;
                 }
 
-                timeCounter += timePerFrame;
+                timeCounter -= timePerFrame;
             }
         }
 
         /// <summary>
-        /// Draws the sprite stationary
+        /// Resets the animation
         /// </summary>
-        /// <param name="batch">Spritebatch</param>
-        public void DrawStanding(SpriteBatch batch)
+        public void ResetAnimation()
         {
-            batch.Draw(spriteSheet,
-                       new Vector2(spriteLocation.X, spriteLocation.Y),
-                       new Rectangle(0,
-                                     spriteRectOffsetY,
-                                     spriteRectWidth,
-                                     spriteRectHeight),
-                       Color.White,
-                       0,
-                       Vector2.Zero,
-                       1.0f,
-                       SpriteEffects.None,
-                       0);
+            isDone = false;
+            frame = 1;
+            timeCounter = 0;
         }
 
         /// <summary>
@@ -114,10 +112,10 @@ namespace HatQuest
                                      spriteRectOffsetY,
                                      spriteRectWidth,
                                      spriteRectHeight),
-                       Color.White,
+                       Color.Red,
                        0,
                        Vector2.Zero,
-                       1.0f,
+                       .3f,
                        SpriteEffects.None,
                        0);
 

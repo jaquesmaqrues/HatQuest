@@ -13,19 +13,19 @@ namespace HatQuest.Abilities
         {
         }
 
-        public override void Activate(Entity attacker, Entity defender)
+        public override void Activate(Entity target)
         {
-            foreach ( Hat h in attacker.Hats)
+            foreach ( Hat h in user.Hats)
             {
                 if (h.Name == "Bucket Hat")
                 {
-                    if (attacker.Health + 5 < attacker.MaxHealth)
+                    if (user.Health + 5 < user.MaxHealth)
                     {
-                        attacker.Health += 5;
+                        user.Health += 5;
                     }
                     else
                     {
-                        attacker.Health = attacker.MaxHealth;
+                        user.Health = user.MaxHealth;
                     }
                 }
             }

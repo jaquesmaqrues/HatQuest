@@ -140,10 +140,18 @@ namespace HatQuest.Hats
         /// <param name="sb">The SpriteBatch that draws the hat</param>
         public void Draw(SpriteBatch sb, Entity wearer, int hatNumber)
         {
-            sb.Draw(texture, 
-                    new Rectangle(new Point(wearer.Position.Location.X + 10, (wearer.Position.Location.Y - 50 * wearer.Hats.Count) + (50 * hatNumber)), 
-                                  new Point(75, 75)), 
+            if (wearer != null)
+            {
+                sb.Draw(texture,
+                    new Rectangle(new Point(wearer.Position.Location.X + 10, (wearer.Position.Location.Y - 50 * wearer.Hats.Count) + (50 * hatNumber)),
+                                  new Point(75, 75)),
                     color);
+            }
+            else
+            {
+                sb.Draw(texture, new Rectangle(new Point((int)(SpritesDirectory.height * 1.3), (int)(SpritesDirectory.width * .3)), new Point(75, 75)), color);
+            }
+            
         }
     }
 }

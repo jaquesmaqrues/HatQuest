@@ -23,9 +23,9 @@ namespace HatQuest.Abilities
         /// </summary>
         /// <param name="attacker">The attacking Entity</param>
         /// <param name="defender">The defending Entity</param>
-        public override void Activate(Entity attacker, Entity defender)
+        public override void Activate(Entity target)
         {
-            defender.TakeDamage(attacker.Atk);
+            target.TakeDamage(user.Atk);
         }
     }
 }

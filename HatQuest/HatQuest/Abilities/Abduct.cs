@@ -14,11 +14,11 @@ namespace HatQuest.Abilities
             r = new Random(30);
         }
 
-        public override void Activate(Entity Attacker, Entity Defender)
+        public override void Activate(Entity target)
         {
-            if(Attacker.Atk + r.Next(0, 101) >= 75)
+            if(user.Atk + r.Next(0, 101) >= 75)
             {
-                Defender.Health = 1;
+                target.Health = target.Health/2;
             }
         }
     }

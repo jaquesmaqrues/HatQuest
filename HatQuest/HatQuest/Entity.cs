@@ -28,6 +28,7 @@ namespace HatQuest
         protected int atk;
         protected List<Hat> hats;
         protected List<StatusEffect> effects;
+        protected List<string> stats;
 
         //Events
         //DamageEvents should return any changes to the damage
@@ -181,6 +182,7 @@ namespace HatQuest
             isVisible = isActive = true;
             hats = new List<Hat>();
             effects = new List<StatusEffect>();
+            stats = new List<string>();
         }
 
         /// <summary>
@@ -197,6 +199,15 @@ namespace HatQuest
                     hats[k].Draw(sb, this, k);     
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns an array of strings that corespond to the entity's stats
+        /// </summary>
+        /// <returns></returns>
+        public virtual string[] GetStats()
+        {
+            return stats.ToArray();
         }
 
         /// <summary>

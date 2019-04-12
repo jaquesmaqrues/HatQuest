@@ -24,6 +24,7 @@ namespace HatQuest
         public int Defense { get; }
         public List<Ability> Abilities { get; }
         public bool IsBoss { get; }
+        public bool IsRandom { get; }
 
         /// <summary>
         /// Constructor
@@ -42,6 +43,16 @@ namespace HatQuest
             Defense = defense;
             Abilities = abilities.ToList<Ability>();
             IsBoss = isBoss;
+            IsRandom = false;
+        }
+
+        /// <summary>
+        /// Create a random EnemyType. This object stores no data and the IsRandom property should be
+        /// checked when directly handling this object.
+        /// </summary>
+        public EnemyType()
+        {
+            IsRandom = true;
         }
     }
 }

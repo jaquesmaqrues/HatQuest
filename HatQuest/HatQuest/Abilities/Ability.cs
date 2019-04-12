@@ -77,8 +77,7 @@ namespace HatQuest
         /// <summary>
         /// The logic behind activating an ability
         /// </summary>
-        /// <param name="attacker">The attacking Entity</param>
-        /// <param name="defender">The defending Entity</param>
-        public abstract void Activate(Entity attacker, Entity defender);
+        /// <param name="defender">The target of the ability</param>
+        public abstract void Activate(Entity target);
     }
 }

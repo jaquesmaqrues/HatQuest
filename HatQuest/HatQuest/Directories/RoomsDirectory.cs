@@ -14,7 +14,7 @@ namespace HatQuest.Init
     class RoomsDirectory
     {
         private static Random random = new Random(Program.seedRandom.Next());
-        public static List<EnemyType[]> layouts = new List<EnemyType[]>();
+        public static List<RoomLayout> layouts = new List<RoomLayout>();
 
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace HatQuest.Init
 
                 for (int x = 0; x < layoutAmount; x++)
                 {
-                layouts.Add(new EnemyType[5]);
+                    EnemyType[] layout = new EnemyType[5];
                     for (int y = 0; y < 5; y++)
                     {
                         //Gets the enemy number
@@ -50,28 +50,29 @@ namespace HatQuest.Init
                         switch (readerValue)
                         {
                             case 0:
-                                layouts[x][y] = EnemiesDirectory.RANDOM();
+                                layout[y] = new EnemyType();
                                 break;
                             case 1:
-                                layouts[x][y] = EnemiesDirectory.GOBLIN;
+                                layout[y] = EnemiesDirectory.GOBLIN;
                                 break;
                             case 2:
-                                layouts[x][y] = EnemiesDirectory.VAMPIREBAT;
+                                layout[y] = EnemiesDirectory.VAMPIREBAT;
                                 break;
                             case 3:
-                                layouts[x][y] = EnemiesDirectory.FORKGNOME;
+                                layout[y] = EnemiesDirectory.FORKGNOME;
                                 break;
                             case 4:
-                                layouts[x][y] = EnemiesDirectory.ANGRYTOASTER;
+                                layout[y] = EnemiesDirectory.ANGRYTOASTER;
                                 break;
                             case 5:
-                                layouts[x][y] = EnemiesDirectory.ALIEN;
+                                layout[y] = EnemiesDirectory.ALIEN;
                                 break;
                             default:
-                                layouts[x][y] = null;
+                                layout[y] = null;
                                 break;
                         }
                     }
+                    layouts.Add(new RoomLayout(layout[0], layout[1], layout[2], layout[3], layout[4]));
                 }
             }
             //If excepetion is thrown clear layout and makes only layout five goblins
@@ -79,7 +80,7 @@ namespace HatQuest.Init
             {
                 Console.WriteLine(ex.Message);
                 layouts.Clear();
-                layouts.Add(new EnemyType[] { EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM(), EnemiesDirectory.RANDOM() });
+                layouts.Add(new RoomLayout(new EnemyType(), new EnemyType(), new EnemyType(), new EnemyType(), new EnemyType()));
             }
             finally
             {
@@ -94,7 +95,7 @@ namespace HatQuest.Init
         /// Returns a random room from the list. DO NOT USE YET
         /// </summary>
         /// <returns>A random room layout</returns>
-        public static EnemyType[] GetRandomLayout()
+        public static RoomLayout GetRandomLayout()
         {
             return layouts[random.Next(layouts.Count)];
         }

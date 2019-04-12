@@ -44,13 +44,14 @@ namespace HatQuest.Init
             spriteDirectory.Add("VampireBat", game.Content.Load<Texture2D>("Sprites/VampireBat"));
 
             //Animation Sprite Sheets
-            spriteDirectory.Add("MarioTest", game.Content.Load<Texture2D>("Mario"));
+            //spriteDirectory.Add("MarioTest", game.Content.Load<Texture2D>("Mario"));
+            spriteDirectory.Add("StatusEffect", game.Content.Load<Texture2D>("Sprites/StatusEffect"));
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();
-            fontDirectory.Add("Arial", game.Content.Load<SpriteFont>("File"));
             fontDirectory.Add("Arial40", game.Content.Load<SpriteFont>("Fonts/Arial40"));
             fontDirectory.Add("Arial16", game.Content.Load<SpriteFont>("Fonts/Arial16"));
+            fontDirectory.Add("Arial12", game.Content.Load<SpriteFont>("Fonts/Arial12"));
 
             height = game.GraphicsDevice.Viewport.Height;
             width = game.GraphicsDevice.Viewport.Width;

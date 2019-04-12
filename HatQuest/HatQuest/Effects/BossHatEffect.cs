@@ -12,6 +12,7 @@ namespace HatQuest.Effects
         public BossHatEffect(Entity target) : base(target)
         {
             r = new Random(5);
+            name = "BossHatEffectName";
         }
         protected override void Apply()
         {
@@ -19,11 +20,7 @@ namespace HatQuest.Effects
             target.AttackPreEvent += Trigger;
         }
 
-        protected override void Trigger()
-        {
-        }
-
-        private void Trigger(Entity attacker, Entity defender)
+        protected override void Trigger(Entity attacker, Entity defender)
         {
             if (r.Next(1, 51) == 50)
             {

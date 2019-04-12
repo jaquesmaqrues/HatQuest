@@ -46,6 +46,7 @@ namespace HatQuest.Init
         public static Hat TOASTERHAT = new Hat("Toaster Hat", "A hat that allows you to tap into unrelenting fury of a toaster", SpritesDirectory.GetSprite("ToasterHat"), Color.White, HatRarity.Uncommon, new Berserk(null), 5, 0, 0, 0);
         public static Hat CUTLERYHAT = new Hat("Cutlery Hat", "A hat that allows you to utilise the dexterity of the fork-gnomes", SpritesDirectory.GetSprite("Hat"), Color.White, HatRarity.Uncommon, new QuickAttack(null), 0, 0, 0, 5);
         public static Hat ALIENHAT = new Hat("Alien Hat", "A hat that allows you to call upon the power of THE CLAAAAAAWWWWW", SpritesDirectory.GetSprite("AlienHat"), Color.White, HatRarity.Uncommon, new Abduct(null), 0, 0, 5, 0);
+        public static Hat SPIDERHAT = new Hat("Spider Hat", "A hat full of spiders on the inside", SpritesDirectory.GetSprite("Hat"), Color.MediumPurple, HatRarity.Uncommon, new VenomBite(null), 0, 0, 2, 3);
         
         //---- Epic Hats ----//
         private const float EPIC_RARITY = 1.0f;

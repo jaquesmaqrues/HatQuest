@@ -19,6 +19,7 @@ namespace HatQuest.Effects
         public DefendEffect(Entity target, int defenseGiven): base(target)
         {
             this.defenseGiven = defenseGiven;
+            name = "Defending";
             Apply();
         }
 
@@ -29,7 +30,7 @@ namespace HatQuest.Effects
             target.TurnStartEvent += Trigger;
         }
 
-        protected override void Trigger()
+        protected override void Trigger(Entity attacker, Entity defender)
         {
             target.Def -= defenseGiven;
             Remove();
@@ -39,12 +40,6 @@ namespace HatQuest.Effects
         {
             target.TurnStartEvent -= Trigger;
             base.Remove();
-        }
-
-        //Used to hook up to the target's TurnStartEvent
-        protected void Trigger(Entity attacker, Entity defender)
-        {
-            Trigger();
-        }
+        } 
     }
 }

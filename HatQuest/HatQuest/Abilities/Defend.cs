@@ -14,26 +14,26 @@ namespace HatQuest.Abilities
         {
         }
 
-        public override void Activate(Entity attacker, Entity defender)
+        public override void Activate(Entity target)
         {
-            if (attacker.Hats.Contains(HatsDirectory.BUCKETHAT))
+            if (user.Hats.Contains(HatsDirectory.BUCKETHAT))
             {
-                if (((Player)attacker).CurrentMP + 5 < ((Player)attacker).MaxMP)
+                if (((Player)user).CurrentMP + 5 < ((Player)user).MaxMP)
                 {
-                    ((Player)attacker).CurrentMP += 5;
+                    ((Player)user).CurrentMP += 5;
                 }
                 else
                 {
-                    ((Player)attacker).CurrentMP = ((Player)attacker).MaxMP;
+                    ((Player)user).CurrentMP = ((Player)user).MaxMP;
                 }
             }
-            if (attacker.Hats.Contains(HatsDirectory.KNIGHTHAT))
+            if (user.Hats.Contains(HatsDirectory.KNIGHTHAT))
             {
-                new DefendEffect(attacker, attacker.Def / 2);
+                new DefendEffect(user, user.Def / 2);
             }
             else
             {
-                new DefendEffect(attacker, attacker.Def / 3);
+                new DefendEffect(user, user.Def / 3);
             }
         }
 

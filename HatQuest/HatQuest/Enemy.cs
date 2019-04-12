@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
+using HatQuest.Effects;
 
 /* Iain Davis
  * The Enemy class that each enemy will inherit from
@@ -27,7 +28,11 @@ namespace HatQuest
         Random random;
 
         //Properties
-        public string Name { get { return name; } }
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
 
         /// <summary>
@@ -60,7 +65,19 @@ namespace HatQuest
         public void AttackPlayer()
         {
 
-            abilities[random.Next(abilities.Count)].Activate(this, player);
+            abilities[random.Next(abilities.Count)].Activate(player);
+        }
+
+        public override string[] GetStats()
+        {
+            stats.Clear();
+            stats.Add(name);
+            stats.Add(string.Format("HP: {0}/{1}", Health, MaxHealth));
+            foreach (StatusEffect e in effects)
+            {
+                stats.Add(e.ToString());
+            }
+            return stats.ToArray();
         }
     }
 }

@@ -95,16 +95,13 @@
     <None Include="Resources\monster4.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\monster0.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\monster5.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\monster0.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\monster0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monster5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monster5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

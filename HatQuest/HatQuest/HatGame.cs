@@ -27,6 +27,7 @@ namespace HatQuest
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
 
             //In case we want broken full screen mode
             //graphics.IsFullScreen = true;
