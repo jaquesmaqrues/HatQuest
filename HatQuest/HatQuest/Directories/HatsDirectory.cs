@@ -112,7 +112,7 @@ namespace HatQuest.Init
             floorLevel = Math.Pow(1.5, floorLevel-1);
 
             //Checks for hat drops of each rarity
-            for(int r = 0; r < 2; r++)
+            for(int r = 0; r < 3; r++)
             {
                 //Sets the rarity for this iteration
                 switch(r)

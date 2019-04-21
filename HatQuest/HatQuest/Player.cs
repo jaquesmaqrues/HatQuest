@@ -120,6 +120,7 @@ namespace HatQuest
             atk = 10;
             def = 1;
             isActive = isVisible = true;
+            effects.Clear();
             abilities.Clear();
             abilities.Add(new Attack(this));
             abilities.Add(new QuickAttack(this));

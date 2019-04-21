@@ -18,7 +18,7 @@ namespace HatQuest.Abilities
         {
             if(user.Atk + r.Next(0, 101) >= 75)
             {
-                target.Health = target.Health/2;
+                target.TakeDamage((target.Health/2) + target.Def);
             }
         }
     }

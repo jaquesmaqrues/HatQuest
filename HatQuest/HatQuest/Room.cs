@@ -26,6 +26,7 @@ namespace HatQuest
         {
             get { return enemies[i]; }
         }
+        public bool IsVisible { get; set; }
 
         /// <summary>
         /// Basic room constructor
@@ -70,6 +71,7 @@ namespace HatQuest
             }
 
             //A currentAttacker of 5 indicates that all enemies have attacked
+            IsVisible = false;
             currentAttacker = 0;
             timer = 0;
         }
@@ -223,12 +225,15 @@ namespace HatQuest
 
         public void Draw(SpriteBatch batch)
         {
-            foreach(Enemy en in enemies)
+            if(IsVisible)
             {
-                //The if statement may be redundant
-                //IDK if the foreach loop will iterate through null values
-                if(en != null)
-                    en.Draw(batch);
+                foreach (Enemy en in enemies)
+                {
+                    //The if statement may be redundant
+                    //IDK if the foreach loop will iterate through null values
+                    if (en != null)
+                        en.Draw(batch);
+                }
             }
         }
 
