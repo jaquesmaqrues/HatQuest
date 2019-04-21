@@ -475,10 +475,6 @@ namespace HatQuest
             //Gets player input for their selected ability
             #region ability selection
             //Changes button background if button was clicked
-            if (lastClicked != null)
-            {
-                lastClicked.Clicked = false;
-            }
             if (currentClicked != null)
             {
                 currentClicked.Clicked = true;
@@ -497,6 +493,10 @@ namespace HatQuest
                     {
                         selectedAbility = x;
                         lastClicked = currentClicked;
+                        if (lastClicked != null)
+                        {
+                            lastClicked.Clicked = false;
+                        }
                         currentClicked = abilityButton[selectedAbility];
                         break;
                     }
