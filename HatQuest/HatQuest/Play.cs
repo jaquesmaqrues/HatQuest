@@ -110,6 +110,7 @@ namespace HatQuest
         public void SetUp()
         {
             player.Reset();
+            safeRoom.Reset();
             floorLevel = 1;
             GenerateFloor();
             floor.Peek().IsVisible = true;
