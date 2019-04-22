@@ -17,7 +17,12 @@ namespace HatQuest
     {
         //FIelds
         private double timer;
-        SpriteFont font;
+        private TextBox playerStats;
+
+        //player stat fields
+        private int hatsCollected;
+        private int roomsCleared;
+        private int enemiesDefeated;
 
         /// <summary>
         /// Constructor
@@ -25,33 +30,72 @@ namespace HatQuest
         public SafeRoom()
         {
             timer = 0;
-            font = SpritesDirectory.GetFont("Arial40");
+            playerStats = new TextBox("player stats",
+                                      new Rectangle((int)(SpritesDirectory.width * 0.25),
+                                                    (int)(SpritesDirectory.height * 0.7),
+                                                    (int)(SpritesDirectory.width * 0.5),
+                                                    (int)(SpritesDirectory.height * 0.25)),
+                                      SpritesDirectory.GetFont("Arial16"));
         }
 
-        public PlayState Update(GameTime time)
+        public PlayState Update(KeyboardState current, KeyboardState last)
         {
-            timer -= time.ElapsedGameTime.TotalSeconds;
-            if (timer > 0)
+            if(timer < 1)
             {
-                return PlayState.SafeRoom;
+                if (current.IsKeyDown(Keys.Enter) && last.IsKeyDown(Keys.Enter))
+                {
+                    return PlayState.PlayerInput;
+                }
+                else
+                {
+                    return PlayState.SafeRoom;
+                }
             }
             else
             {
-                return PlayState.PlayerInput;
+                timer--;
+                return PlayState.SafeRoom;
             }
         }
 
         public void Draw(SpriteBatch batch)
         {
-            batch.DrawString(font, string.Format("{0:F3}", timer), new Vector2(150, 150), Color.Black);
+            playerStats.Draw(batch);
         }
 
         /// <summary>
         /// Sets up the safe room for use. Always call before entering the safe room
         /// </summary>
-        public void SetUp()
+        /// <param name="hatsCollected">The number of hats the player has</param>
+        public void SetUp(int hatsCollected)
         {
+            this.hatsCollected = hatsCollected;
             timer = 5;
+
+            playerStats.Text = String.Format("Enemies defeated: {0}\nRooms cleared: {1}\nHats collected: {2}", enemiesDefeated, roomsCleared, hatsCollected);
+        }
+
+        /// <summary>
+        /// Reset all the saved player statistics
+        /// </summary>
+        public void Reset()
+        {
+            hatsCollected = 0;
+            roomsCleared = 0;
+            enemiesDefeated = 0;
+        }
+
+        public void UpdateEnemyStat(Entity attacker, Entity defender)
+        {
+            if(!defender.IsActive)
+            {
+                enemiesDefeated++;
+            } 
+        }
+
+        public void UpdateRoomStat()
+        {
+            roomsCleared++;
         }
     }
 }
