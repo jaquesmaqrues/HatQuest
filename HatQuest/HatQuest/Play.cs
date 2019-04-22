@@ -110,7 +110,6 @@ namespace HatQuest
         public void SetUp()
         {
             player.Reset();
-            GenerateFloor();
             floorLevel = 1;
             GenerateFloor();
             floor.Peek().IsVisible = true;
@@ -259,6 +258,11 @@ namespace HatQuest
                         else
                         {
                             state = PlayState.SafeRoom;
+                        }
+
+                        if(state == PlayState.PlayerInput)
+                        {
+                            floor.Peek().IsVisible = true;
                         }
 
                         if(state == PlayState.PlayerInput)
