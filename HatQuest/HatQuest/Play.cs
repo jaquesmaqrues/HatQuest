@@ -73,10 +73,10 @@ namespace HatQuest
                     abilityButton[count] = new Button(
                         player.Abilities[count].Name,
                         new Rectangle(
-                            (int)(SpritesDirectory.width * (.08 + .23 * Math.Pow(x, 1.5))),      //x
-                            (int)(SpritesDirectory.height * (.75 + (y * .13))),     //y
-                            (int)(SpritesDirectory.width * .1875),                  //width
-                            (int)(SpritesDirectory.height * .1042)),                //height
+                            (int)(SpritesDirectory.width * (.08 + .23 * Math.Pow(x, 1.2))),      //x
+                            (int)(SpritesDirectory.height * (.78 + (y * .11))),     //y
+                            (int)(SpritesDirectory.width * .14),                  //width
+                            (int)(SpritesDirectory.height * .08)),                //height
                         SpritesDirectory.GetFont("Arial40"));
                     abilityButton[count].IsActive = abilityButton[count].IsVisible = true;
                     count++;
@@ -110,9 +110,10 @@ namespace HatQuest
         public void SetUp()
         {
             player.Reset();
-            safeRoom.Reset();
             GenerateFloor();
             floorLevel = 1;
+            GenerateFloor();
+            floor.Peek().IsVisible = true;
             state = PlayState.PlayerInput;
 
             foreach (Button ab in abilityButton)
@@ -135,7 +136,15 @@ namespace HatQuest
             switch(state)
             {
                 case PlayState.PlayerInput:
-                    state = GetPlayerInput();
+                    if(!player.IsActive)
+                    {
+                        state = PlayState.CombatEnd;
+                    }
+                    else
+                    {
+                        state = GetPlayerInput();
+                    }
+                    
                     if(state == PlayState.PlayerAttack)
                     {
                         //Hide buttons
@@ -217,8 +226,13 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.CombatEnd:
-                    if(keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter) && ((lastClicked!=null && lastClicked.Clicked) || (player.Loot!=null && !player.Loot.HasAbility)))
+                    if(keyboardCurrent.IsKeyDown(Keys.Enter) && keyboardLast.IsKeyUp(Keys.Enter) && (!player.IsActive ||((lastClicked!=null && lastClicked.Clicked) || (player.Loot!=null && !player.Loot.HasAbility))))
                     {
+                        if(!player.IsActive)
+                        {
+                            return MainState.Menu;
+                        }
+
                         if (player.Loot != null)
                         {
                             if (player.Loot.HasAbility && temp !=0)
@@ -245,6 +259,11 @@ namespace HatQuest
                         else
                         {
                             state = PlayState.SafeRoom;
+                        }
+
+                        if(state == PlayState.PlayerInput)
+                        {
+                            floor.Peek().IsVisible = true;
                         }
                     }
                     else if(player.Loot != null)
@@ -304,6 +323,7 @@ namespace HatQuest
                         player.Health = player.MaxHealth;
                         floorLevel++;
                         GenerateFloor();
+                        floor.Peek().IsVisible = true;
 
                         //Reveal buttons
                         foreach (Button ab in abilityButton)
@@ -470,10 +490,6 @@ namespace HatQuest
             //Gets player input for their selected ability
             #region ability selection
             //Changes button background if button was clicked
-            if (lastClicked != null)
-            {
-                lastClicked.Clicked = false;
-            }
             if (currentClicked != null)
             {
                 currentClicked.Clicked = true;
@@ -492,6 +508,10 @@ namespace HatQuest
                     {
                         selectedAbility = x;
                         lastClicked = currentClicked;
+                        if (lastClicked != null)
+                        {
+                            lastClicked.Clicked = false;
+                        }
                         currentClicked = abilityButton[selectedAbility];
                         break;
                     }
