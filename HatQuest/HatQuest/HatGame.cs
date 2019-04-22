@@ -6,7 +6,7 @@ using HatQuest.Directories;
 
 namespace HatQuest
 {
-    enum MainState { Menu, Play, HatSelect, MenuOptions, PlayOptions}
+    enum MainState { Menu, Instructions, Play, HatSelect, MenuOptions, PlayOptions}
 
     /// <summary>
     /// Jack, Iain, Kat, Elijah 
@@ -18,6 +18,7 @@ namespace HatQuest
 
         //FSM Objets
         Menu menu;
+        Instructions instructions;
         Play play;
 
         //HatGame fields
@@ -85,6 +86,7 @@ namespace HatQuest
             RoomsDirectory.ReadRooms("temp");
             HatsDirectory.SetUp();
             menu = new Menu();
+            instructions = new Instructions();
             play = new Play();
             
         }
@@ -108,6 +110,9 @@ namespace HatQuest
                     {
                         play.SetUp();
                     }
+                    break;
+                case MainState.Instructions:
+                    state = instructions.Update();
                     break;
                 case MainState.HatSelect:
                     //Currently unused
@@ -136,6 +141,9 @@ namespace HatQuest
             {
                 case MainState.Menu:
                     menu.Draw(spriteBatch);
+                    break;
+                case MainState.Instructions:
+                    instructions.Draw(spriteBatch);
                     break;
                 case MainState.HatSelect:
                     break;
