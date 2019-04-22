@@ -55,6 +55,7 @@ namespace HatQuest
 
             floor = new Queue<Room>();
             safeRoom = new SafeRoom();
+            player.AttackPostEvent += safeRoom.UpdateEnemyStat;
             state = PlayState.PlayerInput;
             floorLevel = 1;
             //-1 for selectedTarget and selectedAbility indicates no selection
@@ -109,6 +110,7 @@ namespace HatQuest
         public void SetUp()
         {
             player.Reset();
+            safeRoom.Reset();
             floorLevel = 1;
             GenerateFloor();
             floor.Peek().IsVisible = true;
@@ -257,7 +259,11 @@ namespace HatQuest
                         else
                         {
                             state = PlayState.SafeRoom;
-                            safeRoom.SetUp();
+                        }
+
+                        if(state == PlayState.PlayerInput)
+                        {
+                            floor.Peek().IsVisible = true;
                         }
 
                         if(state == PlayState.PlayerInput)
@@ -305,10 +311,16 @@ namespace HatQuest
                             ab.IsActive = ab.IsVisible = true;
                         }
                     }
+                    else if(state == PlayState.SafeRoom)
+                    {
+                        description.IsVisible = true;
+                        description.Text = "You feel safe here and take a moment to rest...\n" +
+                                           "Press ENTER to continue";
+                        safeRoom.SetUp(player.Hats.Count);
+                    }
                     break;
                 case PlayState.SafeRoom:
-                    description.IsVisible = false;
-                    state = safeRoom.Update(time);
+                    state = safeRoom.Update(keyboardCurrent, keyboardLast);
 
                     if(state == PlayState.PlayerInput)
                     {
@@ -323,6 +335,7 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = true;
                         }
+                        description.IsVisible = false;
                     }
                     break;
                     
@@ -452,19 +465,26 @@ namespace HatQuest
         private void GenerateFloor()
         {
             floor.Clear();
+            Room newRoom;
             if(floorLevel == 10)
             {
-                floor.Enqueue(new Room(floorLevel, player, true));
+                newRoom = new Room(floorLevel, player, true);
+                newRoom.RoomCleared += safeRoom.UpdateRoomStat;
+                floor.Enqueue(newRoom);
             }
             else if(floorLevel % 3 == 0)
             {
-                floor.Enqueue(new Room(floorLevel, player));
+                newRoom = new Room(floorLevel, player);
+                newRoom.RoomCleared += safeRoom.UpdateRoomStat;
+                floor.Enqueue(newRoom);
             }
             else
             {
                 for (int k = 0; k < (floorLevel / 3) + 1; k++)
                 {
-                    floor.Enqueue(new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player));
+                    newRoom = new Room(RoomsDirectory.GetRandomLayout(), floorLevel, player);
+                    newRoom.RoomCleared += safeRoom.UpdateRoomStat;
+                    floor.Enqueue(newRoom);
                 }
             }
             
