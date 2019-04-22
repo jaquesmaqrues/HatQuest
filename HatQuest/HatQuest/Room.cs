@@ -21,6 +21,11 @@ namespace HatQuest
         private int currentAttacker;
         private float timer;
 
+        //Events
+        public delegate void RoomDelegate();
+        public event RoomDelegate RoomCleared;
+        private RoomDelegate roomHandler;
+
         //Properties
         public Enemy this[int i]
         {
@@ -203,6 +208,11 @@ namespace HatQuest
                     }
                     //Sends the player to the safe room if all enemies are dead
                     currentAttacker = 0;
+                    roomHandler = RoomCleared;
+                    if(roomHandler != null)
+                    {
+                        RoomCleared();
+                    }
                     return PlayState.CombatEnd;
                     #endregion
                 //Checks if all enemies have been defeated after they have all had a chance to take their turn
