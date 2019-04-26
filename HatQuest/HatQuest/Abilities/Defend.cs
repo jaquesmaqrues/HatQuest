@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using HatQuest.Init;
 using HatQuest.Effects;
+using Microsoft.Xna.Framework;
 
 namespace HatQuest.Abilities
 {
     class Defend:Ability
     {
-        public Defend(Entity user) : base(0, false, "Defend", "You defend, like a self-preserving nerd", user)
+        public Defend(Entity user) : base(0, false, "Defend", "You defend, like a self-preserving nerd", user, Color.LightYellow)
         {
         }
 

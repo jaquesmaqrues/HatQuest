@@ -95,13 +95,6 @@ namespace HatQuest
             //Textbox
             Rectangle textBox = new Rectangle(200, 10, 400, 100);
             description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial16"));
-
-            //Animation
-            fps = 10.0;
-            timePerFrame = 1.0 / fps;
-
-            animation = new Animations(fps, timePerFrame);
-
         }
 
         /// <summary>
@@ -152,11 +145,11 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = false;
                         }
-                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), 
-                                            new Rectangle((int)player.Position.X - 60, 
+                        player.Animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), 
+                                            /*new Rectangle((int)player.Position.X - 60, 
                                                           (int)player.Position.Y - 80,
                                                           (int)(SpritesDirectory.width * .125),
-                                                          (int)(SpritesDirectory.height * .4167)),
+                                                          (int)(SpritesDirectory.height * .4167)), */
                                             10, 
                                             116, 
                                             1523, 
@@ -165,11 +158,10 @@ namespace HatQuest
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
-                    animation.UpdateAnimation(time);
+                    player.Animation.UpdateAnimation(time);
                     //call the event when the PlayState changes
-                    if(animation.IsDone)
+                    if(player.Animation.IsDone)
                     {
-                        animation.ResetAnimation();
                         player.TurnEnd();
                         state = PlayState.EnemyTurn;
                     }
@@ -412,7 +404,7 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.PlayerAttack:
-                    animation.DrawAttack(batch);
+                    player.Animation.DrawAttack(batch);
                     break;
                 case PlayState.EnemyTurn:
                     break;
@@ -556,6 +548,12 @@ namespace HatQuest
                         player.AttackPre(floor.Peek()[selectedTarget]);
                         if (player.UseAbility(floor.Peek()[selectedTarget], selectedAbility))
                         {
+                            //Sets player animation to targeted enemy and sets color to ability color
+                            player.Animation.ResetAnimation(new Rectangle((int)floor.Peek()[selectedTarget].Position.X - 60,
+                                                                           (int)floor.Peek()[selectedTarget].Position.Y - 80,
+                                                                           (int)(SpritesDirectory.width * .125),
+                                                                           (int)(SpritesDirectory.height * .4167)),
+                                                                           player.Abilities[selectedAbility].Color);
                             player.AttackPost(floor.Peek()[selectedTarget]);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
