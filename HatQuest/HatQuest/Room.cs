@@ -19,7 +19,7 @@ namespace HatQuest
         //Fields
         private Enemy[] enemies;
         private int currentAttacker;
-        private float timer;
+        private string description;
 
         //Events
         public delegate void RoomDelegate();
@@ -30,6 +30,10 @@ namespace HatQuest
         public Enemy this[int i]
         {
             get { return enemies[i]; }
+        }
+        public string Description
+        {
+            get { return description; }
         }
         public bool IsVisible { get; set; }
 
@@ -78,7 +82,6 @@ namespace HatQuest
             //A currentAttacker of 5 indicates that all enemies have attacked
             IsVisible = false;
             currentAttacker = 0;
-            timer = 0;
         }
 
         /// <summary>
@@ -119,17 +122,23 @@ namespace HatQuest
         public PlayState TakeEnemyTurn(Player player)
         {
             //Let the current attacker take their turn
-            switch(currentAttacker)
+            //If enemies[currentAttacker] is non-null and alive then let that enemy take it's turn and increase currentAttacker
+            //Otherwise only increase currentAttacker
+            Ability usedAbility;
+            switch (currentAttacker)
             {
                 #region Enemy turn
                 case 0:
                     if (enemies[0] != null && enemies[0].IsActive)
                     {
                         enemies[0].TurnStart();
+                        //End the current enemy's turn if they just died (like to poison)
+                        if (!enemies[0].IsActive) { currentAttacker++;  break; }
                         enemies[0].AttackPre(player);
-                        enemies[0].AttackPlayer();
+                        usedAbility = enemies[0].AttackPlayer();
                         enemies[0].AttackPost(player);
                         enemies[0].TurnEnd();
+                        description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
                         currentAttacker++;
                     }
                     else
@@ -141,10 +150,11 @@ namespace HatQuest
                     if (enemies[1] != null && enemies[1].IsActive)
                     {
                         enemies[1].TurnStart();
+                        if (!enemies[1].IsActive) { currentAttacker++; break; }
                         enemies[1].AttackPre(player);
-                        enemies[1].AttackPlayer();
-                        enemies[1].AttackPost(player);
+                        usedAbility = enemies[1].AttackPlayer();
                         enemies[1].TurnEnd();
+                        description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
                         currentAttacker++;
                     }
                     else
@@ -156,10 +166,12 @@ namespace HatQuest
                     if (enemies[2] != null && enemies[2].IsActive)
                     {
                         enemies[2].TurnStart();
+                        if (!enemies[2].IsActive) { currentAttacker++; break; }
                         enemies[2].AttackPre(player);
-                        enemies[2].AttackPlayer();
+                        usedAbility = enemies[2].AttackPlayer();
                         enemies[2].AttackPost(player);
                         enemies[2].TurnEnd();
+                        description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
                         currentAttacker++;
                     }
                     else
@@ -171,10 +183,12 @@ namespace HatQuest
                     if (enemies[3] != null && enemies[3].IsActive)
                     {
                         enemies[3].TurnStart();
+                        if (!enemies[3].IsActive) { currentAttacker++; break; }
                         enemies[3].AttackPre(player);
-                        enemies[3].AttackPlayer();
+                        usedAbility = enemies[3].AttackPlayer();
                         enemies[3].AttackPost(player);
                         enemies[3].TurnEnd();
+                        description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
                         currentAttacker++;
                     }
                     else
@@ -186,10 +200,12 @@ namespace HatQuest
                     if (enemies[4] != null && enemies[4].IsActive)
                     {
                         enemies[4].TurnStart();
+                        if (!enemies[4].IsActive) { currentAttacker++; break; }
                         enemies[4].AttackPre(player);
-                        enemies[4].AttackPlayer();
+                        usedAbility = enemies[4].AttackPlayer();
                         enemies[4].AttackPost(player);
                         enemies[4].TurnEnd();
+                        description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
                         currentAttacker++;
                     }
                     else
@@ -197,9 +213,9 @@ namespace HatQuest
                         currentAttacker++;
                     }
                     break;
-                //Ends the enemy turn 
+                //Once all enemies havce taken their turn end the enemy turn
                 default:
-                    //Returns the player to their turn if there are still live e
+                    //Returns the player to their turn if there are still live enemies
                     foreach (Enemy enemy in enemies)
                     {
                         if(enemy != null && enemy.IsActive)

@@ -62,10 +62,12 @@ namespace HatQuest
         /// This allows the monster to attack the player
         /// </summary>
         /// <param name="ability">The ability to be used to attack the player</param>
-        public void AttackPlayer()
+        /// <returns>The ability used</returns>
+        public Ability AttackPlayer()
         {
-
-            abilities[random.Next(abilities.Count)].Activate(player);
+            int abilityIndex = random.Next(abilities.Count);
+            abilities[abilityIndex].Activate(player);
+            return abilities[abilityIndex];
         }
 
         public override string[] GetStats()

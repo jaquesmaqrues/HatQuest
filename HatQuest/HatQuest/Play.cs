@@ -161,6 +161,7 @@ namespace HatQuest
                                             116, 
                                             1523, 
                                             826); //Change player x and y location based on Animation Test need math
+                        description.IsVisible = true;
                     }
                     break;
                 case PlayState.PlayerAttack:
@@ -176,6 +177,10 @@ namespace HatQuest
                     break;
                 case PlayState.EnemyTurn:
                     state = floor.Peek().TakeEnemyTurn(player);
+
+                    //Update the description text to describe the current enemy attack
+                    description.Text = floor.Peek().Description;
+
                     if(state == PlayState.PlayerInput)
                     {
                         player.TurnStart();
@@ -557,6 +562,8 @@ namespace HatQuest
                         if (player.UseAbility(floor.Peek()[selectedTarget], selectedAbility))
                         {
                             player.AttackPost(floor.Peek()[selectedTarget]);
+                            //Update the description text
+                            description.Text = String.Format("You used {0} on {1}", player.Abilities[selectedAbility].Name, floor.Peek()[selectedTarget].Name);
                             //Reset the selectedAbility and selectedTarget fields after a successful attack
                             selectedAbility = selectedTarget = -1;
                             //Resets selected button for next round of combat
