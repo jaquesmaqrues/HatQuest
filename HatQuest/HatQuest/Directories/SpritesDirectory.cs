@@ -21,6 +21,7 @@ namespace HatQuest.Init
 
         public static void Init(Game game)
         {
+
             //-----Load in sprites-----
             spriteDirectory = new Dictionary<string, Texture2D>();
             //Player

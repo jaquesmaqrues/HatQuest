@@ -154,7 +154,8 @@ namespace HatQuest.Hats
                 if (!offScreen)
                 {
                     sb.Draw(texture,
-                        new Rectangle(new Point(wearer.Position.Location.X + 10, (wearer.Position.Location.Y - 60 * wearer.Hats.Count) + (60 * hatNumber)),
+                        new Rectangle(new Point(wearer.Position.Location.X + (10 *(wearer.Position.Width / 100)), 
+                                               (wearer.Position.Location.Y - 60 * wearer.Hats.Count) + (60 * hatNumber) + wearer.HatPosition),
                                       new Point(75, 75)),
                         color);
                 }

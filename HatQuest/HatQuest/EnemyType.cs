@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 namespace HatQuest
 {
     /// <summary>
-    /// Elijah
+    /// Elijah, Jack
     /// </summary>
     class EnemyType
     {
@@ -25,6 +25,7 @@ namespace HatQuest
         public List<Ability> Abilities { get; }
         public bool IsBoss { get; }
         public bool IsRandom { get; }
+        public int HatPosition { get; }
 
         /// <summary>
         /// Constructor
@@ -34,7 +35,7 @@ namespace HatQuest
         /// <param name="attack">Base attack</param>
         /// <param name="defense">Base defense</param>
         /// <param name="abilities">Base abilities</param>
-        public EnemyType(string name, Texture2D sprite, int health, int attack, int defense, Ability[] abilities, bool isBoss)
+        public EnemyType(string name, Texture2D sprite, int health, int attack, int defense, Ability[] abilities, bool isBoss, int hatPosition)
         {
             Name = name;
             Sprite = sprite;
@@ -44,6 +45,7 @@ namespace HatQuest
             Abilities = abilities.ToList<Ability>();
             IsBoss = isBoss;
             IsRandom = false;
+            HatPosition = hatPosition;
         }
 
         /// <summary>

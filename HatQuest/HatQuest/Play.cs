@@ -51,7 +51,7 @@ namespace HatQuest
                                 new Point((int)(SpritesDirectory.width * .125),
                                           (int)(SpritesDirectory.height * .3125)),
                                           (int)(SpritesDirectory.width * .125),
-                                          (int)(SpritesDirectory.height * .4167));
+                                          (int)(SpritesDirectory.height * .4167), 1);
 
             floor = new Queue<Room>();
             safeRoom = new SafeRoom();
