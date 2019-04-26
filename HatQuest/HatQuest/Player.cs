@@ -71,7 +71,7 @@ namespace HatQuest
         /// <param name="position">The top left corner of the player's sprite</param>
         /// <param name="width">How wide the player is</param>
         /// <param name="height">How tall the player is</param>
-        public Player(Texture2D texture, Point position, int width, int height) : base(texture, position, width, height)
+        public Player(Texture2D texture, Point position, int width, int height, int hatPosition) : base(texture, position, width, height, hatPosition)
         {
             maxHealth = currentHealth = 10;
             maxMP = currentMP = 10;

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace HatQuest.Abilities
 {
     class LifeSiphon : Ability
     {
-        public LifeSiphon(Entity user) : base(3, true, "Life Siphon", "An attack that drains the life of your enemies", user)
+        public LifeSiphon(Entity user) : base(3, true, "Life Siphon", "An attack that drains the life of your enemies", user, Color.LightGreen)
         {
 
         }

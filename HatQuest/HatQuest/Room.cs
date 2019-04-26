@@ -46,12 +46,12 @@ namespace HatQuest
                 {
                     if (k % 2 == 0)
                     {
-                        enemies[k] = new Enemy(layout[k], level, new Point(650, (k * 50) + 25), 75, 150, player);
+                        enemies[k] = new Enemy(layout[k], level, new Point(650, (k * 50) + 25), 75, 150, player, layout[k].HatPosition);
                         enemies[k].Name += (" " + (k + 1));
                     }
                     else
                     {
-                        enemies[k] = new Enemy(layout[k], level, new Point(550, (k * 50) + 25), 75, 150, player);
+                        enemies[k] = new Enemy(layout[k], level, new Point(550, (k * 60) + 60), 75, 150, player, , layout[k].HatPosition);
                         enemies[k].Name += (" " + (k + 1));
                     }
                 }
@@ -92,11 +92,13 @@ namespace HatQuest
             enemies = new Enemy[5];
             if(finalBoss == false)
             {
-                enemies[0] = new Enemy(EnemiesDirectory.RANDOM(), level * 3, new Point(650, 100), 150, 380, player);
+                EnemyType temp = EnemiesDirectory.RANDOM();
+                enemies[0] = new Enemy(temp, level * 3, new Point(650, 100), 150, 380, player, temp.HatPosition);
             }
             else
             {
-                enemies[0] = new Enemy(EnemiesDirectory.BOSS, level * 3, new Point(650, 100), 150, 380, player);
+                
+                enemies[0] = new Enemy(EnemiesDirectory.BOSS, level * 3, new Point(650, 100), 150, 380, player, EnemiesDirectory.BOSS.HatPosition);
             }
 
             enemies[0].Name += " Boss";

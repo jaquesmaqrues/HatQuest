@@ -35,6 +35,7 @@ namespace HatQuest
         }
 
 
+
         /// <summary>
         /// A modified ctor from Entity that takes the player in as a parameter
         /// </summary>
@@ -43,7 +44,7 @@ namespace HatQuest
         /// <param name="width">The width of the enemy</param>
         /// <param name="height">The height of the enemy</param>
         /// <param name="player">The player</param>
-        public Enemy(EnemyType enemyType, double level, Point position, int width, int height, Player player) : base(enemyType.Sprite, position, width, height)
+        public Enemy(EnemyType enemyType, double level, Point position, int width, int height, Player player, int hatPosition) : base(enemyType.Sprite, position, width, height, hatPosition)
         {
             level = Math.Pow(1.125, level-1);
             name = enemyType.Name;
@@ -64,7 +65,6 @@ namespace HatQuest
         /// <param name="ability">The ability to be used to attack the player</param>
         public void AttackPlayer()
         {
-
             abilities[random.Next(abilities.Count)].Activate(player);
         }
 
