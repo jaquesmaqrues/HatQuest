@@ -13,7 +13,7 @@ using HatQuest.Init;
 namespace HatQuest
 {
     /// <summary>
-    /// Elijah, Iain
+    /// Elijah, Iain, Jack
     /// </summary>
     class Entity
     {
@@ -31,6 +31,7 @@ namespace HatQuest
         protected List<StatusEffect> effects;
         protected List<string> stats;
         protected Animations animation;
+        protected int hatPosition;
 
         //Events
         //DamageEvents should return any changes to the damage
@@ -174,6 +175,14 @@ namespace HatQuest
                 hats = value;
             }
         }
+        /// <summary>
+        /// Offsets the hat by a set amount
+        /// </summary>
+        public int HatPosition
+        {
+            get { return hatPosition; }
+            set { hatPosition = value; }
+        }
 
         /// <summary>
         /// The constructor defines the Position and Texture of the Entity
@@ -182,7 +191,7 @@ namespace HatQuest
         /// <param name="position">The Top-Left corner of the Entity</param>
         /// <param name="width">How wide you want the Entity</param>
         /// <param name="height">How tall you want the Entity</param>
-        public Entity(Texture2D texture, Point position, int width, int height)
+        public Entity(Texture2D texture, Point position, int width, int height, int hatPosition)
         {
             this.position = new Rectangle(position.X, position.Y, width, height);
             this.texture = texture;
@@ -191,6 +200,7 @@ namespace HatQuest
             hats = new List<Hat>();
             effects = new List<StatusEffect>();
             stats = new List<string>();
+            this.hatPosition = hatPosition;
             animation = new Animations(10.0, 
                                        1.0 / 10.0, 
                                        SpritesDirectory.GetSprite("StatusEffect"),
