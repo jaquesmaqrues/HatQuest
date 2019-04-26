@@ -12,7 +12,7 @@ namespace HatQuest
     enum PlayState { PlayerInput, PlayerAttack, EnemyTurn, SafeRoom, CombatEnd }
 
     /// <summary>
-    /// Elijah, Kat
+    /// Elijah, Kat, Jack
     /// </summary>
     class Play
     {
@@ -73,10 +73,10 @@ namespace HatQuest
                     abilityButton[count] = new Button(
                         player.Abilities[count].Name,
                         new Rectangle(
-                            (int)(SpritesDirectory.width * (.08 + .23 * Math.Pow(x, 1.2))),      //x
-                            (int)(SpritesDirectory.height * (.78 + (y * .11))),     //y
-                            (int)(SpritesDirectory.width * .14),                  //width
-                            (int)(SpritesDirectory.height * .08)),                //height
+                            (int)(SpritesDirectory.width * (.15 + .17 * Math.Pow(x, 1.8))),      //x
+                            (int)(SpritesDirectory.height * (.78 + (y * .1))),                 //y
+                            (int)(SpritesDirectory.width * .14),                                //width
+                            (int)(SpritesDirectory.height * .08)),                              //height
                         SpritesDirectory.GetFont("Arial40"));
                     abilityButton[count].IsActive = abilityButton[count].IsVisible = true;
                     count++;
