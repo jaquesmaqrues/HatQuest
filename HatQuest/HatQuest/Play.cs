@@ -507,7 +507,7 @@ namespace HatQuest
             {
                 if (abilityButton[x].IsHovered())
                 {
-                    description.Text = player.Abilities[x].Description;
+                    description.Text = string.Format("{0}  ||  MP Cost: {1}", player.Abilities[x].Description, player.Abilities[x].ManaCost);
                     valid = true;
                     if (abilityButton[x].IsPressed(mouseLast, mouseCurrent) && player.Abilities[x] != null && player.CurrentMP >= player.Abilities[x].ManaCost)
                     {
