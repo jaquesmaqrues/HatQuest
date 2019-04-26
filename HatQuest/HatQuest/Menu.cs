@@ -16,7 +16,8 @@ namespace HatQuest
     class Menu
     {
         private Texture2D image;
-        private Rectangle position;
+        private Rectangle playPosition;
+        private Rectangle instructionsPosition;
 
         //Fields for player input
         private MouseState mouseCurrent;
@@ -24,6 +25,7 @@ namespace HatQuest
 
         //Buttons
         private Button playButton;
+        private Button instructionsButton;
 
         //---------PROPERTIES---------
 
@@ -45,10 +47,20 @@ namespace HatQuest
         {
             //Buttons
             
-            position = new Rectangle(SpritesDirectory.width / 2 - 75, 400, 150, 50);
-            playButton = new Button("Play", position, SpritesDirectory.GetFont("Arial40"));
+            playPosition = new Rectangle(SpritesDirectory.width / 2 - (int)((SpritesDirectory.width * .1875) / 2), 
+                                         (int)(SpritesDirectory.height * .625), //300
+                                         (int)(SpritesDirectory.width * .1875), //150 
+                                         (int)(SpritesDirectory.height * .0833)); //40
+            playButton = new Button("Play", playPosition, SpritesDirectory.GetFont("Arial40"));
+
+            instructionsPosition = new Rectangle(SpritesDirectory.width / 2 - (int)((SpritesDirectory.width * .1875) / 2),
+                                                 (int)(SpritesDirectory.height * .79167), //380
+                                                 (int)(SpritesDirectory.width * .1875), //150
+                                                 (int)(SpritesDirectory.height * .0833)); //40
+            instructionsButton = new Button("Instructions", instructionsPosition, SpritesDirectory.GetFont("Arial40"));
 
             playButton.IsActive = playButton.IsVisible = true;
+            instructionsButton.IsActive = instructionsButton.IsVisible = true;
             
         }
 
@@ -62,6 +74,10 @@ namespace HatQuest
             if (playButton.IsPressed(mouseLast, mouseCurrent))
             {
                 return MainState.Play;
+            }
+            else if (instructionsButton.IsPressed(mouseLast, mouseCurrent))
+            {
+                return MainState.Instructions;
             }
             else
             {
@@ -77,13 +93,14 @@ namespace HatQuest
             
             //Draw Name
             batch.DrawString(
-                SpritesDirectory.GetFont("Arial40"), 
+                SpritesDirectory.GetFont("Arial60"), 
                 "Hat Quest", 
-                new Vector2(SpritesDirectory.width / 2 - SpritesDirectory.GetFont("Arial40").MeasureString("Hat Quest").X / 2, 100), 
+                new Vector2((SpritesDirectory.width / 2) - (SpritesDirectory.GetFont("Arial60").MeasureString("Hat Quest").X / 2), 100), 
                 Color.White);
 
             //Draw Button
             playButton.Draw(batch);
+            instructionsButton.Draw(batch);
         }
     }
 }
