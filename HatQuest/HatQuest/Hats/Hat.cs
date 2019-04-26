@@ -142,42 +142,45 @@ namespace HatQuest.Hats
         /// <param name="sb">The SpriteBatch that draws the hat</param>
         public void Draw(SpriteBatch sb, Entity wearer, int hatNumber)
         {
-            bool goingUp = true;
+            bool goingDown = false;
             bool offScreen = false;
 
             if (wearer != null)
             {
-                if ((wearer.Position.Location.Y - 60 * wearer.Hats.Count) + (60 * hatNumber) < 0 || (wearer.Position.Location.Y - 60 * wearer.Hats.Count) + (60 * hatNumber) > 480)
+                if ((wearer.Position.Location.Y - SpritesDirectory.height / 8) - (SpritesDirectory.height / 8 * hatNumber) < 0 || (wearer.Position.Location.Y - SpritesDirectory.height / 8) - (SpritesDirectory.height / 8 * hatNumber) >= SpritesDirectory.height)
                 {
                     offScreen = true;
+                    goingDown = !goingDown;
                 }
+
                 if (!offScreen)
                 {
                     sb.Draw(texture,
-                        new Rectangle(new Point(wearer.Position.Location.X + 10, (wearer.Position.Location.Y - 60 * wearer.Hats.Count) + (60 * hatNumber)),
-                                      new Point(75, 75)),
+                        new Rectangle(new Point(wearer.Position.Location.X + SpritesDirectory.width / 80, 
+                                              (wearer.Position.Location.Y - SpritesDirectory.height / 8) - (SpritesDirectory.height / 8 * hatNumber)),
+                                      new Point((int)(SpritesDirectory.height / 6.4), (int)(SpritesDirectory.height / 6.4))),
                         color);
                 }
-                else if (goingUp)
+                else if (goingDown)
                 {
-                    goingUp = false;
                     sb.Draw(texture,
-                        new Rectangle(new Point(wearer.Position.Location.X + 10 + 150 * ((hatNumber + 3) / 6), 60 * (hatNumber % 6)),
-                        new Point(-75, -75)),
+                        new Rectangle(new Point(wearer.Position.Location.X + SpritesDirectory.width / 80 + ((int)(SpritesDirectory.height / 6.4) * 2) * ((hatNumber + 4) / 6), 
+                                                               SpritesDirectory.height / 8 * ((hatNumber - 1) % 6)),
+                        new Point(-(int)(SpritesDirectory.height / 6.4), -(int)(SpritesDirectory.height / 6.4))),
                         color);
                 }
                 else
                 {
-                    goingUp = true;
                     sb.Draw(texture,
-                         new Rectangle(new Point(wearer.Position.Location.X + 10 + 150 * ((hatNumber + 3) / 6), 480 - (60 * ((hatNumber - 2) % 6))),
-                                       new Point(75, 75)),
+                         new Rectangle(new Point(wearer.Position.Location.X + SpritesDirectory.width / 80 + (int)(SpritesDirectory.height / 6.4) * ((hatNumber + 4) / 6), 
+                                                                SpritesDirectory.height - (SpritesDirectory.height / 8 * (hatNumber % 6))),
+                                       new Point((int)(SpritesDirectory.height / 6.4), (int)(SpritesDirectory.height / 6.4))),
                          color);
                 }
             }
             else
             {
-                sb.Draw(texture, new Rectangle(new Point((int)(SpritesDirectory.height * 1.3), (int)(SpritesDirectory.width * .3)), new Point(75, 75)), color);
+                sb.Draw(texture, new Rectangle(new Point((int)(SpritesDirectory.height * 1.3), (int)(SpritesDirectory.width * .3)), new Point((int)(SpritesDirectory.height / 6.4), (int)(SpritesDirectory.height / 6.4))), color);
             }
             
         }
