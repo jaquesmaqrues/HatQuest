@@ -19,6 +19,7 @@ namespace HatQuest
         protected string name;
         protected string description;
         protected Entity user;
+        protected Color color;
 
         /// <summary>
         /// The MP cost of the ability
@@ -47,6 +48,14 @@ namespace HatQuest
             }
         }
 
+        public Color Color
+        {
+            get
+            {
+                return color;
+            }
+        }
+
         /// <summary>
         /// Whether the ability is targeted or not
         /// </summary>
@@ -55,13 +64,14 @@ namespace HatQuest
             get { return isTargeted; }
         }
 
-        public Ability(int manaCost, bool isTargeted, string name, string description, Entity user)
+        public Ability(int manaCost, bool isTargeted, string name, string description, Entity user, Color color)
         {
             this.manaCost = manaCost;
             this.isTargeted = isTargeted;
             this.name = name;
             this.description = description;
             this.user = user;
+            this.color = color;
         }
 
         /// <summary>

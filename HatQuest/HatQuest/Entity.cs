@@ -29,6 +29,7 @@ namespace HatQuest
         protected List<Hat> hats;
         protected List<StatusEffect> effects;
         protected List<string> stats;
+        protected Animations animation;
         protected int hatPosition;
 
         //Events
@@ -56,6 +57,12 @@ namespace HatQuest
         {
             get { return isVisible; }
             set { isVisible = value; }
+        }
+
+        public Animations Animation
+        {
+            get { return animation; }
+            set { animation = value; }
         }
 
         /// <summary>
@@ -193,6 +200,7 @@ namespace HatQuest
             effects = new List<StatusEffect>();
             stats = new List<string>();
             this.hatPosition = hatPosition;
+            animation = new Animations(10.0, 1.0 / 10.0);
         }
 
         /// <summary>

@@ -37,6 +37,7 @@ namespace HatQuest.Init
             spriteDirectory.Add("AlienHat", game.Content.Load<Texture2D>("Sprites/alienHat"));
             spriteDirectory.Add("ToasterHat", game.Content.Load<Texture2D>("Sprites/toasterHat"));
             spriteDirectory.Add("VampireHat", game.Content.Load<Texture2D>("Sprites/vampireHat"));
+            spriteDirectory.Add("KnightHelm", game.Content.Load<Texture2D>("Sprites/Knight's_Helm"));
             //Enemies
             spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
             spriteDirectory.Add("Alien", game.Content.Load<Texture2D>("Sprites/Alien"));

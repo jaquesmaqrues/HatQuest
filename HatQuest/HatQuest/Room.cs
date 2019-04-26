@@ -51,7 +51,7 @@ namespace HatQuest
                     }
                     else
                     {
-                        enemies[k] = new Enemy(layout[k], level, new Point(550, (k * 50) + 25), 75, 150, player, layout[k].HatPosition);
+                        enemies[k] = new Enemy(layout[k], level, new Point(550, (k * 60) + 60), 75, 150, player, , layout[k].HatPosition);
                         enemies[k].Name += (" " + (k + 1));
                     }
                 }

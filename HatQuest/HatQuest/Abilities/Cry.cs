@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HatQuest.Hats;
+using Microsoft.Xna.Framework;
 
 namespace HatQuest.Abilities
 {
     class Cry:Ability
     {
-        public Cry(Entity user) : base(0, false, "Cry", "You cry, like a loser", user)
+        public Cry(Entity user) : base(0, false, "Cry", "You cry, like a loser", user, Color.LightBlue)
         {
         }
 

@@ -30,12 +30,38 @@ namespace HatQuest
         private int spriteRectWidth = 703;     //The width of a single frame
 
         private bool isDone;
+        private Color color;
+        private bool isVisible;
 
         public bool IsDone
         {
             get
             {
                 return isDone;
+            }
+        }
+
+        public Color Color
+        {
+            get
+            {
+                return color;
+            }
+            set
+            {
+                color = value;
+            }
+        }
+
+        public bool IsVisible
+        {
+            get
+            {
+                return isVisible;
+            }
+            set
+            {
+                isVisible = value;
             }
         }
 
@@ -47,6 +73,8 @@ namespace HatQuest
             timeCounter = 0;
             this.fps = fps;
             this.timePerFrame = timePerFrame;
+            isVisible = false;
+            color = Color.Red;
         }
 
         //---------METHODS---------
@@ -60,14 +88,15 @@ namespace HatQuest
         /// <param name="spriteRectOffsetY">How far down on the image the frame is</param>
         /// <param name="spriteRectHeight">Height of the sprite</param>
         /// <param name="spriteRectWidth">Width of the sprite</param>
-        public void SetSprite(Texture2D texture, Rectangle spriteLocation, int attackFrameCount, int spriteRectOffsetY, int spriteRectHeight, int spriteRectWidth)
+        public void SetSprite(Texture2D texture, int attackFrameCount, int spriteRectOffsetY, int spriteRectHeight, int spriteRectWidth)
         {
             spriteSheet = texture;
-            this.spriteLocation = spriteLocation;
+            //this.spriteLocation = spriteLocation;
             this.attackFrameCount = attackFrameCount;
             this.spriteRectOffsetY = spriteRectOffsetY;     //For testing purposes, may not need
             this.spriteRectHeight = spriteRectHeight;       //May be hardcoded
             this.spriteRectWidth = spriteRectWidth;         //May be hardcoded
+            this.color = Color.Red;
         }
 
         /// <summary>
@@ -84,6 +113,7 @@ namespace HatQuest
                 if (frame > attackFrameCount)
                 {
                     isDone = true;
+                    isVisible = false;
                 }
 
                 timeCounter -= timePerFrame;
@@ -93,11 +123,14 @@ namespace HatQuest
         /// <summary>
         /// Resets the animation
         /// </summary>
-        public void ResetAnimation()
+        public void ResetAnimation(Rectangle spriteLocation, Color color)
         {
+            isVisible = true;
             isDone = false;
             frame = 1;
             timeCounter = 0;
+            this.spriteLocation = spriteLocation;
+            this.color = color;
         }
 
         /// <summary>
@@ -112,7 +145,7 @@ namespace HatQuest
                                      spriteRectOffsetY,
                                      spriteRectWidth,
                                      spriteRectHeight),
-                       Color.Red,
+                       color,
                        0,
                        Vector2.Zero,
                        .3f,

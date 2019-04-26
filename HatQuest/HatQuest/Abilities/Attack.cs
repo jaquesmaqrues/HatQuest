@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 
 namespace HatQuest.Abilities
 {
@@ -14,7 +15,7 @@ namespace HatQuest.Abilities
         /// <summary>
         /// The base attack ability
         /// </summary>
-        public Attack(Entity user) : base(0, true, "Attack", "A basic attack", user)
+        public Attack(Entity user) : base(0, true, "Attack", "A basic attack", user, Color.Red)
         {
         }
 
