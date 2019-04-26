@@ -28,6 +28,7 @@ namespace HatQuest.Hats
         protected Texture2D texture;
         protected Ability ability;
         protected Color color;
+        protected Random r;
 
         //Properties
         public String Name
@@ -93,6 +94,7 @@ namespace HatQuest.Hats
             this.rarity = rarity;
             this.ability = ability;
             this.color = color;
+            r = new Random(5);
         }
 
         /// <summary>
@@ -160,7 +162,7 @@ namespace HatQuest.Hats
                 {
                     goingUp = false;
                     sb.Draw(texture,
-                        new Rectangle(new Point(wearer.Position.Location.X + 160, 420 - (60 * ((hatNumber - 1) % 6))),
+                        new Rectangle(new Point(wearer.Position.Location.X + 10 + 150 * ((hatNumber + 3) / 6), 60 * (hatNumber % 6)),
                         new Point(-75, -75)),
                         color);
                 }
@@ -168,7 +170,7 @@ namespace HatQuest.Hats
                 {
                     goingUp = true;
                     sb.Draw(texture,
-                         new Rectangle(new Point(wearer.Position.Location.X + 160, (60 * ((hatNumber - 1) % 6))),
+                         new Rectangle(new Point(wearer.Position.Location.X + 10 + 150 * ((hatNumber + 3) / 6), 480 - (60 * ((hatNumber - 2) % 6))),
                                        new Point(75, 75)),
                          color);
                 }
