@@ -68,6 +68,7 @@ namespace HatQuest
         {
             int abilityIndex = random.Next(abilities.Count);
             abilities[abilityIndex].Activate(player);
+            animation.ResetAnimation(player.Position, abilities[abilityIndex].Color);
             return abilities[abilityIndex];
         }
 

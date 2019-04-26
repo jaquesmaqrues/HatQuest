@@ -67,7 +67,7 @@ namespace HatQuest
 
         //---------CONSTRUCTORS---------
 
-        public Animations(double fps, double timePerFrame)
+        public Animations(double fps, double timePerFrame, Texture2D texture, int attackFrameCount, int spriteRectOffsetY, int spriteRectHeight, int spriteRectWidth)
         {
             frame = 0;
             timeCounter = 0;
@@ -75,6 +75,11 @@ namespace HatQuest
             this.timePerFrame = timePerFrame;
             isVisible = false;
             color = Color.Red;
+            spriteSheet = texture;
+            this.attackFrameCount = attackFrameCount;
+            this.spriteRectOffsetY = spriteRectOffsetY;     //For testing purposes, may not need
+            this.spriteRectHeight = spriteRectHeight;       //May be hardcoded
+            this.spriteRectWidth = spriteRectWidth;
         }
 
         //---------METHODS---------
@@ -139,7 +144,9 @@ namespace HatQuest
         /// <param name="batch">Spritebatch</param>
         public void DrawAttack(SpriteBatch batch)
         {
-            batch.Draw(spriteSheet,
+            if(isVisible)
+            {
+                batch.Draw(spriteSheet,
                        new Vector2(spriteLocation.X, spriteLocation.Y),
                        new Rectangle(frame * spriteRectWidth,
                                      spriteRectOffsetY,
@@ -151,7 +158,7 @@ namespace HatQuest
                        .3f,
                        SpriteEffects.None,
                        0);
-
+            }
         }
     }
 }

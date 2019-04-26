@@ -168,7 +168,7 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.EnemyTurn:
-                    state = floor.Peek().TakeEnemyTurn(player);
+                    state = floor.Peek().TakeEnemyTurn(player, time);
 
                     //Update the description text to describe the current enemy attack
                     description.Text = floor.Peek().Description;
@@ -409,7 +409,6 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.PlayerAttack:
-                    player.Animation.DrawAttack(batch);
                     break;
                 case PlayState.EnemyTurn:
                     break;

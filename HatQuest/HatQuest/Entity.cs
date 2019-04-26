@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Hats;
 using HatQuest.Effects;
+using HatQuest.Init;
 
 namespace HatQuest
 {
@@ -190,7 +191,13 @@ namespace HatQuest
             hats = new List<Hat>();
             effects = new List<StatusEffect>();
             stats = new List<string>();
-            animation = new Animations(10.0, 1.0 / 10.0);
+            animation = new Animations(10.0, 
+                                       1.0 / 10.0, 
+                                       SpritesDirectory.GetSprite("StatusEffect"),
+                                       10,
+                                       116,
+                                       1523,
+                                       826); 
         }
 
         /// <summary>
@@ -202,6 +209,7 @@ namespace HatQuest
             if (isVisible)
             {
                 sb.Draw(texture, position, Color.White);
+                animation.DrawAttack(sb);
                 for(int k = 0; k < hats.Count; k++)
                 {
                     hats[k].Draw(sb, this, k);     
