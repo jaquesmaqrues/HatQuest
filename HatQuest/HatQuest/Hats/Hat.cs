@@ -28,6 +28,7 @@ namespace HatQuest.Hats
         protected Texture2D texture;
         protected Ability ability;
         protected Color color;
+        protected Random r;
 
         //Properties
         public String Name
@@ -93,6 +94,7 @@ namespace HatQuest.Hats
             this.rarity = rarity;
             this.ability = ability;
             this.color = color;
+            r = new Random(5);
         }
 
         /// <summary>
@@ -140,12 +142,38 @@ namespace HatQuest.Hats
         /// <param name="sb">The SpriteBatch that draws the hat</param>
         public void Draw(SpriteBatch sb, Entity wearer, int hatNumber)
         {
+            bool goingUp = true;
+            bool offScreen = false;
+
             if (wearer != null)
             {
-                sb.Draw(texture,
-                    new Rectangle(new Point(wearer.Position.Location.X + 10, (wearer.Position.Location.Y - 50 * wearer.Hats.Count) + (50 * hatNumber)),
-                                  new Point(75, 75)),
-                    color);
+                if ((wearer.Position.Location.Y - 60 * wearer.Hats.Count) + (60 * hatNumber) < 0 || (wearer.Position.Location.Y - 60 * wearer.Hats.Count) + (60 * hatNumber) > 480)
+                {
+                    offScreen = true;
+                }
+                if (!offScreen)
+                {
+                    sb.Draw(texture,
+                        new Rectangle(new Point(wearer.Position.Location.X + 10, (wearer.Position.Location.Y - 60 * wearer.Hats.Count) + (60 * hatNumber)),
+                                      new Point(75, 75)),
+                        color);
+                }
+                else if (goingUp)
+                {
+                    goingUp = false;
+                    sb.Draw(texture,
+                        new Rectangle(new Point(wearer.Position.Location.X + 10 + 150 * ((hatNumber + 3) / 6), 60 * (hatNumber % 6)),
+                        new Point(-75, -75)),
+                        color);
+                }
+                else
+                {
+                    goingUp = true;
+                    sb.Draw(texture,
+                         new Rectangle(new Point(wearer.Position.Location.X + 10 + 150 * ((hatNumber + 3) / 6), 480 - (60 * ((hatNumber - 2) % 6))),
+                                       new Point(75, 75)),
+                         color);
+                }
             }
             else
             {

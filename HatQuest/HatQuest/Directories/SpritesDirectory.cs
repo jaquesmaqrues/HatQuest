@@ -36,6 +36,7 @@ namespace HatQuest.Init
             spriteDirectory.Add("AlienHat", game.Content.Load<Texture2D>("Sprites/alienHat"));
             spriteDirectory.Add("ToasterHat", game.Content.Load<Texture2D>("Sprites/toasterHat"));
             spriteDirectory.Add("VampireHat", game.Content.Load<Texture2D>("Sprites/vampireHat"));
+            spriteDirectory.Add("KnightHelm", game.Content.Load<Texture2D>("Sprites/Knight's_Helm"));
             //Enemies
             spriteDirectory.Add("Goblin", game.Content.Load<Texture2D>("Sprites/Goblin"));
             spriteDirectory.Add("Alien", game.Content.Load<Texture2D>("Sprites/Alien"));
@@ -49,6 +50,7 @@ namespace HatQuest.Init
 
             //Load in fonts
             fontDirectory = new Dictionary<string, SpriteFont>();
+            fontDirectory.Add("Arial60", game.Content.Load<SpriteFont>("Fonts/Arial60"));
             fontDirectory.Add("Arial40", game.Content.Load<SpriteFont>("Fonts/Arial40"));
             fontDirectory.Add("Arial16", game.Content.Load<SpriteFont>("Fonts/Arial16"));
             fontDirectory.Add("Arial12", game.Content.Load<SpriteFont>("Fonts/Arial12"));

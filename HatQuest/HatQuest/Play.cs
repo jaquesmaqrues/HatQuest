@@ -12,7 +12,7 @@ namespace HatQuest
     enum PlayState { PlayerInput, PlayerAttack, EnemyTurn, SafeRoom, CombatEnd }
 
     /// <summary>
-    /// Elijah, Kat
+    /// Elijah, Kat, Jack
     /// </summary>
     class Play
     {
@@ -73,10 +73,10 @@ namespace HatQuest
                     abilityButton[count] = new Button(
                         player.Abilities[count].Name,
                         new Rectangle(
-                            (int)(SpritesDirectory.width * (.08 + .23 * Math.Pow(x, 1.2))),      //x
-                            (int)(SpritesDirectory.height * (.78 + (y * .11))),     //y
-                            (int)(SpritesDirectory.width * .14),                  //width
-                            (int)(SpritesDirectory.height * .08)),                //height
+                            (int)(SpritesDirectory.width * (.15 + .17 * Math.Pow(x, 1.8))),      //x
+                            (int)(SpritesDirectory.height * (.78 + (y * .1))),                 //y
+                            (int)(SpritesDirectory.width * .14),                                //width
+                            (int)(SpritesDirectory.height * .08)),                              //height
                         SpritesDirectory.GetFont("Arial40"));
                     abilityButton[count].IsActive = abilityButton[count].IsVisible = true;
                     count++;
@@ -95,13 +95,6 @@ namespace HatQuest
             //Textbox
             Rectangle textBox = new Rectangle(200, 10, 400, 100);
             description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial16"));
-
-            //Animation
-            fps = 10.0;
-            timePerFrame = 1.0 / fps;
-
-            animation = new Animations(fps, timePerFrame);
-
         }
 
         /// <summary>
@@ -152,11 +145,11 @@ namespace HatQuest
                         {
                             ab.IsActive = ab.IsVisible = false;
                         }
-                        animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), 
-                                            new Rectangle((int)player.Position.X - 60, 
+                        player.Animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), 
+                                            /*new Rectangle((int)player.Position.X - 60, 
                                                           (int)player.Position.Y - 80,
                                                           (int)(SpritesDirectory.width * .125),
-                                                          (int)(SpritesDirectory.height * .4167)),
+                                                          (int)(SpritesDirectory.height * .4167)), */
                                             10, 
                                             116, 
                                             1523, 
@@ -166,11 +159,10 @@ namespace HatQuest
                     break;
                 case PlayState.PlayerAttack:
                     //Placeholder state for player animations
-                    animation.UpdateAnimation(time);
+                    player.Animation.UpdateAnimation(time);
                     //call the event when the PlayState changes
-                    if(animation.IsDone)
+                    if(player.Animation.IsDone)
                     {
-                        animation.ResetAnimation();
                         player.TurnEnd();
                         state = PlayState.EnemyTurn;
                     }
@@ -417,7 +409,7 @@ namespace HatQuest
                     }
                     break;
                 case PlayState.PlayerAttack:
-                    animation.DrawAttack(batch);
+                    player.Animation.DrawAttack(batch);
                     break;
                 case PlayState.EnemyTurn:
                     break;
@@ -512,7 +504,7 @@ namespace HatQuest
             {
                 if (abilityButton[x].IsHovered())
                 {
-                    description.Text = player.Abilities[x].Description;
+                    description.Text = string.Format("{0}  ||  MP Cost: {1}", player.Abilities[x].Description, player.Abilities[x].ManaCost);
                     valid = true;
                     if (abilityButton[x].IsPressed(mouseLast, mouseCurrent) && player.Abilities[x] != null && player.CurrentMP >= player.Abilities[x].ManaCost)
                     {
@@ -561,6 +553,12 @@ namespace HatQuest
                         player.AttackPre(floor.Peek()[selectedTarget]);
                         if (player.UseAbility(floor.Peek()[selectedTarget], selectedAbility))
                         {
+                            //Sets player animation to targeted enemy and sets color to ability color
+                            player.Animation.ResetAnimation(new Rectangle((int)floor.Peek()[selectedTarget].Position.X - 60,
+                                                                           (int)floor.Peek()[selectedTarget].Position.Y - 80,
+                                                                           (int)(SpritesDirectory.width * .125),
+                                                                           (int)(SpritesDirectory.height * .4167)),
+                                                                           player.Abilities[selectedAbility].Color);
                             player.AttackPost(floor.Peek()[selectedTarget]);
                             //Update the description text
                             description.Text = String.Format("You used {0} on {1}", player.Abilities[selectedAbility].Name, floor.Peek()[selectedTarget].Name);

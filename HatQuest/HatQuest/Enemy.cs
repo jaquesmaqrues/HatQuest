@@ -35,6 +35,7 @@ namespace HatQuest
         }
 
 
+
         /// <summary>
         /// A modified ctor from Entity that takes the player in as a parameter
         /// </summary>

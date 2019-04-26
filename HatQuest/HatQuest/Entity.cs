@@ -29,6 +29,7 @@ namespace HatQuest
         protected List<Hat> hats;
         protected List<StatusEffect> effects;
         protected List<string> stats;
+        protected Animations animation;
 
         //Events
         //DamageEvents should return any changes to the damage
@@ -55,6 +56,12 @@ namespace HatQuest
         {
             get { return isVisible; }
             set { isVisible = value; }
+        }
+
+        public Animations Animation
+        {
+            get { return animation; }
+            set { animation = value; }
         }
 
         /// <summary>
@@ -183,6 +190,7 @@ namespace HatQuest
             hats = new List<Hat>();
             effects = new List<StatusEffect>();
             stats = new List<string>();
+            animation = new Animations(10.0, 1.0 / 10.0);
         }
 
         /// <summary>

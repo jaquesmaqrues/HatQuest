@@ -50,12 +50,12 @@ namespace HatQuest
                 {
                     if (k % 2 == 0)
                     {
-                        enemies[k] = new Enemy(layout[k], level, new Point(650, (k * 50) + 25), 75, 150, player);
+                        enemies[k] = new Enemy(layout[k], level, new Point(650, (k * 60) + 65), 75, 150, player);  //650, (k * 50) + 25, 75, 150
                         enemies[k].Name += (" " + (k + 1));
                     }
                     else
                     {
-                        enemies[k] = new Enemy(layout[k], level, new Point(550, (k * 50) + 25), 75, 150, player);
+                        enemies[k] = new Enemy(layout[k], level, new Point(550, (k * 60) + 60), 75, 150, player);
                         enemies[k].Name += (" " + (k + 1));
                     }
                 }
