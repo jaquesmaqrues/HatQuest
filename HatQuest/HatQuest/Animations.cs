@@ -74,6 +74,7 @@ namespace HatQuest
             this.fps = fps;
             this.timePerFrame = timePerFrame;
             isVisible = false;
+            isDone = true;
             color = Color.Red;
             spriteSheet = texture;
             this.attackFrameCount = attackFrameCount;
