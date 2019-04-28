@@ -173,6 +173,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Combat_Background.png
 
+#begin Sprites/Cutlery_Hat.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Cutlery_Hat.png
+
 #begin Sprites/Gnome.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -208,6 +220,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Sprites/Knight's_Helm.png
+
+#begin Sprites/Spider_Hat.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Spider_Hat.png
 
 #begin Sprites/StatusEffect.png
 /importer:TextureImporter
