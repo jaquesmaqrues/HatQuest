@@ -176,7 +176,7 @@ namespace HatQuest
                             enemies[1].AttackPre(player);
                             usedAbility = enemies[1].AttackPlayer();
                             enemies[1].TurnEnd();
-                            description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
+                            description = String.Format("{0} used {1}", enemies[1].Name, usedAbility.Name);
                             enemies[1].Animation.ResetAnimation(player.Position, usedAbility.Color);
                         }
                         else
@@ -193,7 +193,7 @@ namespace HatQuest
                             usedAbility = enemies[2].AttackPlayer();
                             enemies[2].AttackPost(player);
                             enemies[2].TurnEnd();
-                            description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
+                            description = String.Format("{0} used {1}", enemies[2].Name, usedAbility.Name);
                             enemies[2].Animation.ResetAnimation(player.Position, usedAbility.Color);
                         }
                         else
@@ -210,7 +210,7 @@ namespace HatQuest
                             usedAbility = enemies[3].AttackPlayer();
                             enemies[3].AttackPost(player);
                             enemies[3].TurnEnd();
-                            description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
+                            description = String.Format("{0} used {1}", enemies[3].Name, usedAbility.Name);
                             enemies[3].Animation.ResetAnimation(player.Position, usedAbility.Color);
                         }
                         else
@@ -227,7 +227,7 @@ namespace HatQuest
                             usedAbility = enemies[4].AttackPlayer();
                             enemies[4].AttackPost(player);
                             enemies[4].TurnEnd();
-                            description = String.Format("{0} used {1}", enemies[0].Name, usedAbility.Name);
+                            description = String.Format("{0} used {1}", enemies[4].Name, usedAbility.Name);
                             enemies[4].Animation.ResetAnimation(player.Position, usedAbility.Color);
                         }
                         else
