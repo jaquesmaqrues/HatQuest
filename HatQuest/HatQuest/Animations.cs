@@ -102,7 +102,6 @@ namespace HatQuest
             this.spriteRectOffsetY = spriteRectOffsetY;     //For testing purposes, may not need
             this.spriteRectHeight = spriteRectHeight;       //May be hardcoded
             this.spriteRectWidth = spriteRectWidth;         //May be hardcoded
-            this.color = Color.Red;
         }
 
         /// <summary>
@@ -156,7 +155,7 @@ namespace HatQuest
                        color,
                        0,
                        Vector2.Zero,
-                       .3f,
+                       .15f,
                        SpriteEffects.None,
                        0);
             }

@@ -94,7 +94,7 @@ namespace HatQuest
             batch.DrawString(
                 SpritesDirectory.GetFont("Arial16"),
                 WordWrap(backstory, SpritesDirectory.GetFont("Arial16"), backstoryPosition),
-                new Vector2((SpritesDirectory.width / 2) - (768 / 2), (int)(SpritesDirectory.height * .4167)),
+                new Vector2((int)(SpritesDirectory.width * .04375), (int)(SpritesDirectory.height * .4167)), //35, 200
                 Color.White);
 
             //Draw Instructions

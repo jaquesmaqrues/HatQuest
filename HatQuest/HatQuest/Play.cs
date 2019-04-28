@@ -48,10 +48,11 @@ namespace HatQuest
         public Play()
         {
             player = new Player(SpritesDirectory.GetSprite("Elion"),
-                                new Point((int)(SpritesDirectory.width * .125),
-                                          (int)(SpritesDirectory.height * .3125)),
-                                          (int)(SpritesDirectory.width * .125),
-                                          (int)(SpritesDirectory.height * .4167), 1);
+                                new Point((int)(SpritesDirectory.width * .125), //100
+                                          (int)(SpritesDirectory.height * .4167)), //200
+                                          (int)(SpritesDirectory.width * .125), //100
+                                          (int)(SpritesDirectory.height * .4167), //200
+                                1);
 
             floor = new Queue<Room>();
             safeRoom = new SafeRoom();
@@ -93,7 +94,10 @@ namespace HatQuest
 
 
             //Textbox
-            Rectangle textBox = new Rectangle(200, 10, 400, 100);
+            Rectangle textBox = new Rectangle((int)(SpritesDirectory.width * .25), //200
+                                              (int)(SpritesDirectory.height * .02083), //10
+                                              (int)(SpritesDirectory.width * .5), //400
+                                              (int)(SpritesDirectory.height * .2083)); //100
             description = new TextBox("null", textBox, SpritesDirectory.GetFont("Arial16"));
         }
 
@@ -146,14 +150,10 @@ namespace HatQuest
                             ab.IsActive = ab.IsVisible = false;
                         }
                         player.Animation.SetSprite(SpritesDirectory.GetSprite("StatusEffect"), 
-                                            /*new Rectangle((int)player.Position.X - 60, 
-                                                          (int)player.Position.Y - 80,
-                                                          (int)(SpritesDirectory.width * .125),
-                                                          (int)(SpritesDirectory.height * .4167)), */
-                                            10, 
-                                            116, 
-                                            1523, 
-                                            826); //Change player x and y location based on Animation Test need math
+                                                   10, 
+                                                   116, 
+                                                   1523, 
+                                                   826);
                         description.IsVisible = true;
                     }
                     break;
@@ -391,9 +391,9 @@ namespace HatQuest
                         {
                             stats = floor.Peek()[k].GetStats();
                             batch.Draw(SpritesDirectory.GetSprite("Button"),
-                                       new Rectangle((int)(SpritesDirectory.width * (67 / 80.0)),
-                                                     (int)(SpritesDirectory.height * (1 / 64.0)),
-                                                     (int)(SpritesDirectory.width * .15),
+                                       new Rectangle((int)(SpritesDirectory.width * (64 / 80.0)), //670
+                                                     (int)(SpritesDirectory.height * (1 / 64.0)), //7.5
+                                                     (int)(SpritesDirectory.width * .1875), //150
                                                      (int)(SpritesDirectory.height * ((4 + (5 * stats.Length)) / 128.0))),
                                        Color.White);
 
@@ -401,7 +401,7 @@ namespace HatQuest
                             {
                                 batch.DrawString(SpritesDirectory.GetFont("Arial12"),
                                             stats[j],
-                                            new Vector2((int)(SpritesDirectory.width * (68 / 80.0)),
+                                            new Vector2((int)(SpritesDirectory.width * (65 / 80.0)),
                                                         (int)(SpritesDirectory.height * ((4 + (5 * j)) / 128.0) + (3 / 128.0))),
                                             Color.White);
                             }
@@ -553,10 +553,10 @@ namespace HatQuest
                         if (player.UseAbility(floor.Peek()[selectedTarget], selectedAbility))
                         {
                             //Sets player animation to targeted enemy and sets color to ability color
-                            player.Animation.ResetAnimation(new Rectangle((int)floor.Peek()[selectedTarget].Position.X - 60,
-                                                                           (int)floor.Peek()[selectedTarget].Position.Y - 80,
-                                                                           (int)(SpritesDirectory.width * .125),
-                                                                           (int)(SpritesDirectory.height * .4167)),
+                            player.Animation.ResetAnimation(new Rectangle((int)floor.Peek()[selectedTarget].Position.X - 20, //-60
+                                                                           (int)floor.Peek()[selectedTarget].Position.Y + 10, //-80
+                                                                           (int)(SpritesDirectory.width * .125), //100
+                                                                           (int)(SpritesDirectory.height * .4167)), //200
                                                                            player.Abilities[selectedAbility].Color);
                             player.AttackPost(floor.Peek()[selectedTarget]);
                             //Update the description text
