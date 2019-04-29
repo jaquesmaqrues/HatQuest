@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 using HatQuest.Init;
 using HatQuest.Effects;
 using Microsoft.Xna.Framework;
-
+//Iain
 namespace HatQuest.Abilities
 {
     class Defend:Ability
     {
+        /// <summary>
+        /// An ability that temporarily increases your defense, and also gives you mana if you have a bucket hat
+        /// </summary>
+        /// <param name="user">The Entity that has the ability</param>
         public Defend(Entity user) : base(0, false, "Defend", "You defend, like a self-preserving nerd", user, Color.LightYellow)
         {
         }

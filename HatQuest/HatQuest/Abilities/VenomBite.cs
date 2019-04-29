@@ -13,6 +13,10 @@ namespace HatQuest.Abilities
     /// </summary>
     class VenomBite : Ability
     {
+        /// <summary>
+        /// An ability that deals poison damage
+        /// </summary>
+        /// <param name="user">The Entity that has the ability</param>
         public VenomBite(Entity user) : base(3, true, "Venom Bite", "A quick stab with a poisoned weapon", user, Color.Purple)
         {
 

@@ -5,11 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using HatQuest.Hats;
 using Microsoft.Xna.Framework;
-
+//Iain
 namespace HatQuest.Abilities
 {
     class Cry:Ability
     {
+        /// <summary>
+        /// An ability that gives you health if you have the bucket hat
+        /// </summary>
+        /// <param name="user">The Entity that has the ability</param>
         public Cry(Entity user) : base(0, false, "Cry", "You cry, like a loser", user, Color.LightBlue)
         {
         }
