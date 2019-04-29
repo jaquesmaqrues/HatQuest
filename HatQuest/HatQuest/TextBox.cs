@@ -115,10 +115,13 @@ namespace HatQuest
             wrapped = "";
             line = "";
 
+            //Goes through each word in the string
             foreach (string s in words)
             {
+                //String length
                 Vector2 wordSize = font.MeasureString(" " + s);
 
+                //Checks if string length has exceeded the length of the ling
                 if ((lineLength.X + wordSize.X) < ((rect.Width - 15) - (padding)))
                 {
                     line = line + s + " ";

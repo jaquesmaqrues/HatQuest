@@ -108,6 +108,11 @@ namespace HatQuest
             backButton.Draw(batch);
         }
 
+        /// <summary>
+        /// Calculates word wrap on entered string for textbox
+        /// </summary>
+        /// <param name="text">String to word wrap</param>
+        /// <returns>Word wrapped string</returns>
         public string WordWrap(string text, SpriteFont font, Rectangle rect, int padding = 5)
         {
             string[] words = text.Split(' ');
@@ -116,10 +121,13 @@ namespace HatQuest
             string wrapped = "";
             string line = "";
 
+            //Goes through each word in the string
             foreach (string s in words)
             {
+                //String length
                 Vector2 wordSize = font.MeasureString(" " + s);
 
+                //Checks if string length has exceeded the length of the ling
                 if ((lineLength.X + wordSize.X) < ((rect.Width - 15) - (padding)))
                 {
                     line = line + s + " ";

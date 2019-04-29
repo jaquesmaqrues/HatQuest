@@ -200,8 +200,8 @@ namespace External_Tool
                             combats[x][y] = null;
                         }
                     }
-                    comboBoxCombats.Items.Add("Combot " + x);
-                    comboBoxCombats.Text = "Combot " + x;
+                    comboBoxCombats.Items.Add("Combat " + x);
+                    comboBoxCombats.Text = "Combat " + x;
                 }
 
                 MessageBox.Show("File loaded successfully", "File loaded", MessageBoxButtons.OK, MessageBoxIcon.Information);
