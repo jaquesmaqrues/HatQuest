@@ -13,6 +13,10 @@ namespace HatQuest.Hats
 {
     class KnightHelmet : Hat
     {
+        /// <summary>
+        /// A hat that gives a lot of defense
+        /// </summary>
+        /// <param name="texture">The hat's texture</param>
         public KnightHelmet(Texture2D texture) : base("Knight's Helm", "A knight's helmet, which gives thee extra'rdinary defense", texture, Color.White, HatRarity.Epic, null, 0, 15, 0, 0) { }
     }
 }

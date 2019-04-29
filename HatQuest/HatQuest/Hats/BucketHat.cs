@@ -7,11 +7,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using HatQuest.Init;
-
+//Iain
 namespace HatQuest.Hats
 {
     class BucketHat : Hat
     {
+        /// <summary>
+        /// A hat that changes the function of defend and cry
+        /// </summary>
+        /// <param name="texture">The texture of the hat</param>
         public BucketHat(Texture2D texture) : base("Bucket Hat", "A bucket to hold your tears", texture, Color.White, HatRarity.Epic, null, -5, 5)
         {
 

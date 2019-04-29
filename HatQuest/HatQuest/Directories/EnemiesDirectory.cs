@@ -50,6 +50,10 @@ namespace HatQuest.Init
             }
         }
 
+        /// <summary>
+        /// A method that retrieves a random enemy type
+        /// </summary>
+        /// <returns>A random EnemyType</returns>
         public static EnemyType RANDOM()
         {
             return enemyTypes[random.Next(enemyTypes.Count)];

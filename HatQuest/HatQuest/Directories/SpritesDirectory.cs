@@ -81,6 +81,11 @@ namespace HatQuest.Init
             }
         }
 
+        /// <summary>
+        /// A method to grab a font
+        /// </summary>
+        /// <param name="key">The name of the font</param>
+        /// <returns>A SpriteFont</returns>
         public static SpriteFont GetFont(string key)
         {
             try

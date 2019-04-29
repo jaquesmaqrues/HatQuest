@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//Iain
 namespace HatQuest.Effects
 {
     class BossHatEffect : StatusEffect
     {
         Random r;
+
+        /// <summary>
+        /// An unused effect for the final boss hat
+        /// </summary>
+        /// <param name="target">The Entity that has the hat</param>
         public BossHatEffect(Entity target) : base(target)
         {
             r = new Random(5);
             name = "BossHatEffectName";
         }
+
         protected override void Apply()
         {
             base.Apply();
