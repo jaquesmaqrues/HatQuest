@@ -18,7 +18,7 @@ namespace HatQuest
         private Rectangle spriteLocation;
 
         //Animation
-        private int frame;              //Current animation frame
+        private int frame;               //Current animation frame
         private double timeCounter;     //The amount of time that has passed
         private double fps;             //The speed of the animation
         private double timePerFrame;    //The amount of time (in fractional seconds) per frame
